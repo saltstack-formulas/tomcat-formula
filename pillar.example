@@ -1,0 +1,3 @@
+tomcat:
+  - version: 7
+java_home: '/usr/lib/jvm/java-7-oracle'
