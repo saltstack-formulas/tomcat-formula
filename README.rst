@@ -1,7 +1,19 @@
 tomcat
 ======
 
-tomcat
-------
+Formula to set up and configure tomcat webserver
 
-Install and start a tomcat server
+.. note::
+
+    See the full `Salt Formulas installation and usage instructions
+    <http://docs.saltstack.com/topics/conventions/formulas.html>`_.
+
+Available states
+================
+
+* tomcat
+
+Formula Dependencies
+--------------------
+
+* java
