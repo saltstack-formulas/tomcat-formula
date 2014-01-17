@@ -7,16 +7,8 @@
     - running
     - watch:
       - pkg: {{ tomcat.name }}{{ tomcat.version }}
-      - ini_manage: /etc/default/{{ tomcat.name }}{{ tomcat.version }}
-/etc/default/{{ tomcat.name }}{{ tomcat.version }}:
-  file:
-    - exists
-    - require:
-      - pkg: {{ tomcat.name }}{{ tomcat.version }}
-  ini_manage:
-    - options_present
-    - sections:
-        DEFAULT_IMPLICIT:
-          JAVA_HOME: {{ pillar.get('java_home', '/usr') }}
-    - require:
-        - file: '/etc/default/{{ tomcat.name }}{{ tomcat.version }}'
+      - file.append: tomcat_conf
+tomcat_conf:
+  file.append:
+    - name: /etc/default/tomcat{{ tomcat.version }}
+    - text: export JAVA_HOME={{ pillar.get('java_home', '/usr') }}
