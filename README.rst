@@ -13,6 +13,8 @@ Available states
 
 * tomcat
 
+* tomcat.vhost TODO
+
 Formula Dependencies
 --------------------
 
