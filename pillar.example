@@ -1,3 +1,7 @@
 tomcat:
   - version: 7
 java_home: '/usr/lib/jvm/java-7-oracle'
+# TODO: Need to do a calculation based on the available memory on the machine.
+java_opt_Xmx: 3G
+java_opt_MaxPermSize: 256m
+limit: 64000

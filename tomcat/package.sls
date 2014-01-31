@@ -11,4 +11,13 @@
 tomcat_conf:
   file.append:
     - name: /etc/default/tomcat{{ tomcat.version }}
-    - text: export JAVA_HOME={{ pillar.get('java_home', '/usr') }}
+    - text:
+      - JAVA_HOME={{ pillar.get('java_home', '/usr') }}
+      - JAVA_OPTS="-Djava.awt.headless=true -Xmx{{ pillar.get('java_opt_Xmx', '3G') }} -XX:MaxPermSize={{ pillar.get('java_opt_MaxPermSize', '256m') }}"
+
+limits_conf:
+  file.append:
+    - name: /etc/security/limits.conf
+    - text:
+      - soft: {{ tomcat.name }}{{ tomcat.version }} soft nofile {{ pillar.get('limit', '64000') }}
+      - hard: {{ tomcat.name }}{{ tomcat.version }} hard nofile {{ pillar.get('limit', '64000') }}
