@@ -15,6 +15,10 @@ Available states
 
 * tomcat.vhost TODO
 
+* tomcat.mysql
+
+* tomcat.postgresql
+
 Formula Dependencies
 --------------------
 
