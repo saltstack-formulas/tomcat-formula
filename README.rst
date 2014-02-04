@@ -17,7 +17,11 @@ Available states
 
 * tomcat.mysql
 
+Installs the mysql jdbc
+
 * tomcat.postgresql
+
+Installs the postgresql jdbc
 
 Formula Dependencies
 --------------------
