@@ -26,4 +26,9 @@
         'mysql-jdbc': 'mysql-connector-java',
         'mysql-jar': 'mysql-connector-java.jar',
     },
+    'FreeBSD': {
+        'name': 'tomcat',
+        'version': 7,
+        'service': 'tomcat',
+    },
 }, merge=salt['pillar.get']('tomcat:lookup')) %}
