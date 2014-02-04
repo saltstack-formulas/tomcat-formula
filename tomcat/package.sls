@@ -19,5 +19,5 @@ limits_conf:
   file.append:
     - name: /etc/security/limits.conf
     - text:
-      - soft: {{ tomcat.name }}{{ tomcat.version }} soft nofile {{ pillar.get('limit', '64000') }}
-      - hard: {{ tomcat.name }}{{ tomcat.version }} hard nofile {{ pillar.get('limit', '64000') }}
+      - {{ tomcat.name }}{{ tomcat.version }} soft nofile {{ pillar.get('limit', '64000') }}
+      - {{ tomcat.name }}{{ tomcat.version }} hard nofile {{ pillar.get('limit', '64000') }}
