@@ -3,20 +3,24 @@
         'name': 'tomcat',
         'version': 7,
         'service': 'tomcat7',
+        'native': 'libtcnative-1',
     },
     'Ubuntu': {
         'name': 'tomcat',
         'version': 7,
         'service': 'tomcat7',
+        'native': 'libtcnative-1',
     },
     'RedHat': {
         'name': 'tomcat',
         'version': 7,
         'service': 'tomcat7',
+        'native': 'libtcnative-1',
     },
     'FreeBSD': {
         'name': 'tomcat',
         'version': 7,
         'service': 'tomcat',
+        'native': 'tomcat-native',
     },
 }, merge=salt['pillar.get']('tomcat:lookup')) %}
