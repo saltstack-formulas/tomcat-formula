@@ -1,5 +1,9 @@
 {% from "tomcat/map.jinja" import tomcat with context %}
 
+{{ tomcat.native }}:
+  pkg:
+    - installed
+
 {{ tomcat.name }}{{ tomcat.version }}:
   pkg:
     - installed
