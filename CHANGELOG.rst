@@ -9,3 +9,6 @@ Author: Naveen Subramani(naviens)
 0.0.2 (2014-01-31)
 - Added support for soft/hard limits on Linux
 - Added support for java opts
+
+0.0.3 (2014-02-04)
+- Added support for Apache Portable Runtime for Tomcat
