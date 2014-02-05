@@ -15,6 +15,10 @@ Available states
 
 * tomcat.vhost TODO
 
+* tomcat.native
+
+Installs Apache Portable Runtime for Tomcat.
+
 Formula Dependencies
 --------------------
 
