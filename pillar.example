@@ -6,3 +6,6 @@ java_opt_Xmx: 3G
 java_opt_MaxPermSize: 256m
 soft_limit: 64000
 hard_limit: 64000
+tomcat-manager:
+    - user: saltuser
+    - passwd: FX3OkLpYhu

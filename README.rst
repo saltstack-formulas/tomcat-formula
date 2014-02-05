@@ -19,6 +19,10 @@ Available states
 
 Installs Apache Portable Runtime for Tomcat.
 
+* tomcat.manager
+
+Installs and configures the tomcat manager
+
 Formula Dependencies
 --------------------
 
