@@ -13,7 +13,7 @@
         - mode: 640
         - template: jinja
         - defaults:
-            user: {{ pillar.get('tomcat-manager.user') }}
-            passwd: {{ pillar.get('tomcat-manager.passwd') }}
+            user: {{ salt['pillar.get']('tomcat-manager:user') }}
+            passwd: {{ salt['pillar.get']('tomcat-manager:passwd') }}
 
 {% endif %}

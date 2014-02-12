@@ -1,11 +1,12 @@
 tomcat:
-  - version: 7
-java_home: '/usr/lib/jvm/java-7-oracle'
-# TODO: Need to do a calculation based on the available memory on the machine.
-java_opt_Xmx: 3G
-java_opt_MaxPermSize: 256m
-soft_limit: 64000
-hard_limit: 64000
+    - version: 7
+java:
+    - home: '/usr/lib/jvm/java-7-oracle'
+    - Xmx: 3G # TODO: Need to do a calculation based on the available memory on the machine.
+    - MaxPermSize: 256m
+limit:
+   - soft: 64000
+   - hard: 64000
 tomcat-manager:
-    - user: saltuser
-    - passwd: FX3OkLpYhu
+   - user: saltuser
+   - passwd: FX3OkLpYhu
