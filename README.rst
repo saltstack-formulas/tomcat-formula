@@ -13,6 +13,8 @@ Available states
 
 * tomcat
 
+Install Apache tomcat
+
 * tomcat.native
 
 Installs Apache Portable Runtime for Tomcat.
