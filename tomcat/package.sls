@@ -20,6 +20,15 @@ tomcat_conf:
     - text:
       - JAVA_HOME={{ salt['pillar.get']('java:home', '/usr') }}
       - JAVA_OPTS="-Djava.awt.headless=true -Xmx{{ salt['pillar.get']('java:Xmx', '3G') }} -XX:MaxPermSize={{ salt['pillar.get']('java:MaxPermSize', '256m') }}"
+      {% if salt['pillar.get']('java:UseConcMarkSweepGC') %}
+      - JAVA_OPTS="$JAVA_OPTS {{ salt['pillar.get']('java:UseConcMarkSweepGC') }}"
+      {% endif %}
+      {% if salt['pillar.get']('java:CMSIncrementalMode') %}
+      - JAVA_OPTS="$JAVA_OPTS {{ salt['pillar.get']('java:CMSIncrementalMode') }}"
+      {% endif %}
+      {% if salt['pillar.get']('tomcat:security') %}
+      - TOMCAT{{ tomcat.version }}_SECURITY={{ salt['pillar.get']('tomcat:security') }}
+      {% endif %}
     {% endif %}
 
 {% if grains.os != 'FreeBSD' %}

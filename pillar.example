@@ -1,11 +1,12 @@
 tomcat:
     version: 7
+    security: 'no'
 java:
     home: '/usr/lib/jvm/java-7-oracle'
     Xmx: 3G # TODO: Need to do a calculation based on the available memory on the machine.
     MaxPermSize: 256m
-    UseConcMarkSweepGC: -XX:+UseConcMarkSweepGC
-    CMSIncrementalMode: -XX:+CMSIncrementalMode
+    UseConcMarkSweepGC: '-XX:+UseConcMarkSweepGC'
+    CMSIncrementalMode: '-XX:+CMSIncrementalMode'
 limit:
    soft: 64000
    hard: 64000
