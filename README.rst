@@ -13,7 +13,7 @@ Available states
 
 * tomcat
 
-Install Apache Tomcat
+Install Apache Tomcat.
 
 * tomcat.native
 
@@ -21,15 +21,15 @@ Installs Apache Portable Runtime for Tomcat.
 
 * tomcat.manager
 
-Installs and configures the tomcat manager
+Installs and configures the tomcat manager.
 
 * tomcat.mysql
 
-Installs the mysql jdbc
+Installs the mysql jdbc.
 
 * tomcat.postgresql
 
-Installs the postgresql jdbc
+Installs the postgresql jdbc.
 
 Formula Dependencies
 --------------------
