@@ -27,6 +27,10 @@
         'service': 'tomcat7',
         'native': 'libtcnative-1',
         'manager': 'tomcat-admin-webapps',
+        'postgresql': 'postgresql-jdbc',
+        'postgresql_jdbc': 'postgresql.jar',
+        'mysql': 'mysql-connector-java',
+        'mysql_jdbc': 'mysql.jar',
     },
     'openSUSE': {
         'name': 'tomcat',
@@ -44,5 +48,9 @@
         'version': 7,
         'service': 'tomcat',
         'native': 'tomcat-native',
+        'postgresql': 'postgresql-jdbc',
+        'postgresql_jdbc': 'postgresql-jdbc.jar',
+        'mysql': 'mysql-connector-java',
+        'mysql_jdbc': 'mysql.jar',
     },
 }, merge=salt['pillar.get']('tomcat:lookup')) %}
