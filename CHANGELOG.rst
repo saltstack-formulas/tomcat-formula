@@ -12,3 +12,6 @@ Author: Naveen Subramani(naviens)
 
 0.0.3 (2014-02-04)
 - Added support for Apache Portable Runtime for Tomcat
+
+0.0.4 (2014-02-05)
+- Added support for Tomcat manager

@@ -13,11 +13,15 @@ Available states
 
 * tomcat
 
-* tomcat.vhost TODO
+Install Apache tomcat
 
 * tomcat.native
 
 Installs Apache Portable Runtime for Tomcat.
+
+* tomcat.manager
+
+Installs and configures the tomcat manager
 
 Formula Dependencies
 --------------------
