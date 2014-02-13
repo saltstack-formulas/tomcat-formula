@@ -13,7 +13,7 @@ Available states
 
 * tomcat
 
-Install Apache tomcat
+Install Apache Tomcat
 
 * tomcat.native
 
