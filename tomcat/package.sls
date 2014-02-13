@@ -27,7 +27,7 @@ tomcat_conf:
       - JAVA_OPTS="$JAVA_OPTS {{ salt['pillar.get']('java:CMSIncrementalMode') }}"
       {% endif %}
       {% if salt['pillar.get']('tomcat:security') %}
-      - TOMCAT{{ tomcat.version }}_SECURITY={{ salt['pillar.get']('tomcat:security') }}
+      - TOMCAT{{ tomcat.version }}_SECURITY={{ salt['pillar.get']('tomcat:security', 'no') }}
       {% endif %}
     {% endif %}
 
