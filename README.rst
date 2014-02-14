@@ -31,6 +31,11 @@ Installs the mysql jdbc.
 
 Installs the postgresql jdbc.
 
+* tomcat.vhosts
+-------------------------
+
+Configures Tomcat name-based virtual hosts using data from Pillar.
+
 Formula Dependencies
 --------------------
 
