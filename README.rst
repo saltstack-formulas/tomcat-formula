@@ -1,3 +1,4 @@
+======
 tomcat
 ======
 
@@ -11,17 +12,23 @@ Formula to set up and configure tomcat webserver
 Available states
 ================
 
-* tomcat
+.. contents::
+    :local:
 
-Install Apache tomcat
+``tomcat``
+----------
 
-* tomcat.native
+Includes tomcat.package for the Tomcat install.
 
-Installs Apache Portable Runtime for Tomcat.
+``tomcat.native``
+-----------------
 
-* tomcat.manager
+Installs Apache Portable Runtime for Tomcat
 
-Installs and configures the tomcat manager
+``tomcat.package``
+------------------
+
+Installs the Tomcat package, and configures the configuration file.
 
 Formula Dependencies
 --------------------
