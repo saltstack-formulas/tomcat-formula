@@ -23,7 +23,12 @@ Includes tomcat.package for the Tomcat install.
 ``tomcat.native``
 -----------------
 
-Installs Apache Portable Runtime for Tomcat
+Installs Apache Portable Runtime for Tomcat.
+
+``tomcat.manager``
+-----------------
+
+Installs the host-manager and manager web applications for Apache Tomcat.
 
 ``tomcat.package``
 ------------------

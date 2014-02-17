@@ -15,3 +15,6 @@ Author: Naveen Subramani(naviens)
 
 0.0.4 (2014-02-05)
 - Added support for Tomcat manager
+
+0.0.5 (2014-02-13)
+- Expanded java and tomcat options
