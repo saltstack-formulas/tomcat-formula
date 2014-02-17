@@ -33,4 +33,10 @@
         'service': 'tomcat',
         'native': 'tomcat-native',
     },
+    'Arch': {
+        'name': 'tomcat',
+        'version': 8,
+        'service': 'tomcat',
+        'native': 'tomcat-native'
+    },
 }, merge=salt['pillar.get']('tomcat:lookup')) %}
