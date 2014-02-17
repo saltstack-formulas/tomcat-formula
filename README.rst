@@ -35,4 +35,7 @@ Installs the host-manager and manager web applications for Apache Tomcat.
 
 Installs the Tomcat package, and configures the configuration file.
 
+Formula Dependencies
+--------------------
+
 * java
