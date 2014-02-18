@@ -1,3 +1,4 @@
+======
 tomcat
 ======
 
@@ -11,25 +12,28 @@ Formula to set up and configure tomcat webserver
 Available states
 ================
 
-* tomcat
+.. contents::
+    :local:
 
-Install Apache Tomcat.
+``tomcat``
+----------
 
-* tomcat.native
+Includes tomcat.package for the Tomcat install.
+
+``tomcat.native``
+-----------------
 
 Installs Apache Portable Runtime for Tomcat.
 
-* tomcat.manager
+``tomcat.manager``
+-----------------
 
-Installs and configures the tomcat manager.
+Installs the host-manager and manager web applications for Apache Tomcat.
 
-* tomcat.mysql
+``tomcat.package``
+------------------
 
-Installs the mysql jdbc.
-
-* tomcat.postgresql
-
-Installs the postgresql jdbc.
+Installs the Tomcat package, and configures the configuration file.
 
 * tomcat.vhosts
 
