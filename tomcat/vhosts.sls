@@ -6,3 +6,4 @@
         - user: {{ tomcat.name }}{{ tomcat.version }}
         - group: {{ tomcat.name }}{{ tomcat.version }}
         - mode: 644
+        - template: jinja
