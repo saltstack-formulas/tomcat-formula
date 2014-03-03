@@ -129,7 +129,7 @@
             <!-- unpackWARs="true" autoDeploy="true"> -->
       {% for site in salt['pillar.get']('tomcat:sites', {}).items() %}
       <Host name="{{ site.id }}" appBase="{{ site.appBase }}" debug="{{ site.debug }}" unpackWARs="{{ site.unpackWARs }}">
-        <Context path="{{ site.path }" docBase="{{ site.docBase }}" debug="{{site.debug }}" reloadable="{{ site.reloadable }}"/>
+        <Context path="{{ site.path }}" docBase="{{ site.docBase }}" debug="{{site.debug }}" reloadable="{{ site.reloadable }}"/>
         <Alias>{{ site.alias }}</Alias>
         <Logger className="org.apache.catalina.logger.FileLogger"
         directory="logs"  prefix="{{ site.id }}\_log." suffix=".txt" timestamp="true"/>
