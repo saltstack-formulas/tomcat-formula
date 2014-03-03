@@ -5,7 +5,7 @@ tomcat:
         example.com: # must be unique; used as an ID declaration in Salt; also passed to the template context as {{ id }}
           appBase: ../webapps/myapp
           path: ''
-          docBase: '/var/lib/{{ tomcat.name }}{{ tomcat.version }}/webapps/myapp'
+          docBase: '/var/lib/tomcat7/webapps/myapp'
           alias: {{ id }}
           unpackWARs: "true"
           autoDeploy: "true"
@@ -14,7 +14,7 @@ tomcat:
         example.net:
           appBase: ../webapps/myapp2
           path: ''
-          docBase: '/var/lib/{{ tomcat.name }}{{ tomcat.version }}/webapps/myapp2'
+          docBase: '/var/lib/tomcat7/webapps/myapp2'
           alias: {{ id }}
           unpackWARs: "true"
           autoDeploy: "true"
