@@ -8,5 +8,5 @@
         - mode: 644
         - template: jinja
         - defaults:
-            sites: {{ salt['pillar.get']('tomcat:sites').items() }}
+            sites: {{ salt['pillar.get']('tomcat:sites').items()|json }}
 
