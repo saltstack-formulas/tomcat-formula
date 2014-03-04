@@ -35,6 +35,10 @@ Installs the host-manager and manager web applications for Apache Tomcat.
 
 Installs the Tomcat package, and configures the configuration file.
 
+* tomcat.vhosts
+
+Configures Tomcat name-based virtual hosts using data from Pillar.
+
 Formula Dependencies
 --------------------
 
