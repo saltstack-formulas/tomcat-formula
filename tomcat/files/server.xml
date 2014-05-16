@@ -69,7 +69,7 @@
          APR (HTTP/AJP) Connector: /docs/apr.html
          Define a non-SSL HTTP/1.1 Connector on port 8080
     -->
-    {% if SSLEnabled == 'true' %}
+    {% if SSLEnabled %}
     <Connector port="{{ port }}" protocol="{{ protocol }}"
       connectionTimeout="{{ connectionTimeout }}" URIEncoding="{{ URIEncoding }}" maxHttpHeaderSize="{{ maxHttpHeaderSize }}" maxThreads="{{ maxThreads }}"
       minSpareThreads="{{ maxThreads }}" maxSpareThreads="{{ maxSpareThreads }}"

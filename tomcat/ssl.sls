@@ -21,7 +21,7 @@
             disableUploadTimeout: {{ salt['pillar.get']('tomcat:connector:disableUploadTimeout', 'true') }}
             acceptCount: {{ salt['pillar.get']('tomcat:connector:acceptCount', 100) }}
             scheme: {{ salt['pillar.get']('tomcat:connector:scheme', 'http') }}
-            {% if salt['pillar.get']('tomcat:connector:SSLEnabled') == 'true' %}
+            {% if salt['pillar.get']('tomcat:connector:SSLEnabled') %}
             secure: {{ salt['pillar.get']('tomcat:connector:secure') }}
             SSLEnabled: {{ salt['pillar.get']('tomcat:connector:SSLEnabled') }}
             clientAuth: {{ salt['pillar.get']('tomcat:connector:clientAuth', 'false') }}
