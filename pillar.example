@@ -1,6 +1,27 @@
 tomcat:
     version: 7
     security: 'no'
+    connector:
+      port: 8080
+      protocol: 'HTTP/1.1'
+      connectionTimeout: 20000
+      URIEncoding: 'UTF-8'
+      redirectPort: 8443
+      maxHttpHeaderSize: 8192
+      maxThreads: 150
+      minSpareThreads: 25
+      maxSpareThreads: 75
+      enableLookups: 'false'
+      disableUploadTimeout: 'true'
+      acceptCount: 100
+      scheme: http
+      secure: 'false'
+      SSLEnabled: 'false'
+      clientAuth: 'false'
+      sslProtocol: TLS
+      keyAlias: ''
+      keystoreFile: ''
+      keypass: ''
     sites:
         example.com: # must be unique; used as an ID declaration in Salt; also passed to the template context as {{ id }}
           appBase: ../webapps/myapp

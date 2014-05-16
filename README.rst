@@ -40,6 +40,11 @@ Installs the Tomcat package, and configures the configuration file.
 
 Configures Tomcat name-based virtual hosts using data from Pillar.
 
+``tomcat.ssl``
+------------------
+
+Enables SSL in tomcat.
+
 Formula Dependencies
 --------------------
 
