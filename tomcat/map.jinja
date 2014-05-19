@@ -1,41 +1,41 @@
 {% set tomcat = salt['grains.filter_by']({
     'Debian': {
         'name': 'tomcat',
-        'version': 7,
+        'version': salt['pillar.get']('tomcat:version'),
         'service': 'tomcat7',
         'native': 'libtcnative-1',
         'manager': 'tomcat7-admin',
     },
     'Ubuntu': {
         'name': 'tomcat',
-        'version': 7,
+        'version': salt['pillar.get']('tomcat:version'),
         'service': 'tomcat7',
         'native': 'libtcnative-1',
         'manager': 'tomcat7-admin',
     },
     'RedHat': {
         'name': 'tomcat',
-        'version': 7,
+        'version': salt['pillar.get']('tomcat:version'),
         'service': 'tomcat7',
         'native': 'libtcnative-1',
         'manager': 'tomcat-admin-webapps',
     },
     'openSUSE': {
         'name': 'tomcat',
-        'version': 7,
+        'version': salt['pillar.get']('tomcat:version'),
         'service': 'tomcat7',
         'native': 'libtcnative-1-0',
         'manager': 'tomcat-admin-webapps',
     },
     'FreeBSD': {
         'name': 'tomcat',
-        'version': 7,
+        'version': salt['pillar.get']('tomcat:version'),
         'service': 'tomcat',
         'native': 'tomcat-native',
     },
     'Arch': {
         'name': 'tomcat',
-        'version': 8,
+        'version': salt['pillar.get']('tomcat:version'),
         'service': 'tomcat',
         'native': 'tomcat-native'
     },
