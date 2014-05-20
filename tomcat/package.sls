@@ -1,5 +1,4 @@
 {% from "tomcat/map.jinja" import tomcat with context %}
-{% set version = salt['pillar.get']('tomcat:version') %}
 
 {{ tomcat.name }}{{ version }}:
   pkg:

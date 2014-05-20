@@ -41,6 +41,9 @@ tomcat:
           autoDeploy: "true"
           reloadable: "true"
           debug: 0
+    manager:
+         user: saltuser
+         passwd: RfgpE2iQwD
 java:
     home: '/usr/lib/jvm/java-7-oracle'
     Xmx: 3G # TODO: Need to do a calculation based on the available memory on the machine.
@@ -50,6 +53,3 @@ java:
 limit:
     soft: 64000
     hard: 64000
-tomcat-manager:
-    user: saltuser
-    passwd: RfgpE2iQwD

@@ -2,7 +2,7 @@ include:
   - tomcat
 {% if grains.os != 'FreeBSD' %}
 {% from "tomcat/map.jinja" import tomcat with context %}
-{% set version = salt['pillar.get']('tomcat:version') %}
+
 # on archlinux tomcat manager is already in tomcat package
 {% if grains.os != 'Arch' %}
 
@@ -19,7 +19,7 @@ include:
         - mode: 640
         - template: jinja
         - defaults:
-            user: {{ salt['pillar.get']('tomcat-manager:user') }}
-            passwd: {{ salt['pillar.get']('tomcat-manager:passwd') }}
+            user: {{ salt['pillar.get']('tomcat:manager:user') }}
+            passwd: {{ salt['pillar.get']('tomcat:manager:passwd') }}
 
 {% endif %}

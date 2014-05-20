@@ -1,10 +1,10 @@
 {% from "tomcat/map.jinja" import tomcat with context %}
 
-/etc/{{ tomcat.name }}{{ tomcat.version }}/server.xml:
+/etc/{{ tomcat.name }}{{ version }}/server.xml:
     file.managed:
         - source: salt://tomcat/files/server.xml
-        - user: {{ tomcat.name }}{{ tomcat.version }}
-        - group: {{ tomcat.name }}{{ tomcat.version }}
+        - user: {{ tomcat.name }}{{ version }}
+        - group: {{ tomcat.name }}{{ version }}
         - mode: 644
         - template: jinja
         - defaults:
