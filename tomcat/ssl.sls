@@ -28,7 +28,7 @@
             sslProtocol: {{ salt['pillar.get']('tomcat:connector:sslProtocol', 'TLS') }}
             keyAlias: {{ salt['pillar.get']('tomcat:connector:keyAlias') }}
             keystoreFile: {{ salt['pillar.get']('tomcat:connector:keystoreFile') }}
-            keypass: {{ salt['pillar.get']('tomcat:connector:keypass', '') }}
+            keystorePass: {{ salt['pillar.get']('tomcat:connector:keystorePass', '') }}
             {% endif %}
 
 {{ tomcat.service }}:
