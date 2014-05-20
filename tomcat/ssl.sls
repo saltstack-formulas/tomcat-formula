@@ -16,7 +16,6 @@
             maxHttpHeaderSize: {{ salt['pillar.get']('tomcat:connector:maxHttpHeaderSize', 8192) }}
             maxThreads: {{ salt['pillar.get']('tomcat:connector:maxThreads', 150) }}
             minSpareThreads: {{ salt['pillar.get']('tomcat:connector:minSpareThreads', 25) }}
-            maxSpareThreads: {{ salt['pillar.get']('tomcat:connector:maxSpareThreads', 75) }}
             enableLookups: {{ salt['pillar.get']('tomcat:connector:enableLookups', 'false') }}
             disableUploadTimeout: {{ salt['pillar.get']('tomcat:connector:disableUploadTimeout', 'true') }}
             acceptCount: {{ salt['pillar.get']('tomcat:connector:acceptCount', 100) }}
@@ -26,7 +25,6 @@
             SSLEnabled: {{ salt['pillar.get']('tomcat:connector:SSLEnabled') }}
             clientAuth: {{ salt['pillar.get']('tomcat:connector:clientAuth', 'false') }}
             sslProtocol: {{ salt['pillar.get']('tomcat:connector:sslProtocol', 'TLS') }}
-            # keyAlias: {{ salt['pillar.get']('tomcat:connector:keyAlias') }}
             keystoreFile: {{ salt['pillar.get']('tomcat:connector:keystoreFile') }}
             keystorePass: {{ salt['pillar.get']('tomcat:connector:keystorePass', '') }}
             {% endif %}

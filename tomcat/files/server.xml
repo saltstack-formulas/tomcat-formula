@@ -72,7 +72,7 @@
     {% if SSLEnabled %}
     <Connector port="{{ port }}" protocol="{{ protocol }}"
       connectionTimeout="{{ connectionTimeout }}" URIEncoding="{{ URIEncoding }}" maxHttpHeaderSize="{{ maxHttpHeaderSize }}" maxThreads="{{ maxThreads }}"
-      minSpareThreads="{{ maxThreads }}" maxSpareThreads="{{ maxSpareThreads }}"
+      minSpareThreads="{{ maxThreads }}"
       enableLookups="{{ enableLookups }}" disableUploadTimeout="{{ disableUploadTimeout }}"
       acceptCount="{{ acceptCount }}" scheme="{{ scheme }}" secure="{{ secure }}"
       SSLEnabled="{{ SSLEnabled }}" clientAuth="{{ clientAuth }}" sslProtocol="{{ sslProtocol }}"
@@ -80,7 +80,7 @@
     {% elif port is defined %}
     <Connector port="{{ port }}" protocol="{{ protocol }}"
       connectionTimeout="{{ connectionTimeout }}" URIEncoding="{{ URIEncoding }}" maxHttpHeaderSize="{{ maxHttpHeaderSize }}" maxThreads="{{ maxThreads }}"
-      minSpareThreads="{{ maxThreads }}" maxSpareThreads="{{ maxSpareThreads }}"
+      minSpareThreads="{{ maxThreads }}"
       enableLookups="{{ enableLookups }}" disableUploadTimeout="{{ disableUploadTimeout }}"
       acceptCount="{{ acceptCount }}" scheme="{{ scheme }}" />
     {% else %}
