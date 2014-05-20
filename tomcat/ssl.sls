@@ -31,3 +31,8 @@
             keypass: {{ salt['pillar.get']('tomcat:connector:keypass', '') }}
             {% endif %}
 
+{{ tomcat.service }}:
+        - running
+        - watch:
+            - file: /etc/{{ tomcat.name }}{{ tomcat.version }}/server.xml:
+
