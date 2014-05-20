@@ -2,7 +2,7 @@ include:
   - tomcat
 {% if grains.os != 'FreeBSD' %}
 {% from "tomcat/map.jinja" import tomcat with context %}
-{% set verion = salt['pillar.get']('tomcat:version') %}
+{% set version = salt['pillar.get']('tomcat:version') %}
 # on archlinux tomcat manager is already in tomcat package
 {% if grains.os != 'Arch' %}
 
