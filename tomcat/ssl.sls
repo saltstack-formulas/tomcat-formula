@@ -26,7 +26,7 @@
             SSLEnabled: {{ salt['pillar.get']('tomcat:connector:SSLEnabled') }}
             clientAuth: {{ salt['pillar.get']('tomcat:connector:clientAuth', 'false') }}
             sslProtocol: {{ salt['pillar.get']('tomcat:connector:sslProtocol', 'TLS') }}
-            keyAlias: {{ salt['pillar.get']('tomcat:connector:keyAlias') }}
+            # keyAlias: {{ salt['pillar.get']('tomcat:connector:keyAlias') }}
             keystoreFile: {{ salt['pillar.get']('tomcat:connector:keystoreFile') }}
             keystorePass: {{ salt['pillar.get']('tomcat:connector:keystorePass', '') }}
             {% endif %}
