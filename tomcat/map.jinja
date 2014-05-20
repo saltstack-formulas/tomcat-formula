@@ -1,42 +1,36 @@
-{% set vtomcat = salt['pillar.get']('tomcat:version') %}
+{% set service = "tomcat" ~ salt['pillar.get']('tomcat:version') %}
 {% set tomcat = salt['grains.filter_by']({
     'Debian': {
         'name': 'tomcat',
-        'version': vtomcat,
-        'service': 'tomcat7',
+        'service': service,
         'native': 'libtcnative-1',
-        'manager': 'tomcat7-admin',
+        'manager': service ~ '-admin',
     },
     'Ubuntu': {
         'name': 'tomcat',
-        'version': vtomcat,
-        'service': 'tomcat7',
+        'service': service,
         'native': 'libtcnative-1',
-        'manager': 'tomcat7-admin',
+        'manager': service ~ '-admin',
     },
     'RedHat': {
         'name': 'tomcat',
-        'version': vtomcat,
-        'service': 'tomcat7',
+        'service': service,
         'native': 'libtcnative-1',
         'manager': 'tomcat-admin-webapps',
     },
     'openSUSE': {
         'name': 'tomcat',
-        'version': vtomcat,
-        'service': 'tomcat7',
+        'service': service,
         'native': 'libtcnative-1-0',
         'manager': 'tomcat-admin-webapps',
     },
     'FreeBSD': {
         'name': 'tomcat',
-        'version': vtomcat,
         'service': 'tomcat',
         'native': 'tomcat-native',
     },
     'Arch': {
         'name': 'tomcat',
-        'version': vtomcat,
         'service': 'tomcat',
         'native': 'tomcat-native'
     },
