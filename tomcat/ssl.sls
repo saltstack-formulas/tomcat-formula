@@ -33,7 +33,7 @@
 
 {{ tomcat.service }}:
   service:
-        - running
-        - watch:
-            - file: /etc/{{ tomcat.name }}{{ tomcat.version }}/server.xml:
+    - running
+    - watch:
+      - file: /etc/{{ tomcat.name }}{{ tomcat.version }}/server.xml
 
