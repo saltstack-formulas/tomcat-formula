@@ -11,11 +11,11 @@ include:
     - installed
 {% endif %}
 
-/etc/{{ tomcat.name }}{{ version }}/tomcat-users.xml:
+/etc/{{ tomcat.name }}{{ tomcat.version }}/tomcat-users.xml:
     file.managed:
         - source: salt://tomcat/files/tomcat-users.xml
         - user: root
-        - group: {{ tomcat.name }}{{ version }}
+        - group: {{ tomcat.name }}{{ tomcat.version }}
         - mode: 640
         - template: jinja
         - defaults:
