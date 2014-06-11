@@ -1,6 +1,25 @@
 tomcat:
     version: 7
     security: 'no'
+    connector:
+      port: 8443
+      protocol: 'org.apache.coyote.http11.Http11Protocol'
+      connectionTimeout: 20000
+      URIEncoding: 'UTF-8'
+      redirectPort: 8443
+      maxHttpHeaderSize: 8192
+      maxThreads: 150
+      minSpareThreads: 25
+      enableLookups: 'false'
+      disableUploadTimeout: 'true'
+      acceptCount: 100
+      scheme: https
+      secure: 'true'
+      SSLEnabled: 'true'
+      clientAuth: 'false'
+      sslProtocol: TLS
+      keystoreFile: '/path/to/keystoreFile'
+      keystorePass: 'somerandomtext'
     sites:
         example.com: # must be unique; used as an ID declaration in Salt; also passed to the template context as {{ id }}
           appBase: ../webapps/myapp
@@ -20,6 +39,9 @@ tomcat:
           autoDeploy: "true"
           reloadable: "true"
           debug: 0
+    manager:
+         user: saltuser
+         passwd: RfgpE2iQwD
 java:
     home: '/usr/lib/jvm/java-7-oracle'
     Xmx: 3G # TODO: Need to do a calculation based on the available memory on the machine.
@@ -29,6 +51,3 @@ java:
 limit:
     soft: 64000
     hard: 64000
-tomcat-manager:
-    user: saltuser
-    passwd: RfgpE2iQwD

@@ -69,10 +69,26 @@
          APR (HTTP/AJP) Connector: /docs/apr.html
          Define a non-SSL HTTP/1.1 Connector on port 8080
     -->
+    {% if SSLEnabled %}
+    <Connector port="{{ port }}" protocol="{{ protocol }}"
+      connectionTimeout="{{ connectionTimeout }}" URIEncoding="{{ URIEncoding }}" maxHttpHeaderSize="{{ maxHttpHeaderSize }}" maxThreads="{{ maxThreads }}"
+      minSpareThreads="{{ maxThreads }}"
+      enableLookups="{{ enableLookups }}" disableUploadTimeout="{{ disableUploadTimeout }}"
+      acceptCount="{{ acceptCount }}" scheme="{{ scheme }}" secure="{{ secure }}"
+      SSLEnabled="{{ SSLEnabled }}" clientAuth="{{ clientAuth }}" sslProtocol="{{ sslProtocol }}"
+        keystoreFile="{{ keystoreFile }}" keystorePass="{{ keystorePass }}" />
+    {% elif port is defined %}
+    <Connector port="{{ port }}" protocol="{{ protocol }}"
+      connectionTimeout="{{ connectionTimeout }}" URIEncoding="{{ URIEncoding }}" maxHttpHeaderSize="{{ maxHttpHeaderSize }}" maxThreads="{{ maxThreads }}"
+      minSpareThreads="{{ maxThreads }}"
+      enableLookups="{{ enableLookups }}" disableUploadTimeout="{{ disableUploadTimeout }}"
+      acceptCount="{{ acceptCount }}" scheme="{{ scheme }}" />
+    {% else %}
     <Connector port="8080" protocol="HTTP/1.1"
                connectionTimeout="20000"
                URIEncoding="UTF-8"
                redirectPort="8443" />
+    {% endif %}
     <!-- A "Connector" using the shared thread pool-->
     <!--
     <Connector executor="tomcatThreadPool"
@@ -127,6 +143,7 @@
 
       <!-- <Host name="localhost"  appBase="webapps" -->
             <!-- unpackWARs="true" autoDeploy="true"> -->
+      {% if sites is defined %}
       {% for id, site in sites %}
       <Host name="{{ id }}" appBase="{{ site.appBase }}" debug="{{ site.debug }}" unpackWARs="{{ site.unpackWARs }}">
         <Context path="{{ site.path }}" docBase="{{ site.docBase }}" debug="{{ site.debug }}" reloadable="{{ site.reloadable }}"/>
@@ -135,6 +152,7 @@
         directory="logs"  prefix="{{ id }}\_log." suffix=".txt" timestamp="true"/>
       </Host>
       {% endfor %}
+      {% endif %}
 
         <!-- SingleSignOn valve, share authentication between web applications
              Documentation at: /docs/config/valve.html -->

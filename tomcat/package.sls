@@ -24,7 +24,7 @@ tomcat_conf:
       - tomcat{{ tomcat.version }}_java_opts="-Djava.awt.headless=true -Xmx{{ salt['pillar.get']('java:Xmx', '3G') }} -XX:MaxPermSize={{ salt['pillar.get']('java:MaxPermSize', '256m') }}"
     {% elif grains.os == 'Arch' %}
     - name: /etc/conf.d/{{ tomcat.name }}{{ tomcat.version }}
-    - text: 
+    - text:
       - JAVA_HOME={{ salt['pillar.get']('java:home', '/usr/lib/jvm/java-7-openjdk') }}
       - JAVA_OPTS="-Djava.awt.headless=true -Xmx{{ salt['pillar.get']('java:Xmx', '3G') }} -XX:MaxPermSize={{ salt['pillar.get']('java:MaxPermSize', '256m') }}"
       {% if salt['pillar.get']('java:UseConcMarkSweepGC') %}

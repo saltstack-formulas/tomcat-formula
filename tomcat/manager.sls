@@ -1,4 +1,4 @@
-include: 
+include:
   - tomcat
 {% if grains.os != 'FreeBSD' %}
 {% from "tomcat/map.jinja" import tomcat with context %}
@@ -19,7 +19,7 @@ include:
         - mode: 640
         - template: jinja
         - defaults:
-            user: {{ salt['pillar.get']('tomcat-manager:user') }}
-            passwd: {{ salt['pillar.get']('tomcat-manager:passwd') }}
+            user: {{ salt['pillar.get']('tomcat:manager:user') }}
+            passwd: {{ salt['pillar.get']('tomcat:manager:passwd') }}
 
 {% endif %}
