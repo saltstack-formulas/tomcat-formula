@@ -46,6 +46,6 @@ Configures Tomcat name-based virtual hosts using data from Pillar.
 Enables SSL in tomcat.
 
 Formula Dependencies
---------------------
+====================
 
 * java
