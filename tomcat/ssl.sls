@@ -29,8 +29,9 @@
             keystorePass: {{ salt['pillar.get']('tomcat:connector:keystorePass', '') }}
             {% endif %}
 
-{{ tomcat.service }}:
+{{ tomcat.service }}-ssl:
   service:
+    - name: {{ tomcat.service }}
     - running
     - watch:
       - file: /etc/{{ tomcat.name }}{{ tomcat.version }}/server.xml
