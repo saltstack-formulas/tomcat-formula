@@ -13,8 +13,7 @@
     - pkg: haveged
 
 haveged:
-  pkg:
-    - installed
+  pkg.installed: []
   service:
     - running
     - watch:
