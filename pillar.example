@@ -48,6 +48,7 @@ java:
     MaxPermSize: 256m
     UseConcMarkSweepGC: '-XX:+UseConcMarkSweepGC'
     CMSIncrementalMode: '-XX:+CMSIncrementalMode'
+    log4jconfig: '/path/to/log4j.properties'
 limit:
     soft: 64000
     hard: 64000
