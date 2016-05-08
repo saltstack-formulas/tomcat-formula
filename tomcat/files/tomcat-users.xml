@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <tomcat-users>
-    <role rolename="admin-gui"/>
-    <user username="{{ user }}" password="{{ passwd }}" roles="admin-gui"/>
+{% for user, userconfig in salt['pillar.get']('tomcat:manager', {}).iteritems() %}
+    <user username="{{ user }}" password="{{ userconfig['passwd'] }}" roles="{{ userconfig['roles'] }}"/>
+{% endfor %}
 </tomcat-users>

@@ -40,8 +40,13 @@ tomcat:
           reloadable: "true"
           debug: 0
     manager:
-         user: saltuser
-         passwd: RfgpE2iQwD
+        # note these roles replace the 'manager' role from previous versions
+        saltuser1:
+          passwd: RfgpE2iQwD
+          roles: manager-gui,manager-script,manager-jmx,manager-status
+        saltuser2:
+          passwd: RfgpE2iQwD
+          roles: manager-gui,manager-script,manager-jmx,manager-status
 java:
     home: '/usr/lib/jvm/java-7-oracle'
     Xmx: 3G # TODO: Need to do a calculation based on the available memory on the machine.
