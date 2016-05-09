@@ -40,8 +40,19 @@ tomcat:
           reloadable: "true"
           debug: 0
     manager:
-         user: saltuser
-         passwd: RfgpE2iQwD
+        # UPDATE: This version of the pillar file now supports multiple user acccounts and variable roles.  The previous version of this formula supported only a single user and fixed roles.
+        roles:
+          - manager-gui
+          - manager-script
+          - manager-jmx
+          - manager-status
+        users:
+          saltuser1:
+            passwd: RfgpE2iQwD
+            roles: manager-gui,manager-script,manager-jmx,manager-status
+          saltuser2:
+            passwd: RfgpE2iQwD
+            roles: manager-gui,manager-script,manager-jmx,manager-status
 java:
     home: '/usr/lib/jvm/java-7-oracle'
     Xmx: 3G # TODO: Need to do a calculation based on the available memory on the machine.
