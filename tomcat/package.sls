@@ -8,6 +8,17 @@
     - watch:
       - pkg: {{ tomcat.name }}{{ tomcat.version }}
       - file: tomcat_conf
+{% if grains.os == 'Ubuntu' and salt['pillar.get']('tomcat:with_haveged', false) %}
+  require:
+    - pkg: haveged
+
+haveged:
+  pkg.installed: []
+  service:
+    - running
+    - watch:
+       - pkg: haveged
+{% endif %}
 
 {% if grains.os == 'Arch' %}
 tomcat_env:
