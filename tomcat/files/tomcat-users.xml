@@ -1,6 +1,16 @@
 <?xml version='1.0' encoding='utf-8'?>
 <tomcat-users>
-{% for user, userconfig in salt['pillar.get']('tomcat:manager', {}).iteritems() %}
+
+{% if pillar['tomcat']['manager']['user'] is defined %}
+    <!-- NOTE: this section is provided for backward compatability in the pillar file -->
+    <role rolename="manager-gui" />
+    <user username="{{ salt['pillar.get']('tomcat:manager:user') }}" password="{{ salt['pillar.get']('tomcat:manager:passwd') }}" roles="manager-gui,manager-script,manager-jmx,manager-status"/>
+{% else %}
+{% for role in salt['pillar.get']('tomcat:manager:roles', {}) %}
+    <role rolename="{{ role }}" />
+{% endfor %}
+{% for user, userconfig in salt['pillar.get']('tomcat:manager:users', {}).iteritems() %}
     <user username="{{ user }}" password="{{ userconfig['passwd'] }}" roles="{{ userconfig['roles'] }}"/>
 {% endfor %}
+{% endif %}
 </tomcat-users>

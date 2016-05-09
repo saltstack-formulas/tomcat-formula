@@ -18,8 +18,5 @@ include:
         - group: {{ tomcat.name }}{{ tomcat.version }}
         - mode: 640
         - template: jinja
-        - defaults:
-            user: {{ salt['pillar.get']('tomcat:manager:user') }}
-            passwd: {{ salt['pillar.get']('tomcat:manager:passwd') }}
 
 {% endif %}
