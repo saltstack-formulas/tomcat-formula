@@ -60,6 +60,7 @@ java:
     UseConcMarkSweepGC: '-XX:+UseConcMarkSweepGC'
     CMSIncrementalMode: '-XX:+CMSIncrementalMode'
     log4jconfig: '/path/to/log4j.properties'
+    logbackConfigurationFile: 'path/to/logback.xml'
 limit:
     soft: 64000
     hard: 64000

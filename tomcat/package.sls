@@ -63,6 +63,9 @@ tomcat_conf:
       {% if salt['pillar.get']('java:log4jconfig') %}
       - JAVA_OPTS="$JAVA_OPTS -Dlog4j.configuration=file:{{ salt['pillar.get']('java:log4jconfig') }}"
       {% endif %}
+      {% if salt['pillar.get']('java:logbackConfigurationFile') %}
+      - JAVA_OPTS="$JAVA_OPTS -Dlogback.configurationFile={{ salt['pillar.get']('java:logbackConfigurationFile') }}"
+      {% endif %}
       {% if salt['pillar.get']('tomcat:security') %}
       - TOMCAT{{ tomcat.version }}_SECURITY={{ salt['pillar.get']('tomcat:security', 'no') }}
       {% endif %}
