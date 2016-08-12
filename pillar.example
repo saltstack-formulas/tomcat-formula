@@ -1,6 +1,37 @@
 tomcat:
     version: 7
     security: 'no'
+    java_home: '/usr/lib/jvm/java-7-oracle'
+    # Any parameter you may pass to the java app, you can pass it here,
+    # without the preceding dash. The template builds the correct JAVA_OPTS
+    # line, adding the dash.
+    # Java's parameter don't follow a pattern (that I can see), so I think it's
+    # the best way to build the string of opts.
+    java_opts:
+      - 'Djava.awt.headless=true'
+      - 'Xmx128m'
+      - 'XX:MaxPermSize=256m'
+      - 'XX:+UseConcMarkSweepGC'
+      - 'XX:+CMSIncrementalMode'
+      - 'Dlog4j.configuration=file:/path/to/log4j.properties'
+      - 'Dlogback.configurationFile=/path/to/logback.xml'
+    jsp_compiler: javac
+    security: no
+    logfile_days: 14
+    logfile_compress: 1
+    jvm_tmp: /tmp/tomcat
+    authbind: no
+    with_haveged: true
+    haveged_enabled: true
+
+    catalina_base: /usr/share/tomcat
+    catalina_home: /usr/share/tomcat
+    catalina_tmpdir: /var/cache/tomcat/temp
+    catalina_pid: /var/run/tomcat.pid
+
+    limit:
+      soft: 64000
+      hard: 64000
     connector:
       port: 8443
       protocol: 'org.apache.coyote.http11.Http11Protocol'
@@ -53,14 +84,3 @@ tomcat:
           saltuser2:
             passwd: RfgpE2iQwD
             roles: manager-gui,manager-script,manager-jmx,manager-status
-java:
-    home: '/usr/lib/jvm/java-7-oracle'
-    Xmx: 3G # TODO: Need to do a calculation based on the available memory on the machine.
-    MaxPermSize: 256m
-    UseConcMarkSweepGC: '-XX:+UseConcMarkSweepGC'
-    CMSIncrementalMode: '-XX:+CMSIncrementalMode'
-    log4jconfig: '/path/to/log4j.properties'
-    logbackConfigurationFile: 'path/to/logback.xml'
-limit:
-    soft: 64000
-    hard: 64000

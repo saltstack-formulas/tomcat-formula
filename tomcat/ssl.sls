@@ -5,7 +5,7 @@
         - source: salt://tomcat/files/server.xml
         - user: {{ tomcat.name }}{{ tomcat.version }}
         - group: {{ tomcat.name }}{{ tomcat.version }}
-        - mode: 644
+        - mode: '644'
         - template: jinja
         - defaults:
             port: {{ salt['pillar.get']('tomcat:connector:port', 8080) }}
@@ -30,9 +30,8 @@
             {% endif %}
 
 {{ tomcat.service }}-ssl:
-  service:
+  service.running:
     - name: {{ tomcat.service }}
-    - running
     - watch:
       - file: /etc/{{ tomcat.name }}{{ tomcat.version }}/server.xml
 

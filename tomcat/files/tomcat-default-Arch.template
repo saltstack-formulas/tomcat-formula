@@ -1,0 +1,40 @@
+{%- set tomcat_java_opts = '-' ~ tomcat.java_opts | join(' -') -%}
+# This file is managed by salt. Manual changes risk being overwritten.
+# Modify the values passed to the tomcat pillar instead.
+
+[Unit]
+Description=Tomcat {{ tomcat.ver }} servlet container
+After=network.target
+
+[Service]
+Type=forking
+PIDFile={{ tomcat.catalina_pid }}
+Environment=CATALINA_PID={{ tomcat.catalina_pid }}
+Environment=TOMCAT_JAVA_HOME={{ tomcat.java_home }}
+Environment=CATALINA_HOME={{ tomcat.catalina_home }}
+Environment=CATALINA_BASE={{ tomcat.catalina_base }}
+Environment="CATALINA_OPTS={{ tomcat_java_opts }}"
+Environment=ERRFILE=SYSLOG
+Environment=OUTFILE=SYSLOG
+
+ExecStart=/usr/bin/jsvc \
+            -Dcatalina.home=${CATALINA_HOME} \
+            -Dcatalina.base=${CATALINA_BASE} \
+            -Djava.io.tmpdir={{ tomcat.jvm_tmp }} \
+            -cp /usr/share/java/commons-daemon.jar:/usr/share/java/eclipse-ecj.jar:${CATALINA_HOME}/bin/bootstrap.jar:${CATALINA_HOME}/bin/tomcat-juli.jar \
+            -user {{ tomcat.user }} \
+            -java-home ${TOMCAT_JAVA_HOME} \
+            -pidfile {{ tomcat.catalina_pid }} \
+            -errfile ${ERRFILE} \
+            -outfile ${OUTFILE} \
+            ${CATALINA_OPTS} \
+            org.apache.catalina.startup.Bootstrap
+
+ExecStop=/usr/bin/jsvc \
+            -pidfile {{ tomcat.catalina_pid }} \
+            -stop \
+            org.apache.catalina.startup.Bootstrap
+
+[Install]
+WantedBy=multi-user.target
+

@@ -1,44 +1,28 @@
-{% set version = salt['pillar.get']('tomcat:version') %}
-{% set service = "tomcat" ~ version %}
-{% set tomcat = salt['grains.filter_by']({
-    'Debian': {
-        'name': 'tomcat',
-        'version': version,
-        'service': service,
-        'native': 'libtcnative-1',
-        'manager': service ~ '-admin',
-    },
-    'Ubuntu': {
-        'name': 'tomcat',
-        'version': version,
-        'service': service,
-        'native': 'libtcnative-1',
-        'manager': service ~ '-admin',
-    },
-    'RedHat': {
-        'name': 'tomcat',
-        'version': version,
-        'service': service,
-        'native': 'tomcat-native',
-        'manager': 'tomcat-admin-webapps',
-    },
-    'openSUSE': {
-        'name': 'tomcat',
-        'version': version,
-        'service': service,
-        'native': 'libtcnative-1-0',
-        'manager': 'tomcat-admin-webapps',
-    },
-    'FreeBSD': {
-        'name': 'tomcat',
-        'version': version,
-        'service': 'tomcat',
-        'native': 'tomcat-native',
-    },
-    'Arch': {
-        'name': 'tomcat',
-        'version': version,
-        'service': 'tomcat',
-        'native': 'tomcat-native'
-    },
-}, merge=salt['pillar.get']('tomcat:lookup')) %}
+# -*- coding: utf-8 -*-
+# vim: ft=jinja
+
+{## Start with  defaults from defaults.sls ##}
+{% import_yaml 'tomcat/defaults.yaml' as default_settings %}
+
+{##
+Setup variable using grains['os_family'] based logic, only add key:values here
+that differ from whats in defaults.yaml
+##}
+{% import_yaml 'tomcat/osmap.yaml' as os_family_map %}
+
+{% set os_family_map = salt['grains.filter_by'](
+  os_family_map,
+  grain='os_family',
+  merge=salt['pillar.get']('tomcat:lookup'))
+%}
+
+{## Merge the flavor_map to the default settings ##}
+{% do default_settings.tomcat.update(os_family_map) %}
+
+{## Merge in tomcat:lookup pillar ##}
+{% set tomcat = salt['pillar.get'](
+    'tomcat',
+    default=default_settings.tomcat,
+    merge=True
+  )
+%}

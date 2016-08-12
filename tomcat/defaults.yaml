@@ -1,0 +1,22 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+tomcat:
+  pkg: tomcat
+  ver: 7
+  with_haveged: false
+  haveged_enabled: false
+  conf_dir: /etc/tomcat
+  main_config: /etc/sysconfig/tomcat
+  service: tomcat
+  service_enabled: true
+  user: tomcat
+  group: tomcat
+  java_home: /usr/lib/jvm/jre
+  java_opts:
+    - 'Djava.awt.headless=true'
+    - 'Xmx128m'
+    - 'XX:MaxPermSize=256m'
+    - 'XX:+UseConcMarkSweepGC'
+  limit_soft: 64000
+  limit_hard: 64000
+

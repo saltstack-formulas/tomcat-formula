@@ -1,0 +1,80 @@
+{%- set tomcat_java_opts = '-' ~ tomcat.java_opts | join(' -') -%}
+# This file is managed by salt. Manual changes risk being overwritten.
+# # Modify the values passed to the tomcat pillar instead.
+
+# Service-specific configuration file for tomcat. This will be sourced by
+# the SysV init script after the global configuration file
+# /etc/tomcat/tomcat.conf, thus allowing values to be overridden in
+# a per-service manner.
+#
+# NEVER change the init script itself. To change values for all services make
+# your changes in /etc/tomcat/tomcat.conf
+#
+# To change values for a specific service make your edits here.
+# To create a new service create a link from /etc/init.d/<your new service> to
+# /etc/init.d/tomcat (do not copy the init script) and make a copy of the
+# /etc/sysconfig/tomcat file to /etc/sysconfig/<your new service> and change
+# the property values so the two services won't conflict. Register the new
+# service in the system as usual (see chkconfig and similars).
+#
+
+# Where your java installation lives
+JAVA_HOME={{ tomcat.java_home }}
+
+{% if tomcat.catalina_base is defined -%}
+CATALINA_BASE="{{ tomcat.catalina_base }}"
+{% else -%}
+#CATALINA_BASE="/usr/share/tomcat"
+{%- endif %}
+{% if tomcat.catalina_home is defined -%}
+CATALINA_HOME="{{ tomcat.catalina_home }}"
+{% else -%}
+#CATALINA_HOME="/usr/share/tomcat"
+{%- endif %}
+{% if tomcat.catalina_tmpdir is defined -%}
+CATALINA_TMPDIR="{{ tomcat.catalina_tmpdir }}"
+{% else -%}
+#CATALINA_TMPDIR="/var/cache/tomcat/temp"
+{%- endif %}
+{% if tomcat.catalina_pid is defined -%}
+CATALINA_PID="{{ tomcat.catalina_pid }}"
+{% else -%}
+#CATALINA_PID="/var/run/tomcat.pid"
+{%- endif %}
+
+# You can pass some parameters to java here if you wish to
+#JAVA_OPTS="-Xminf0.1 -Xmaxf0.3"
+JAVA_OPTS="{{ tomcat_java_opts }}"
+
+# Use JAVA_OPTS to set java.library.path for libtcnative.so
+#JAVA_OPTS="-Djava.library.path=/usr/lib64"
+
+# What user should run tomcat
+TOMCAT_USER={{ tomcat.user }}
+
+# What group should run tomcat
+TOMCAT_GROUP={{ tomcat.group }}
+
+# You can change your tomcat locale here
+#LANG="en_US"
+
+# Run tomcat under the Java Security Manager
+{% if tomcat.security is defined and tomcat.security == "yes" -%}
+SECURITY_MANAGER="true"
+{% else -%}
+SECURITY_MANAGER="false"
+{% endif %}
+
+# Time to wait in seconds, before killing process
+#SHUTDOWN_WAIT="30"
+
+# Whether to annoy the user with "attempting to shut down" messages or not
+#SHUTDOWN_VERBOSE="false"
+
+# Connector port is 8080 for this tomcat instance
+#CONNECTOR_PORT="8080"
+
+# If you wish to further customize your tomcat environment,
+# put your own definitions here
+# (i.e. LD_LIBRARY_PATH for some jdbc drivers)
+
