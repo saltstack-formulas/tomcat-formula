@@ -6,17 +6,17 @@ include:
 # on archlinux tomcat manager is already in tomcat package
 {% if grains.os != 'Arch' %}
 
-{{ tomcat.manager }}:
-  pkg:
-    - installed
+{{ tomcat.manager_pkg }}:
+  pkg.installed
 {% endif %}
 
-/etc/{{ tomcat.name }}{{ tomcat.version }}/tomcat-users.xml:
+{{ tomcat.conf_dir }}/tomcat-users.xml:
     file.managed:
         - source: salt://tomcat/files/tomcat-users.xml
         - user: root
-        - group: {{ tomcat.name }}{{ tomcat.version }}
-        - mode: 640
+        - group: {{ tomcat.group }}
+        - mode: '640'
         - template: jinja
 
 {% endif %}
+

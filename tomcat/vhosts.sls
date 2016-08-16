@@ -5,7 +5,7 @@
         - source: salt://tomcat/files/server.xml
         - user: {{ tomcat.name }}{{ tomcat.version }}
         - group: {{ tomcat.name }}{{ tomcat.version }}
-        - mode: 644
+        - mode: '644'
         - template: jinja
         - defaults:
             sites: {{ salt['pillar.get']('tomcat:sites').items()|json }}

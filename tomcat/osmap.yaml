@@ -1,0 +1,62 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+Debian:
+  pkg: tomcat8
+  ver: 8
+  native_pkg: libtcnative-1
+  manager_pkg: tomcat8-admin
+  with_haveged: true
+  haveged_enabled: true
+  conf_dir: /etc/tomcat8
+  main_config: /etc/default/tomcat8
+  main_config_template: salt://tomcat/files/tomcat-default-Debian.template
+  service: tomcat8
+  user: tomcat8
+  group: tomcat8
+  java_home: /usr/lib/jvm/java-7-openjdk
+Ubuntu:
+  pkg: tomcat8
+  ver: 8
+  native_pkg: libtcnative-1
+  manager_pkg: tomcat8-admin
+  with_haveged: true
+  haveged_enabled: true
+  conf_dir: /etc/tomcat8
+  main_config: /etc/default/tomcat8
+  main_config_template: salt://tomcat/files/tomcat-default-Debian.template
+  service: tomcat8
+  service: tomcat8
+  user: tomcat8
+  group: tomcat8
+  java_home: /usr/lib/jvm/java-7-openjdk
+RedHat:
+  native_pkg: tomcat-native
+  manager_pkg: tomcat-admin-webapps
+  main_config_template: salt://tomcat/files/tomcat-default-CentOS.template
+CentOS:
+  native_pkg: tomcat-native
+  manager_pkg: tomcat-admin-webapps
+  main_config_template: salt://tomcat/files/tomcat-default-CentOS.template
+openSUSE:
+  native_pkg: libtcnative-1-0
+  manager_pkg: tomcat-admin-webapps
+  main_config_template: salt://tomcat/files/tomcat-default-CentOS.template
+FreeBSD:
+  native_pkg: tomcat-native
+  ini_config: /etc/rc.conf
+  java_home: /usr
+Arch:
+  pkg: tomcat8
+  ver: 8
+  service: tomcat8
+  native_pkg: tomcat-native
+  conf_dir: /etc/tomcat8
+  main_config: /usr/lib/systemd/system/tomcat8.service
+  main_config_template: salt://tomcat/files/tomcat-default-Arch.template
+  user: tomcat8
+  group: tomcat8
+  java_home: /usr/lib/jvm/default-runtime
+  jvm_tmp: /var/tmp/tomcat8/temp
+  catalina_pid: /var/run/tomcat8.pid
+  catalina_base: /usr/share/tomcat8
+  catalina_home: /usr/share/tomcat8
