@@ -16,7 +16,6 @@ tomcat:
       - 'Dlog4j.configuration=file:/path/to/log4j.properties'
       - 'Dlogback.configurationFile=/path/to/logback.xml'
     jsp_compiler: javac
-    security: no
     logfile_days: 14
     logfile_compress: 1
     jvm_tmp: /tmp/tomcat
