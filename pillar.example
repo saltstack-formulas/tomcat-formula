@@ -52,7 +52,8 @@ tomcat:
       keystoreFile: '/path/to/keystoreFile'
       keystorePass: 'somerandomtext'
     sites:
-        example.com: # must be unique; used as an ID declaration in Salt; also passed to the template context as {{ id }}
+        example.com: # must be unique; used as an ID declaration in Salt; also used in the  template as {{ host_name }} is name is not declared
+          name: some_string # to use as "Host name=" in server.xml definitions. If not declared, ID declaration will be used
           appBase: ../webapps/myapp
           path: ''
           docBase: '/var/lib/tomcat7/webapps/myapp'

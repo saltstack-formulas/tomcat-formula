@@ -78,25 +78,44 @@
          APR (HTTP/AJP) Connector: /docs/apr.html
          Define a non-SSL HTTP/1.1 Connector on port 8080
     -->
-    {% if SSLEnabled %}
-    <Connector port="{{ port }}" protocol="{{ protocol }}"
-      connectionTimeout="{{ connectionTimeout }}" URIEncoding="{{ URIEncoding }}" maxHttpHeaderSize="{{ maxHttpHeaderSize }}" maxThreads="{{ maxThreads }}"
-      minSpareThreads="{{ maxThreads }}"
-      enableLookups="{{ enableLookups }}" disableUploadTimeout="{{ disableUploadTimeout }}"
-      acceptCount="{{ acceptCount }}" scheme="{{ scheme }}" secure="{{ secure }}"
-      SSLEnabled="{{ SSLEnabled }}" clientAuth="{{ clientAuth }}" sslProtocol="{{ sslProtocol }}"
-        keystoreFile="{{ keystoreFile }}" keystorePass="{{ keystorePass }}" />
-    {% elif port is defined %}
-    <Connector port="{{ port }}" protocol="{{ protocol }}"
-      connectionTimeout="{{ connectionTimeout }}" URIEncoding="{{ URIEncoding }}" maxHttpHeaderSize="{{ maxHttpHeaderSize }}" maxThreads="{{ maxThreads }}"
-      minSpareThreads="{{ maxThreads }}"
-      enableLookups="{{ enableLookups }}" disableUploadTimeout="{{ disableUploadTimeout }}"
-      acceptCount="{{ acceptCount }}" scheme="{{ scheme }}" />
+    {% if tomcat.connector.SSLEnabled %}
+    <Connector port="{{ tomcat.connector.port }}"
+               protocol="{{ tomcat.connector.protocol }}"
+               connectionTimeout="{{ tomcat.connector.connectionTimeout }}"
+               URIEncoding="{{ tomcat.connector.URIEncoding }}"
+               maxHttpHeaderSize="{{ tomcat.connector.maxHttpHeaderSize }}"
+               maxThreads="{{ tomcat.connector.maxThreads }}"
+               minSpareThreads="{{ tomcat.connector.maxThreads }}"
+               enableLookups="{{ tomcat.connector.enableLookups }}"
+               disableUploadTimeout="{{ tomcat.connector.disableUploadTimeout }}"
+               acceptCount="{{ tomcat.connector.acceptCount }}"
+               scheme="{{ tomcat.connector.scheme }}"
+               secure="{{ tomcat.connector.secure }}"
+               SSLEnabled="{{ tomcat.connector.SSLEnabled }}"
+               clientAuth="{{ tomcat.connector.clientAuth }}"
+               sslProtocol="{{ tomcat.connector.sslProtocol }}"
+               keystoreFile="{{ tomcat.connector.keystoreFile }}"
+               keystorePass="{{ tomcat.connector.keystorePass }}"
+    />
+    {% elif tomcat.connector.port is defined %}
+    <Connector port="{{ tomcat.connector.port }}"
+               protocol="{{ tomcat.connector.protocol }}"
+               connectionTimeout="{{ tomcat.connector.connectionTimeout }}"
+               URIEncoding="{{ tomcat.connector.URIEncoding }}"
+               maxHttpHeaderSize="{{ tomcat.connector.maxHttpHeaderSize }}"
+               maxThreads="{{ tomcat.connector.maxThreads }}"
+               minSpareThreads="{{ tomcat.connector.maxThreads }}"
+               enableLookups="{{ tomcat.connector.enableLookups }}"
+               disableUploadTimeout="{{ tomcat.connector.disableUploadTimeout }}"
+               acceptCount="{{ tomcat.connector.acceptCount }}"
+               scheme="{{ tomcat.connector.scheme }}"
+    />
     {% else %}
     <Connector port="8080" protocol="HTTP/1.1"
                connectionTimeout="20000"
                URIEncoding="UTF-8"
-               redirectPort="8443" />
+               redirectPort="8443"
+    />
     {% endif %}
     <!-- A "Connector" using the shared thread pool-->
     <!--
@@ -152,13 +171,25 @@
 
       <!-- <Host name="localhost"  appBase="webapps" -->
             <!-- unpackWARs="true" autoDeploy="true"> -->
-      {% if sites is defined %}
-      {% for id, site in sites %}
-      <Host name="{{ id }}" appBase="{{ site.appBase }}" debug="{{ site.debug }}" unpackWARs="{{ site.unpackWARs }}">
-        <Context path="{{ site.path }}" docBase="{{ site.docBase }}" debug="{{ site.debug }}" reloadable="{{ site.reloadable }}"/>
-        <Alias>{{ site.alias }}</Alias>
-        <Logger className="org.apache.catalina.logger.FileLogger"
-        directory="logs"  prefix="{{ id }}\_log." suffix=".txt" timestamp="true"/>
+      {% if tomcat.sites is defined %}
+      {% for id, site in tomcat.sites.iteritems() %}
+      {%- set host_name = site.name if site.name is defined else id %}
+      <Host name="{{ host_name }}"
+            appBase="{{ site.appBase }}"
+            debug="{{ site.debug }}"
+            unpackWARs="{{ site.unpackWARs }}">
+            <Context path="{{ site.path }}"
+                     docBase="{{ site.docBase }}"
+                     debug="{{ site.debug }}"
+                     reloadable="{{ site.reloadable }}"
+            />
+            <Alias>{{ site.alias }}</Alias>
+            <Logger className="org.apache.catalina.logger.FileLogger"
+                    directory="logs"
+                    prefix="{{ host_name }}\_log."
+                    suffix=".txt"
+                    timestamp="true"
+            />
       </Host>
       {% endfor %}
       {% endif %}
