@@ -19,4 +19,23 @@ tomcat:
     - 'XX:+UseConcMarkSweepGC'
   limit_soft: 64000
   limit_hard: 64000
+  connector:
+    SSLEnabled: false
+    port: 8080
+    protocol: 'HTTP/1.1'
+    connectionTimeout: 20000
+    URIEncoding: 'UTF-8'
+    redirectPort: 8443
+    maxHttpHeaderSize: 8192
+    maxThreads: 150
+    minSpareThreads: 25
+    enableLookups: false
+    disableUploadTimeout: true
+    acceptCount: 100
+    scheme: http
+    secure: true
+    clientAuth: false
+    sslProtocol: TLSv1.2
+    keystoreFile: ''
+    keystorePass: ''
 
