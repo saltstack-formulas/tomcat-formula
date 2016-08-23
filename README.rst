@@ -42,8 +42,3 @@ Installs the host-manager and manager web applications for Apache Tomcat.
 ------------------
 
 Configures Tomcat name-based virtual hosts using data from Pillar.
-
-``tomcat.ssl``
-------------------
-
-Enables SSL in tomcat.
