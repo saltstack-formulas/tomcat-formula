@@ -70,3 +70,4 @@ suites:
           '*':
             - tomcat
             - tomcat.config
+            - tomcat.manager
