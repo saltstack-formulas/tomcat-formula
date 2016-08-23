@@ -3,17 +3,17 @@ require_relative '../../../kitchen/data/spec_helper'
 describe 'tomcat/init.sls' do
   case os[:family]
   when 'debian'
-    pkgs_installed = %w(tomcat8 haveged)
+    pkgs_installed = %w(tomcat8 haveged tomcat8-admin libtcnative-1)
     pkgs_not_installed = []
     main_config = '/etc/default/tomcat8'
     service = 'tomcat8'
   when 'redhat'
-    pkgs_installed = %w(tomcat)
+    pkgs_installed = %w(tomcat tomcat-admin-webapps tomcat-native)
     pkgs_not_installed = %w(haveged)
     main_config = '/etc/sysconfig/tomcat'
     service = 'tomcat'
   when 'arch'
-    pkgs_installed = %w(tomcat8 haveged)
+    pkgs_installed = %w(tomcat8 haveged tomcat-native)
     pkgs_not_installed = []
     main_config = '/usr/lib/systemd/system/tomcat8.service'
     service = 'tomcat8'
