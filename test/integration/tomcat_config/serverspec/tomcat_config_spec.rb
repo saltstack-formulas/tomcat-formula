@@ -67,7 +67,7 @@ describe 'tomcat/config.sls' do
       its(:content) { should match(/rolename="manager-\w+"/) }
       its(:content) { should match("username=\"#{username}\" password=\"#{password}\" roles=\"#{roles}\"") }
     when 'arch'
-      # its(:content) { should contain('rolename="manager-"') }
+      its(:content) { should match(/rolename="manager-\w+"/) }
       its(:content) { should match("username=\"#{username}\" password=\"#{password}\" roles=\"#{roles}\"") }
     end
   end  
