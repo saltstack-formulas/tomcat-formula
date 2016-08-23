@@ -62,6 +62,7 @@ suites:
           '*':
             - tomcat
             - tomcat.manager
+            - tomcat.native
   - name: tomcat_config
     provisioner:
       state_top:
