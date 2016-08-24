@@ -27,6 +27,22 @@ tomcat_conf:
     - watch_in:
       - service: tomcat
 
+100_server_xml:
+    file.accumulated:
+        - filename: {{ tomcat.conf_dir }}/server.xml
+        - text: {{ tomcat.connector }}
+        - require_in:
+          - file: server_xml        
+
+server_xml:
+    file.managed:
+        - name: {{ tomcat.conf_dir }}/server.xml
+        - source: salt://tomcat/files/server.xml
+        - user: {{ tomcat.user }}
+        - group: {{ tomcat.group }}
+        - mode: '644'
+        - template: jinja
+
 {% if grains.os != 'FreeBSD' %}
 limits_conf:
   {% if grains.os == 'Arch' %}

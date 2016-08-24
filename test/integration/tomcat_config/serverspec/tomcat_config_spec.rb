@@ -84,11 +84,15 @@ describe 'tomcat/config.sls' do
       its(:content) { should contain('protocol="HTTP/1.1"') }
       its(:content) { should contain('connectionTimeout="20000"') }
       its(:content) { should contain('URIEncoding="UTF-8"') }
+      its(:content) { should contain('AprLifecycleListener') }
+      its(:content) { should contain('example.com') }
     when 'arch'
       its(:content) { should contain('port="8080"') }
       its(:content) { should contain('protocol="HTTP/1.1"') }
       its(:content) { should contain('connectionTimeout="20000"') }
       its(:content) { should contain('URIEncoding="UTF-8"') }
+      its(:content) { should contain('AprLifecycleListener') }
+      its(:content) { should contain('example.com') }
     end
   end    
 
