@@ -28,6 +28,9 @@
   <!-- Security listener. Documentation at /docs/config/listeners.html
   <Listener className="org.apache.catalina.security.SecurityListener" />
   -->
+  {% if '200_server_xml' in accumulator %}
+  <Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="on" />
+  {% endif %}
   <!--Initialize Jasper prior to webapps are loaded. Documentation at /docs/jasper-howto.html -->
   <Listener className="org.apache.catalina.core.JasperListener" />
   <!-- Prevent memory leaks due to use of particular java/javax APIs-->
@@ -42,10 +45,9 @@
               factory="org.apache.catalina.users.MemoryUserDatabaseFactory"
               pathname="conf/tomcat-users.xml" />
   </GlobalNamingResources>
-
-    {% if tomcat.connector is defined %}
+    {% if '100_server_xml' in accumulator %}
     <Connector
-    {% for id, param in tomcat.connector.iteritems() %}    
+    {% for id, param in accumulator['100_server_xml'][0].iteritems() %}
                {{ id }}="{{ param }}"
     {% endfor %}
     />
@@ -68,9 +70,9 @@
         <Realm className="org.apache.catalina.realm.UserDatabaseRealm"
                resourceName="UserDatabase"/>
       </Realm>
-
-      {% if tomcat.sites is defined %}
-      {% for id, site in tomcat.sites.iteritems() %}
+      
+      {% if '300_server_xml' in accumulator %}
+      {% for id, site in accumulator['300_server_xml'][0].iteritems()  %}
       {%- set host_name = site.name if site.name is defined else id %}
       <Host name="{{ host_name }}"
             appBase="{{ site.appBase }}"
@@ -81,7 +83,9 @@
                      debug="{{ site.debug }}"
                      reloadable="{{ site.reloadable }}"
             />
+            {% if site.alias is defined %}
             <Alias>{{ site.alias }}</Alias>
+            {% endif %}
             <Logger className="org.apache.catalina.logger.FileLogger"
                     directory="logs"
                     prefix="{{ host_name }}\_log."
@@ -90,13 +94,13 @@
             />
       </Host>
       {% endfor %}
-      {% endif %}
-
+      {% else %}
         <Host name="localhost"  appBase="webapps" unpackWARs="true" autoDeploy="true">
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
                prefix="localhost_access_log." suffix=".txt"
                pattern="%h %l %u %t &quot;%r&quot; %s %b" />
         </Host>
+      {% endif %}
     </Engine>
   </Service>
 </Server>

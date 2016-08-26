@@ -52,6 +52,24 @@ provisioner:
         logfile_compress: 1
         jvm_tmp: /tmp/tomcat
         authbind: no
+        sites:
+            example.com: 
+              name: example.com
+              appBase: ../webapps/myapp
+              path: ''
+              docBase: '/var/lib/tomcat7/webapps/myapp'
+              unpackWARs: "true"
+              autoDeploy: "true"
+              reloadable: "true"
+              debug: 0
+            example.net:
+              appBase: ../webapps/myapp2
+              path: ''
+              docBase: '/var/lib/tomcat7/webapps/myapp2'
+              unpackWARs: "true"
+              autoDeploy: "true"
+              reloadable: "true"
+              debug: 0        
 
 
 suites:
@@ -70,5 +88,6 @@ suites:
           '*':
             - tomcat
             - tomcat.config
+            - tomcat.native
             - tomcat.manager
             - tomcat.vhosts
