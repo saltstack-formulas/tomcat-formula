@@ -45,6 +45,7 @@
               factory="org.apache.catalina.users.MemoryUserDatabaseFactory"
               pathname="conf/tomcat-users.xml" />
   </GlobalNamingResources>
+  <Service name="Catalina">
     {% if '100_server_xml' in accumulator %}
     <Connector
     {% for id, param in accumulator['100_server_xml'][0].iteritems() %}
