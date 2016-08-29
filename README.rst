@@ -42,3 +42,8 @@ Installs the host-manager and manager web applications for Apache Tomcat.
 ------------------
 
 Configures Tomcat name-based virtual hosts using data from Pillar.
+
+``tomcat.expires``
+------------------
+
+Enables Tomcats' ExpiresFilter using data from Pillar.
