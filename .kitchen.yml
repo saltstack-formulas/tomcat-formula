@@ -26,7 +26,7 @@ provisioner:
     tomcat.sls:
       tomcat:
         security: 'no'
-
+        expires_when: '2 weeks'
         manager:
           roles:
             - manager-gui
