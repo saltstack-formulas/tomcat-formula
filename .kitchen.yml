@@ -26,6 +26,7 @@ provisioner:
     tomcat.sls:
       tomcat:
         security: 'no'
+        expires_when: '2 weeks'
         manager:
           roles:
             - manager-gui
@@ -91,3 +92,4 @@ suites:
             - tomcat.native
             - tomcat.manager
             - tomcat.vhosts
+            - tomcat.expires
