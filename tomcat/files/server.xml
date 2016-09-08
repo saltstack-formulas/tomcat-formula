@@ -24,27 +24,48 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
+<!-- Note:  A "Server" is not itself a "Container", so you may not
+     define subcomponents such as "Valves" at this level.
+     Documentation at /docs/config/server.html
+ -->
 <Server port="8005" shutdown="SHUTDOWN">
   <!-- Security listener. Documentation at /docs/config/listeners.html
   <Listener className="org.apache.catalina.security.SecurityListener" />
   -->
   {% if '200_server_xml' in accumulator %}
+  <!--APR library loader. Documentation at /docs/apr.html -->
   <Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="on" />
   {% endif %}
-  <!--Initialize Jasper prior to webapps are loaded. Documentation at /docs/jasper-howto.html -->
+
+  {% if '400_server_xml' in accumulator %}
   <Listener className="org.apache.catalina.core.JasperListener" />
+  {% endif %}
+
   <!-- Prevent memory leaks due to use of particular java/javax APIs-->
+  <!--Initialize Jasper prior to webapps are loaded. Documentation at /docs/jasper-howto.html -->
   <Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener" />
   <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener" />
   <Listener className="org.apache.catalina.core.ThreadLocalLeakPreventionListener" />
 
+  <!-- Global JNDI resources
+       Documentation at /docs/jndi-resources-howto.html
+  -->
   <GlobalNamingResources>
+    <!-- Editable user database that can also be used by
+         UserDatabaseRealm to authenticate users
+    -->
     <Resource name="UserDatabase" auth="Container"
               type="org.apache.catalina.UserDatabase"
               description="User database that can be updated and saved"
               factory="org.apache.catalina.users.MemoryUserDatabaseFactory"
               pathname="conf/tomcat-users.xml" />
   </GlobalNamingResources>
+
+  <!-- A "Service" is a collection of one or more "Connectors" that share
+       a single "Container" Note:  A "Service" is not itself a "Container",
+       so you may not define subcomponents such as "Valves" at this level.
+       Documentation at /docs/config/service.html
+   -->
   <Service name="Catalina">
     {% if '100_server_xml' in accumulator %}
     <Connector
@@ -53,6 +74,13 @@
     {% endfor %}
     />
     {% else %}
+    <!-- A "Connector" represents an endpoint by which requests are received
+         and responses are returned. Documentation at :
+         Java HTTP Connector: /docs/config/http.html (blocking & non-blocking)
+         Java AJP  Connector: /docs/config/ajp.html
+         APR (HTTP/AJP) Connector: /docs/apr.html
+         Define a non-SSL HTTP/1.1 Connector on port 8080
+    -->
     <Connector port="8080" protocol="HTTP/1.1"
                connectionTimeout="20000"
                URIEncoding="UTF-8"
