@@ -32,7 +32,18 @@ tomcat_conf:
     - filename: {{ tomcat.conf_dir }}/server.xml
     - text: {{ tomcat.connector }}
     - require_in:
-      - file: server_xml        
+      - file: server_xml
+
+# Jasper Listener deprecated in tomcat >= 8
+# https://tomcat.apache.org/tomcat-8.0-doc/changelog.html
+{% if tomcat.ver < 8 %}
+400_server_xml:
+  file.accumulated:
+    - filename: {{ tomcat.conf_dir }}/server.xml
+    - text: enabled
+    - require_in:
+      - file: server_xml
+{% endif %}
 
 server_xml:
   file.managed:
