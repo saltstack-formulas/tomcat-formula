@@ -30,7 +30,7 @@ tomcat_conf:
 100_server_xml:
   file.accumulated:
     - filename: {{ tomcat.conf_dir }}/server.xml
-    - text: {{ tomcat.connector }}
+    - text: {{ tomcat.connectors }}
     - require_in:
       - file: server_xml
 

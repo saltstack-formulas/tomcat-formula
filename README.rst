@@ -31,7 +31,8 @@ Linux distros (Debian, RedHat, Arch) and their derivatives.
 ``tomcat.native``
 -----------------
 
-Installs Apache Portable Runtime for Tomcat.
+Installs Apache Portable Runtime for Tomcat. Depends on ``tomcat.config``
+to manage the configuration.
 
 ``tomcat.manager``
 -----------------

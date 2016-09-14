@@ -1,3 +1,5 @@
+{% set connectors = accumulator['100_server_xml'][0] if '100_server_xml' in accumulator else {} -%}
+{% set sites = accumulator['300_server_xml'][0] if '300_server_xml' in accumulator else {} -%}
 <?xml version='1.0' encoding='utf-8'?>
 <!--
 
@@ -67,13 +69,16 @@
        Documentation at /docs/config/service.html
    -->
   <Service name="Catalina">
-    {% if '100_server_xml' in accumulator %}
+    {% if connectors -%}
+    {% for id, params in connectors.iteritems() -%}
     <Connector
-    {% for id, param in accumulator['100_server_xml'][0].iteritems() %}
-               {{ id }}="{{ param }}"
-    {% endfor %}
+    {% for k, v in params.iteritems() %}
+               {{ k }}="{{ v }}"
+    {%- endfor %}
     />
+    {% endfor %}
     {% else %}
+    <!-- Setting a default connector, as no connectors were defined in the formula -->
     <!-- A "Connector" represents an endpoint by which requests are received
          and responses are returned. Documentation at :
          Java HTTP Connector: /docs/config/http.html (blocking & non-blocking)
@@ -100,8 +105,8 @@
                resourceName="UserDatabase"/>
       </Realm>
       
-      {% if '300_server_xml' in accumulator %}
-      {% for id, site in accumulator['300_server_xml'][0].iteritems()  %}
+      {% if sites %}
+      {% for id, site in sites.iteritems()  %}
       {%- set host_name = site.name if site.name is defined else id %}
       <Host name="{{ host_name }}"
             appBase="{{ site.appBase }}"
@@ -124,6 +129,7 @@
       </Host>
       {% endfor %}
       {% else %}
+        <!-- Setting a default site, as no sites were defined in the formula -->
         <Host name="localhost"  appBase="webapps" unpackWARs="true" autoDeploy="true">
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
                prefix="localhost_access_log." suffix=".txt"
