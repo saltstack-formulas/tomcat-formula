@@ -72,7 +72,6 @@ provisioner:
               reloadable: "true"
               debug: 0        
 
-
 suites:
   - name: tomcat_install
     provisioner:
@@ -81,7 +80,6 @@ suites:
           '*':
             - tomcat
             - tomcat.manager
-            - tomcat.native
   - name: tomcat_config
     provisioner:
       state_top:

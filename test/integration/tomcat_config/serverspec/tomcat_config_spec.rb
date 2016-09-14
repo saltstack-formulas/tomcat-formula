@@ -4,6 +4,7 @@ describe 'tomcat/config.sls' do
   case os[:family]
   when 'debian'
     ver = '8'
+    pkgs_installed = %w(libtcnative-1)
     main_config = '/etc/default/tomcat8'
     server_config = '/etc/tomcat8/server.xml'
     web_config = '/etc/tomcat8/web.xml'
@@ -18,6 +19,7 @@ describe 'tomcat/config.sls' do
     limits_file = '/etc/security/limits.d/tomcat8.conf'
   when 'redhat'
     ver = '8'
+    pkgs_installed = %w(tomcat-native)
     main_config = '/etc/sysconfig/tomcat'
     server_config = '/etc/tomcat8/server.xml'
     web_config = '/etc/tomcat8/web.xml'
@@ -32,6 +34,7 @@ describe 'tomcat/config.sls' do
     limits_file = '/etc/security/limits.d/tomcat7.conf'
   when 'arch'
     ver = '8'
+    pkgs_installed = %w(tomcat-native)
     main_config = '/usr/lib/systemd/system/tomcat8.service'
     server_config = '/etc/tomcat8/server.xml'
     web_config = '/etc/tomcat8/web.xml'
@@ -44,6 +47,12 @@ describe 'tomcat/config.sls' do
     group = 'tomcat8'
     java_home = '/usr/lib/jvm/default-runtime'
     limits_file = '/etc/security/limits.conf'
+  end
+
+  pkgs_installed.each do |p|
+    describe package(p) do
+      it { should be_installed }
+    end
   end
 
   describe service(service) do
