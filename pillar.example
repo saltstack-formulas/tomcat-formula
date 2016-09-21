@@ -86,3 +86,81 @@ tomcat:
           saltuser2:
             passwd: RfgpE2iQwD
             roles: manager-gui,manager-script,manager-jmx,manager-status
+    context:
+      # Let's you define multiple elements in the global context.xml file.
+      # The state does not try to be clever about the correctness of what you add here,
+      # just iterates over the dictionary of <Elements_types> and generates entries
+      # in the file. Ie, the lines below will generate:
+      #
+      # <Environment
+      #     name="env.first"
+      #     value="first.text"
+      #     type="java.lang.String"
+      #     override="true"
+      # />
+      # <Environment 
+      #     name="env.second"
+      #     value="second.value"
+      #     type="some.other.type"
+      #     override="false"
+      # />
+      # <Listener
+      #     className="org.apache.catalina.security.SecurityListener"
+      # />
+      # <Listener
+      #     className="org.apache.catalina.core.AprLifecycleListener"
+      #     SSLEngine="on"
+      # />
+      # <Resource
+      #     name="jdbc/__postgres"
+      #     auth="Container"
+      #     type="javax.sql.DataSource"
+      #     driverClassName="org.postgresql.Driver"
+      #     url="jdbc:postgresql://db.server/dbname"
+      #     username="dbuser"
+      #     password="aycaramba!"
+      #     maxActive="20"
+      #     maxIdle="10"
+      #     maxWait="-1"
+      # />
+      # <ResourceLink
+      #     name="linkToGlobalResource"
+      #     global="simpleValue"
+      #     type="java.lang.Integer"
+      # />
+
+      Environment:
+        env.first:
+          name: env.first
+          value: first.text
+          type: java.lang.String
+          override: true
+        env.second:
+          name: env.second
+          value: second.value
+          type: some.other.type
+          override: false
+      Listener:
+        first:
+          className: org.apache.catalina.security.SecurityListener
+        second:
+          className: org.apache.catalina.core.AprLifecycleListener
+          SSLEngine: on 
+      Resource:
+        jdbc:
+          name: jdbc/__postgres
+          auth: Container
+          type: javax.sql.DataSource
+          driverClassName: org.postgresql.Driver
+          url: jdbc:postgresql://db.server/dbname
+          user: dbuser
+          password: aycaramba!
+          maxActive: 20
+          maxIdle: 10
+          maxWait: -1
+      ResourceLink:
+        any_name_here_will_be_ignored:
+          name: linkToGlobalResource
+          global: simpleValue
+          type: java.lang.Integer
+

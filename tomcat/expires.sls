@@ -6,7 +6,8 @@ web_xml:
     - source: salt://tomcat/files/web.xml
     - user: {{ tomcat.user }}
     - group: {{ tomcat.group }}
-    - mode: 644
+    - mode: '644'
     - template: jinja
     - defaults:
         expires_when: {{ salt['pillar.get']('tomcat:expires_when') }}
+
