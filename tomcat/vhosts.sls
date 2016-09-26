@@ -7,4 +7,5 @@
     - text: {{ tomcat.sites }}
     {% endif %}
     - require_in:
-      - file: server_xml   
+      - file: server_xml
+

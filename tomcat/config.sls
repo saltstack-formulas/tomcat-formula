@@ -34,6 +34,13 @@ tomcat_conf:
     - require_in:
       - file: server_xml
 
+500_server_xml:
+  file.accumulated:
+    - filename: {{ tomcat.conf_dir }}/server.xml
+    - text: {{ tomcat.resources }}
+    - require_in:
+      - file: server_xml
+
 # Jasper Listener deprecated in tomcat >= 8
 # https://tomcat.apache.org/tomcat-8.0-doc/changelog.html
 {% if tomcat.ver < 8 %}
@@ -56,7 +63,7 @@ server_xml:
     - require_in:
       - service: tomcat
     - watch_in:
-      - service: tomcat        
+      - service: tomcat
 
 {% if grains.os != 'FreeBSD' %}
 limits_conf:
