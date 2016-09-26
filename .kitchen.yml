@@ -15,7 +15,7 @@ platforms:
 
 provisioner:
   name: salt_solo
-  salt_version: 2015.8.8
+  salt_version: 2016.3.2
   data_path: test/shared
   is_file_root: true
   pillars:
@@ -71,6 +71,17 @@ provisioner:
               autoDeploy: "true"
               reloadable: "true"
               debug: 0        
+        context:
+          Environment:
+            env.first:
+              name: env.first
+              value: first.text
+              type: java.lang.String
+              override: true
+          Listener:
+            second:
+              className: org.apache.catalina.core.AprLifecycleListener
+              SSLEngine: "on"
 
 suites:
   - name: tomcat_install
@@ -91,3 +102,4 @@ suites:
             - tomcat.manager
             - tomcat.vhosts
             - tomcat.expires
+            - tomcat.context

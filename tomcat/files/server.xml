@@ -1,5 +1,6 @@
 {% set connectors = accumulator['100_server_xml'][0] if '100_server_xml' in accumulator else {} -%}
 {% set sites = accumulator['300_server_xml'][0] if '300_server_xml' in accumulator else {} -%}
+{% set resources = accumulator['500_server_xml'][0] if '500_server_xml' in accumulator else {} -%}
 <?xml version='1.0' encoding='utf-8'?>
 <!--
 
@@ -53,6 +54,16 @@
        Documentation at /docs/jndi-resources-howto.html
   -->
   <GlobalNamingResources>
+    {% if resources -%}
+    {% for id, params in resources.iteritems() -%}
+    <Resource
+    {% for k, v in params.iteritems() %}
+              {{ k }}="{{ v }}"
+    {%- endfor %}
+    />
+    {% endfor %}
+    {% endif %}
+
     <!-- Editable user database that can also be used by
          UserDatabaseRealm to authenticate users
     -->
@@ -104,7 +115,7 @@
         <Realm className="org.apache.catalina.realm.UserDatabaseRealm"
                resourceName="UserDatabase"/>
       </Realm>
-      
+
       {% if sites %}
       {% for id, site in sites.iteritems()  %}
       {%- set host_name = site.name if site.name is defined else id %}

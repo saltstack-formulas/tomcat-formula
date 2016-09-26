@@ -8,4 +8,5 @@
     - filename: {{ tomcat.conf_dir }}/server.xml
     - text: enabled
     - require_in:
-      - file: server_xml        
+      - file: server_xml
+

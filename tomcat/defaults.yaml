@@ -21,4 +21,4 @@ tomcat:
   limit_hard: 64000
   connectors: {}
   sites: {}
-
+  resources: {}
