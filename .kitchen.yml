@@ -129,3 +129,9 @@ suites:
         base:
           '*':
             - tomcat.context
+  - name: tomcat_native
+    provisioner:
+      state_top:
+        base:
+          '*':
+            - tomcat.native
