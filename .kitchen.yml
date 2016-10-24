@@ -98,11 +98,10 @@ suites:
           '*':
             - tomcat
             - tomcat.config
-            - tomcat.native
             - tomcat.manager
             - tomcat.vhosts
             - tomcat.expires
-            - tomcat.context
+            - tomcat.context  
   - name: tomcat_native
     provisioner:
       state_top:
