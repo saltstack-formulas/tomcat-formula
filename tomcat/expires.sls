@@ -13,4 +13,3 @@ web_xml:
     - template: jinja
     - defaults:
         expires_when: {{ salt['pillar.get']('tomcat:expires_when') }}
-
