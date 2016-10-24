@@ -1,6 +1,6 @@
 require_relative '../../../kitchen/data/spec_helper'
 
-describe 'tomcat/config.sls' do
+describe 'tomcat/context.sls' do
   case os[:family]
   when 'debian'
     ver = '8'
