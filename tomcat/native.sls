@@ -1,5 +1,8 @@
 {% from "tomcat/map.jinja" import tomcat with context %}
 
+include:
+  - tomcat.config
+
 {{ tomcat.native_pkg }}:
   pkg.installed
 
