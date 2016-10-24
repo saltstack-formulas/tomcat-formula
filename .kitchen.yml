@@ -114,9 +114,15 @@ suites:
         base:
           '*':
             - tomcat.manager
-  - name: tomcat_expire
+  - name: tomcat_expires
     provisioner:
       state_top:
         base:
           '*':
             - tomcat.expires
+  - name: tomcat_context
+    provisioner:
+      state_top:
+        base:
+          '*':
+            - tomcat.context
