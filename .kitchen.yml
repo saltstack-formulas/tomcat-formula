@@ -108,6 +108,12 @@ suites:
         base:
           '*':
             - tomcat.native
+  - name: tomcat_manager
+    provisioner:
+      state_top:
+        base:
+          '*':
+            - tomcat.manager
   - name: tomcat_expire
     provisioner:
       state_top:
