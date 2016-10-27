@@ -142,4 +142,9 @@ describe 'tomcat/config.sls' do
     its(:content) { should match(/^#{user} soft nofile 48000/) }
     its(:content) { should match(/^#{user} hard nofile 64000/) }
   end
+
+  describe file(catalina_logfile) do
+    it { should be_file }
+    its(:content) { should contain('INFO: Server startup in') }
+  end    
 end
