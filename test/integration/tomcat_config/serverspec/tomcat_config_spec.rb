@@ -61,14 +61,6 @@ describe 'tomcat/config.sls' do
     group = 'tomcat8'
     java_home = '/usr/lib/jvm/default-runtime'
     limits_file = '/etc/security/limits.conf'
-<<<<<<< HEAD
-=======
-
-    describe command("pacman -S libxml2") do
-      its(:exit_status) { should eq 0 }
-    end
-  end
->>>>>>> Rebasing upstream to master.
 
     describe command("pacman -S libxml2") do
       its(:exit_status) { should eq 0 }
