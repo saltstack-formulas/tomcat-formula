@@ -47,6 +47,11 @@ Configures Tomcat name-based virtual hosts using data from Pillar.
 ``tomcat.expires``
 ------------------
 
+Configures Tomcat simple TCP cluster using data from Pillar.
+
+``tomcat.cluster``
+------------------
+
 Enables Tomcats' ExpiresFilter using data from Pillar.
 
 ``tomcat.context``
