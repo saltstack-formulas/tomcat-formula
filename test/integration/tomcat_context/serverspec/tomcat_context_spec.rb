@@ -2,12 +2,13 @@ require_relative '../../../kitchen/data/spec_helper'
 
 describe 'tomcat/context.sls' do
   case os[:family]
-  when 'debian'
+   when 'debian'
     ver = '8'
     pkgs_installed = %w(libtcnative-1)
     main_config = '/etc/default/tomcat8'
     server_config = '/etc/tomcat8/server.xml'
     context_config = '/etc/tomcat8/context.xml'
+    catalina_logfile = '/var/log/tomcat8/catalina.out'
     web_config = '/etc/tomcat8/web.xml'
     user_config = '/etc/tomcat8/tomcat-users.xml'
     username = 'saltuser1'
@@ -28,6 +29,7 @@ describe 'tomcat/context.sls' do
     main_config = '/etc/sysconfig/tomcat'
     server_config = '/etc/tomcat8/server.xml'
     context_config = '/etc/tomcat8/context.xml'
+    catalina_logfile = '/var/log/tomcat8/catalina.out'
     web_config = '/etc/tomcat8/web.xml'
     user_config = '/etc/tomcat8/tomcat-users.xml'
     username = 'saltuser1'
@@ -48,6 +50,7 @@ describe 'tomcat/context.sls' do
     main_config = '/usr/lib/systemd/system/tomcat8.service'
     server_config = '/etc/tomcat8/server.xml'
     context_config = '/etc/tomcat8/context.xml'
+    catalina_logfile = '/var/log/tomcat8/catalina.out'
     web_config = '/etc/tomcat8/web.xml'
     user_config = '/etc/tomcat8/tomcat-users.xml'
     username = 'saltuser1'
