@@ -50,7 +50,7 @@ describe 'tomcat/vhosts.sls' do
     main_config = '/usr/lib/systemd/system/tomcat8.service'
     server_config = '/etc/tomcat8/server.xml'
     context_config = '/etc/tomcat8/context.xml'
-    catalina_logfile = '/var/log/tomcat8/catalina.out'
+    catalina_logfile = '/var/log/tomcat/catalina.out'
     web_config = '/etc/tomcat8/web.xml'
     user_config = '/etc/tomcat8/tomcat-users.xml'
     username = 'saltuser1'

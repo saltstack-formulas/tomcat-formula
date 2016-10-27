@@ -6,16 +6,19 @@ describe 'tomcat/init.sls' do
     pkgs_installed = %w(tomcat8 haveged tomcat8-admin)
     pkgs_not_installed = []
     main_config = '/etc/default/tomcat8'
+    catalina_logfile = '/var/log/tomcat8/catalina.out'
     service = 'tomcat8'
   when 'redhat'
     pkgs_installed = %w(tomcat tomcat-admin-webapps)
     pkgs_not_installed = %w(haveged)
     main_config = '/etc/sysconfig/tomcat'
+    catalina_logfile = '/var/log/tomcat8/catalina.out'
     service = 'tomcat'
   when 'arch'
     pkgs_installed = %w(tomcat8 haveged)
     pkgs_not_installed = []
     main_config = '/usr/lib/systemd/system/tomcat8.service'
+    catalina_logfile = '/var/log/tomcat/catalina.out'
     service = 'tomcat8'
   end
 
