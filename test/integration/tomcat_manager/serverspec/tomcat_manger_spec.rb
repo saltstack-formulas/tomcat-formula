@@ -92,4 +92,9 @@ describe 'tomcat/manager.sls' do
     it { should be_file }
     its(:content) { should contain('INFO: Server startup in') }
   end  
+
+  describe file(catalina_logfile) do
+    it { should be_file }
+    its(:content) { should contain('INFO: Server startup in') }
+  end  
 end
