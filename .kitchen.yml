@@ -53,6 +53,8 @@ provisioner:
         logfile_compress: 1
         jvm_tmp: /tmp/tomcat
         authbind: no
+        cluster: 
+          simple: true
         sites:
             example.com: 
               name: example.com
@@ -131,5 +133,5 @@ suites:
       state_top:
         base:
           '*':
-            - tomcat.cluster            
+            - tomcat.cluster                
             

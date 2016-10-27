@@ -13,7 +13,7 @@ Debian:
   service: tomcat8
   user: tomcat8
   group: tomcat8
-  java_home: /usr/lib/jvm/java-7-openjdk
+  java_home: /usr/lib/jvm/java-7-openjdk-amd64
 Ubuntu:
   pkg: tomcat8
   ver: 8
