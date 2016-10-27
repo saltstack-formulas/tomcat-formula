@@ -38,4 +38,9 @@ describe 'tomcat/init.sls' do
     it { should be_file }
     its(:content) { should_not match('# This file is managed by salt.') }
   end
+
+  describe file(catalina_logfile) do
+    it { should be_file }
+    its(:content) { should contain('INFO: Server startup in') }
+  end  
 end
