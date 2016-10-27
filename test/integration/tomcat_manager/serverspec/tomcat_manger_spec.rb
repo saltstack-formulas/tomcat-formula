@@ -80,4 +80,9 @@ describe 'tomcat/manager.sls' do
       its(:content) { should match("username=\"#{username}\" password=\"#{password}\" roles=\"#{roles}\"") }
     end
   end  
+
+  describe file(catalina_logfile) do
+    it { should be_file }
+    its(:content) { should contain('INFO: Server startup in') }
+  end  
 end

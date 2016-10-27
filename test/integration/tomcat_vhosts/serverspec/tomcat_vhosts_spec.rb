@@ -77,4 +77,9 @@ describe 'tomcat/vhosts.sls' do
       its(:exit_status) { should eq 0 }
     end           
   end
+
+  describe file(catalina_logfile) do
+    it { should be_file }
+    its(:content) { should contain('INFO: Server startup in') }
+  end  
 end
