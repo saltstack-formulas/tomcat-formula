@@ -1,5 +1,8 @@
 {% from "tomcat/map.jinja" import tomcat with context %}
 
+include:
+  - tomcat.config
+
 300_server_xml:
   file.accumulated:
     - filename: {{ tomcat.conf_dir }}/server.xml
@@ -8,4 +11,3 @@
     {% endif %}
     - require_in:
       - file: server_xml
-
