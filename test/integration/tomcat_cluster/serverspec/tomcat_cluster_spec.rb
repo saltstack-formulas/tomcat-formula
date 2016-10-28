@@ -29,7 +29,8 @@ describe 'tomcat/cluster.sls' do
     main_config = '/etc/sysconfig/tomcat'
     server_config = '/etc/tomcat8/server.xml'
     context_config = '/etc/tomcat8/context.xml'
-    catalina_logfile = '/var/log/tomcat8/catalina.out'
+    cur_date = Time.now.strftime("%Y-%m-%d")
+    catalina_logfile = "/var/log/tomcat8/catalina.#{cur_date}.log"
     web_config = '/etc/tomcat8/web.xml'
     user_config = '/etc/tomcat8/tomcat-users.xml'
     username = 'saltuser1'
