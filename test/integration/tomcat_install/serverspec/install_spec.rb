@@ -13,7 +13,7 @@ describe 'tomcat/init.sls' do
     pkgs_not_installed = %w(haveged)
     main_config = '/etc/sysconfig/tomcat'
     cur_date = Time.now.strftime("%Y-%m-%d")
-    catalina_logfile = "/var/log/tomcat8/catalina.#{cur_date}.log"
+    catalina_logfile = "/var/log/tomcat/catalina.#{cur_date}.log"
     service = 'tomcat'
   when 'arch'
     pkgs_installed = %w(tomcat8 haveged)
