@@ -9,9 +9,9 @@ platforms:
   - name: centos7-64
     driver_config:
       box: rchrd/centos-7-x64-salt
-  - name: arch-64
-    driver_config:
-      box: terrywang/archlinux
+  # - name: arch-64
+  #   driver_config:
+  #     box: terrywang/archlinux
 
 provisioner:
   name: salt_solo
