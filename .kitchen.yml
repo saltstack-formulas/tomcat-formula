@@ -98,7 +98,6 @@ suites:
       state_top:
         base:
           '*':
-            - tomcat
             - tomcat.config
   - name: tomcat_native
     provisioner:
