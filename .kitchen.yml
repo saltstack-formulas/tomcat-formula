@@ -96,7 +96,6 @@ suites:
       state_top:
         base:
           '*':
-            - tomcat
             - tomcat.config
             - tomcat.manager
             - tomcat.vhosts
