@@ -12,6 +12,10 @@ platforms:
   - name: arch-64
     driver_config:
       box: terrywang/archlinux
+  - name: ubuntu-14.04
+  - name: ubuntu-16.04
+
+
 
 provisioner:
   name: salt_solo
@@ -70,7 +74,7 @@ provisioner:
               unpackWARs: "true"
               autoDeploy: "true"
               reloadable: "true"
-              debug: 0        
+              debug: 0
         context:
           Environment:
             env.first:

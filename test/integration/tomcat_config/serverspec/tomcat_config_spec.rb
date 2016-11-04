@@ -41,7 +41,7 @@ describe 'tomcat/config.sls' do
 
     describe command("yum install libxml2") do
       its(:exit_status) { should eq 0 }
-    end      
+    end
   when 'arch'
     ver = '8'
     pkgs_installed = %w(tomcat-native)
@@ -62,8 +62,50 @@ describe 'tomcat/config.sls' do
     describe command("pacman -S libxml2") do
       its(:exit_status) { should eq 0 }
     end
-  end
+  when 'ubuntu'
+  case os[:release]
+    when '14.04'
+      ver = '7'
+      pkgs_installed = %w(libtcnative-1)
+      main_config = '/etc/default/tomcat7'
+      server_config = '/etc/tomcat7/server.xml'
+      context_config = '/etc/tomcat7/context.xml'
+      web_config = '/etc/tomcat7/web.xml'
+      user_config = '/etc/tomcat7/tomcat-users.xml'
+      username = 'saltuser1'
+      password = 'RfgpE2iQwD'
+      roles = 'manager-gui,manager-script,manager-jmx,manager-status'
+      service = 'tomcat7'
+      user = 'tomcat7'
+      group = 'tomcat7'
+      java_home = '/usr/lib/jvm/java-7-openjdk'
+      limits_file = '/etc/security/limits.d/tomcat7.conf'
 
+      describe command("apt install libxml2-utils") do
+        its(:exit_status) { should eq 0 }
+      end
+    when '16.04'
+      ver = '8'
+      pkgs_installed = %w(libtcnative-1)
+      main_config = '/etc/default/tomcat8'
+      server_config = '/etc/tomcat8/server.xml'
+      context_config = '/etc/tomcat8/context.xml'
+      web_config = '/etc/tomcat8/web.xml'
+      user_config = '/etc/tomcat8/tomcat-users.xml'
+      username = 'saltuser1'
+      password = 'RfgpE2iQwD'
+      roles = 'manager-gui,manager-script,manager-jmx,manager-status'
+      service = 'tomcat8'
+      user = 'tomcat8'
+      group = 'tomcat8'
+      java_home = '/usr/lib/jvm/java-7-openjdk'
+      limits_file = '/etc/security/limits.d/tomcat8.conf'
+
+       describe command("apt install libxml2-utils") do
+        its(:exit_status) { should eq 0 }
+      end
+    end
+  end
   pkgs_installed.each do |p|
     describe package(p) do
       it { should be_installed }
