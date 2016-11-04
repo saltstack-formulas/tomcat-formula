@@ -82,6 +82,10 @@ describe 'tomcat/manager.sls' do
       its(:content) { should match(/rolename="manager-\w+"/) }
       its(:content) { should match("username=\"#{username}\" password=\"#{password}\" roles=\"#{roles}\"") }
     end
+
+    describe command("xmllint --noout #{user_config}") do
+      its(:exit_status) { should eq 0 }
+    end      
   end  
 
   describe file(catalina_logfile) do
