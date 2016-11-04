@@ -1,34 +1,6 @@
 # -*- coding: utf-8 -*-
 # vim: ft=yaml
-Debian:
-  pkg: tomcat8
-  ver: 8
-  native_pkg: libtcnative-1
-  manager_pkg: tomcat8-admin
-  with_haveged: true
-  haveged_enabled: true
-  conf_dir: /etc/tomcat8
-  main_config: /etc/default/tomcat8
-  main_config_template: salt://tomcat/files/tomcat-default-Debian.template
-  service: tomcat8
-  user: tomcat8
-  group: tomcat8
-  java_home: /usr/lib/jvm/java-7-openjdk
-Ubuntu:
-  pkg: tomcat8
-  ver: 8
-  native_pkg: libtcnative-1
-  manager_pkg: tomcat8-admin
-  with_haveged: true
-  haveged_enabled: true
-  conf_dir: /etc/tomcat8
-  main_config: /etc/default/tomcat8
-  main_config_template: salt://tomcat/files/tomcat-default-Debian.template
-  service: tomcat8
-  service: tomcat8
-  user: tomcat8
-  group: tomcat8
-  java_home: /usr/lib/jvm/java-7-openjdk
+Debian: {}
 RedHat:
   native_pkg: tomcat-native
   manager_pkg: tomcat-admin-webapps

@@ -1,28 +1,25 @@
 # -*- coding: utf-8 -*-
 # vim: ft=jinja
 
-{## Start with  defaults from defaults.sls ##}
-{% import_yaml 'tomcat/defaults.yaml' as default_settings %}
+{% import_yaml "tomcat/defaults.yaml" as defaults %}
+{% import_yaml "tomcat/osmap.yaml" as osmap %}
+{% import_yaml "tomcat/codenamemap.yaml" as codemap %}
 
-{##
-Setup variable using grains['os_family'] based logic, only add key:values here
-that differ from whats in defaults.yaml
-##}
-{% import_yaml 'tomcat/osmap.yaml' as os_family_map %}
+{# get the settings for the os_family grain #}
+{% set osfam = salt['grains.filter_by'](osmap) or {} %}
+{# get the settings for the oscodename grain, os_family data will override
+    oscodename data #}
+{% set oscode = salt['grains.filter_by'](codemap,
+                                         grain='oscodename',
+                                         merge=osfam) or {} %}
 
-{% set os_family_map = salt['grains.filter_by'](
-  os_family_map,
-  grain='os_family',
-  merge=salt['pillar.get']('tomcat:lookup'))
-%}
+{# merge the os family/codename specific data over the defaults #}
+{% do defaults.tomcat.update(oscode) %}
 
-{## Merge the flavor_map to the default settings ##}
-{% do default_settings.tomcat.update(os_family_map) %}
+{# merge the pillar:lookup dict into the defaults/os specific dict #}
+{% set lookup = salt['pillar.get']('tomcat:lookup',
+                                   default=defaults.tomcat,
+                                   merge=True) %}
 
-{## Merge in tomcat:lookup pillar ##}
-{% set tomcat = salt['pillar.get'](
-    'tomcat',
-    default=default_settings.tomcat,
-    merge=True
-  )
-%}
+{# merge the actual tomcat pillar into the above combined dict #}
+{% set tomcat = salt['pillar.get']('tomcat', default=lookup, merge=True) %}
