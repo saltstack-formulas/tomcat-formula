@@ -17,8 +17,20 @@ describe 'tomcat/init.sls' do
     pkgs_not_installed = []
     main_config = '/usr/lib/systemd/system/tomcat8.service'
     service = 'tomcat8'
+  when 'ubuntu'
+  case os[:release]
+    when '14.04'
+      pkgs_installed = %w(tomcat7 haveged tomcat7-admin)
+      pkgs_not_installed = []
+      main_config = '/etc/default/tomcat7'
+      service = 'tomcat7'
+    when '16.04'
+      pkgs_installed = %w(tomcat8 haveged tomcat8-admin)
+      pkgs_not_installed = []
+      main_config = '/etc/default/tomcat8'
+      service = 'tomcat8'
+    end
   end
-
   pkgs_installed.each do |p|
     describe package(p) do
       it { should be_installed }

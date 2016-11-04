@@ -1,5 +1,5 @@
 tomcat:
-    version: 7
+    ver: 7
     security: 'no'
     java_home: '/usr/lib/jvm/java-7-oracle'
     # Any parameter you may pass to the java app, you can pass it here,
