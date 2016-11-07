@@ -1,5 +1,8 @@
 {% from "tomcat/map.jinja" import tomcat with context %}
 
+include:
+  - tomcat
+
 web_xml:
   file.managed:
     - name: {{ tomcat.conf_dir }}/web.xml
@@ -10,4 +13,3 @@ web_xml:
     - template: jinja
     - defaults:
         expires_when: {{ salt['pillar.get']('tomcat:expires_when') }}
-

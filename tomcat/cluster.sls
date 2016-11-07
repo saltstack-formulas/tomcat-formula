@@ -3,13 +3,11 @@
 include:
   - tomcat.config
 
-{{ tomcat.native_pkg }}:
-  pkg.installed
-
-200_server_xml:
+600_server_xml:
   file.accumulated:
     - filename: {{ tomcat.conf_dir }}/server.xml
-    - text: enabled
+    {% if tomcat.cluster is defined %}
+    - text: {{ tomcat.cluster }}
+    {% endif %}
     - require_in:
       - file: server_xml
-

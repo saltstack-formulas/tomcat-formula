@@ -100,10 +100,38 @@ suites:
       state_top:
         base:
           '*':
-            - tomcat
             - tomcat.config
-            - tomcat.native
             - tomcat.manager
             - tomcat.vhosts
             - tomcat.expires
+            - tomcat.context  
+  - name: tomcat_native
+    provisioner:
+      state_top:
+        base:
+          '*':
+            - tomcat.native
+  - name: tomcat_manager
+    provisioner:
+      state_top:
+        base:
+          '*':
+            - tomcat.manager
+  - name: tomcat_expires
+    provisioner:
+      state_top:
+        base:
+          '*':
+            - tomcat.expires
+  - name: tomcat_context
+    provisioner:
+      state_top:
+        base:
+          '*':
             - tomcat.context
+  - name: tomcat_native
+    provisioner:
+      state_top:
+        base:
+          '*':
+            - tomcat.native

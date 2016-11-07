@@ -1,6 +1,7 @@
 {% set connectors = accumulator['100_server_xml'][0] if '100_server_xml' in accumulator else {} -%}
 {% set sites = accumulator['300_server_xml'][0] if '300_server_xml' in accumulator else {} -%}
 {% set resources = accumulator['500_server_xml'][0] if '500_server_xml' in accumulator else {} -%}
+{% set cluster = accumulator['600_server_xml'][0] if '600_server_xml' in accumulator else {} -%}
 <?xml version='1.0' encoding='utf-8'?>
 <!--
 
@@ -103,8 +104,31 @@
                redirectPort="8443"
     />
     {% endif %}
-    <Engine name="Catalina" defaultHost="localhost">
+    <Engine name="Catalina" defaultHost="localhost"{% if cluster %} jvmRoute="{{ grains['nodename'] }}"{% endif %}>
+    {% if cluster %}
+      <Cluster className="org.apache.catalina.ha.tcp.SimpleTcpCluster" channelSendOptions="8">
+          <Manager className="org.apache.catalina.ha.session.DeltaManager" expireSessionsOnShutdown="false" notifyListenersOnReplication="true"/>
+              <Channel className="org.apache.catalina.tribes.group.GroupChannel">
+                  <Membership className="org.apache.catalina.tribes.membership.McastService" address="228.0.0.4" port="45564" frequency="500" dropTime="3000"/>
+                      <Sender className="org.apache.catalina.tribes.transport.ReplicationTransmitter">
+                          <Transport className="org.apache.catalina.tribes.transport.nio.PooledParallelSender"/>
+                      </Sender>
 
+                      <Receiver className="org.apache.catalina.tribes.transport.nio.NioReceiver" address="auto" port="4000" autoBind="100" selectorTimeout="5000" maxThreads="6"/>
+
+                      <Interceptor className="org.apache.catalina.tribes.group.interceptors.TcpFailureDetector"/>
+                      <Interceptor className="org.apache.catalina.tribes.group.interceptors.MessageDispatch15Interceptor"/>
+
+              </Channel>
+              <Valve className="org.apache.catalina.ha.tcp.ReplicationValve" filter=""/>
+              <Valve className="org.apache.catalina.ha.session.JvmRouteBinderValve"/>
+              {# JvmRouteSessionIDBinderListener deprecated in tomcat >= 8 #}
+              {% if '400_server_xml' in accumulator %}
+              <ClusterListener className="org.apache.catalina.ha.session.JvmRouteSessionIDBinderListener"/>
+              {% endif %}
+              <ClusterListener className="org.apache.catalina.ha.session.ClusterSessionListener"/>
+      </Cluster>
+    {% endif %}
       <!-- Use the LockOutRealm to prevent attempts to guess user passwords
            via a brute-force attack -->
       <Realm className="org.apache.catalina.realm.LockOutRealm">
