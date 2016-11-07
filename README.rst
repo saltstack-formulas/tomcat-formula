@@ -47,6 +47,11 @@ Configures Tomcat name-based virtual hosts using data from Pillar.
 ``tomcat.expires``
 ------------------
 
+Configures Tomcat simple TCP cluster using data from Pillar.
+
+``tomcat.cluster``
+------------------
+
 Enables Tomcats' ExpiresFilter using data from Pillar.
 
 ``tomcat.context``
@@ -55,4 +60,3 @@ Enables Tomcats' ExpiresFilter using data from Pillar.
 Configures context element in the ``$CATALINA_BASE/conf/context.xml`` file:
 the information in this file will be loaded by all web applications.
 (Check the ``context`` examples in the ``pillar.example`` file for more information.
-
