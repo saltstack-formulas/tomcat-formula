@@ -11,7 +11,7 @@ trusty:
   service: tomcat7
   user: tomcat7
   group: tomcat7
-  java_home: /usr/lib/jvm/java-8-oracle
+  java_home: /usr/lib/jvm/default-java
 xenial:
   ver: 8
   pkg: tomcat8
@@ -25,7 +25,7 @@ xenial:
   service: tomcat8
   user: tomcat8
   group: tomcat8
-  java_home: /usr/lib/jvm/java-8-oracle
+  java_home: /usr/lib/jvm/default-java
 wheezy:
   pkg: tomcat7
   native_pkg: libtcnative-1
@@ -38,7 +38,7 @@ wheezy:
   service: tomcat7
   user: tomcat7
   group: tomcat7
-  java_home: /usr/lib/jvm/java-7-openjdk
+  java_home: /usr/lib/jvm/default-java
 jessie:
   pkg: tomcat8
   native_pkg: libtcnative-1
@@ -51,4 +51,4 @@ jessie:
   service: tomcat8
   user: tomcat8
   group: tomcat8
-  java_home: /usr/lib/jvm/java-8-openjdk
+  java_home: /usr/lib/jvm/default-java
