@@ -1,9 +1,27 @@
 ---
+driver:
+  name: vagrant
+
+platforms:
+  - name: debian-jessie-64
+    driver_config:
+      box: ssplatt/salt-deb-8
+  - name: centos7-64
+    driver_config:
+      box: rchrd/centos-7-x64-salt
+  - name: arch-64
+    driver_config:
+      box: terrywang/archlinux
+  - name: ubuntu-14.04
+  - name: ubuntu-16.04
+
+
+
 provisioner:
   name: salt_solo
-  salt_install: bootstrap
-  formula: tomcat
-  state_top:
+  salt_version: 2016.3.2
+  data_path: test/shared
+  is_file_root: true
   pillars:
     top.sls:
       base:

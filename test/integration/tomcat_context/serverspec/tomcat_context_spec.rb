@@ -1,13 +1,4 @@
-require "serverspec"
-require "pathname"
-
-# Set backend type
-set :backend, :exec
-
-RSpec.configure do |c|
-  c.path = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-end
-#require_relative '../../../kitchen/data/spec_helper'
+require_relative '../../../kitchen/data/spec_helper'
 
 describe 'tomcat/context.sls' do
   case os[:family]
