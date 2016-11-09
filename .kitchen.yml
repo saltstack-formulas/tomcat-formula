@@ -23,8 +23,6 @@ provisioner:
   salt_version: latest
   log_level: <%= ENV['SALT_DEBUG_LEVEL'] || 'info' %>
   formula: tomcat
-  data_path: test/shared
-  is_file_root: true
   pillars:
     top.sls:
       base:
