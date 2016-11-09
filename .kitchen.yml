@@ -3,10 +3,10 @@ driver:
   name: docker
   hostname: salt-formula.ci.local
   use_sudo: true
-  require_chef_omnibus: false
-  
-verifier:
-  name: inspec
+  require_chef_omnibus: false  
+
+# verifier:
+  # name: inspec
 
 platforms:
   - name: ubuntu-14.04
