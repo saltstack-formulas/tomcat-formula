@@ -24,11 +24,6 @@ provisioner:
   salt_pillar_root: pillar.example
   log_level: <%= ENV['SALT_DEBUG_LEVEL'] || 'info' %>
   formula: tomcat
-  pillars:
-    top.sls:
-      base:
-        '*':
-          - tomcat
 
 suites:
   - name: tomcat_install
