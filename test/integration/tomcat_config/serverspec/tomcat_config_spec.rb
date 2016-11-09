@@ -66,13 +66,14 @@ describe 'tomcat/config.sls' do
       its(:exit_status) { should eq 0 }
     end
   when 'ubuntu'
-  case os[:release]
+    case os[:release]
     when '14.04'
       ver = '7'
       pkgs_installed = %w(libtcnative-1)
       main_config = '/etc/default/tomcat7'
       server_config = '/etc/tomcat7/server.xml'
       context_config = '/etc/tomcat7/context.xml'
+      catalina_logfile = '/var/log/tomcat7/catalina.out'
       web_config = '/etc/tomcat7/web.xml'
       user_config = '/etc/tomcat7/tomcat-users.xml'
       username = 'saltuser1'
@@ -93,6 +94,7 @@ describe 'tomcat/config.sls' do
       main_config = '/etc/default/tomcat8'
       server_config = '/etc/tomcat8/server.xml'
       context_config = '/etc/tomcat8/context.xml'
+      catalina_logfile = '/var/log/tomcat8/catalina.out'
       web_config = '/etc/tomcat8/web.xml'
       user_config = '/etc/tomcat8/tomcat-users.xml'
       username = 'saltuser1'

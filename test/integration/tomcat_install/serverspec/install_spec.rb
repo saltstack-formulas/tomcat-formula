@@ -27,11 +27,13 @@ describe 'tomcat/init.sls' do
       pkgs_installed = %w(tomcat7 haveged tomcat7-admin)
       pkgs_not_installed = []
       main_config = '/etc/default/tomcat7'
+      catalina_logfile = '/var/log/tomcat7/catalina.out'
       service = 'tomcat7'
     when '16.04'
       pkgs_installed = %w(tomcat8 haveged tomcat8-admin)
       pkgs_not_installed = []
       main_config = '/etc/default/tomcat8'
+      catalina_logfile = '/var/log/tomcat8/catalina.out'
       service = 'tomcat8'
     end
   end
