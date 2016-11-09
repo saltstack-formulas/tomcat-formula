@@ -4,7 +4,8 @@ rvm:
   - 2.2.5
 
 sudo: required
-services: docker
+services: 
+  - docker
 
 env:
   matrix:
@@ -23,6 +24,4 @@ install:
   - export BUNDLE_GEMFILE=$PWD/Gemfile
   - bundle install
 
-script:
-  # Run unit tests
-  - KITCHEN_LOCAL_YAML=.kitchen.docker.yml bundle exec kitchen verify ${INSTANCE}
+script: bundle exec kitchen verify ${INSTANCE}
