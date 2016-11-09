@@ -76,8 +76,8 @@ limits_conf:
     - name: /etc/security/limits.d/tomcat{{ tomcat.ver }}.conf
     - contents:
   {% endif %}
-      - {{ tomcat.user }} soft nofile {{ tomcat.limit_soft }}
-      - {{ tomcat.user }} hard nofile {{ tomcat.limit_hard }}
+      - {{ tomcat.user }} soft nofile {{ tomcat.limit.soft }}
+      - {{ tomcat.user }} hard nofile {{ tomcat.limit.hard }}
     - require:
       - pkg: tomcat
     - require_in:

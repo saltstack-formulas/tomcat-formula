@@ -27,10 +27,66 @@ provisioner:
       base:
         '*':
           - tomcat
+
     tomcat.sls:
       tomcat:
-        security: 'no'
+        security: no
+        java_home: /usr/lib/jvm/default-java
+        java_opts:
+          - 'Djava.awt.headless=true'
+          - 'Xmx128m'
+          - 'XX:MaxPermSize=256m'
+          - 'XX:+UseConcMarkSweepGC'
+          - 'XX:+CMSIncrementalMode'
+          - 'Dlog4j.configuration=file:/path/to/log4j.properties'
+          - 'Dlogback.configurationFile=/path/to/logback.xml'
+        jsp_compiler: javac
+        logfile_days: 14
+        logfile_compress: 1
+        jvm_tmp: /tmp/tomcat
+        authbind: no
         expires_when: '2 weeks'
+        with_haveged: true
+        haveged_enabled: true
+        catalina_base: /usr/share/tomcat
+        catalina_home: /usr/share/tomcat
+        catalina_tmpdir: /var/cache/tomcat/temp
+        catalina_pid: /var/run/tomcat.pid
+
+        limit:
+          soft: 48000
+          hard: 64000
+        connector:
+          example_connector:
+            port: 8443
+            protocol: 'org.apache.coyote.http11.Http11Protocol'
+            connectionTimeout: 20000
+            URIEncoding: 'UTF-8'
+            redirectPort: 8443
+            maxHttpHeaderSize: 8192
+            maxThreads: 150
+            minSpareThreads: 25
+            enableLookups: 'false'
+            disableUploadTimeout: 'true'
+            acceptCount: 100
+            scheme: https
+            secure: 'true'
+            SSLEnabled: 'true'
+            clientAuth: 'false'
+            sslProtocol: TLS
+            keystoreFile: '/path/to/keystoreFile'
+            keystorePass: 'somerandomtext'
+        sites:
+            example.com:
+              name: some_string
+              appBase: ../webapps/myapp
+              path: ''
+              docBase: '../webapps/ROOT'
+              alias: some_string
+              unpackWARs: "true"
+              autoDeploy: "true"
+              reloadable: "true"
+              debug: 0
         manager:
           roles:
             - manager-gui
@@ -44,37 +100,8 @@ provisioner:
             saltuser2:
               passwd: RfgpE2iQwD
               roles: manager-gui,manager-script,manager-jmx,manager-status
-        limit_soft: 48000
-        java_opts:
-          - 'Djava.awt.headless=true'
-          - 'Xmx128m'
-          - 'XX:MaxPermSize=256m'
-          - 'XX:+UseConcMarkSweepGC'
-          - 'XX:+CMSIncrementalMode'
-          - 'Dlog4j.configuration=file:/path/to/log4j.properties'
-          - 'Dlogback.configurationFile=/path/to/logback.xml'
-        logfile_days: 14
-        logfile_compress: 1
-        jvm_tmp: /tmp/tomcat
-        authbind: no
-        sites:
-            example.com: 
-              name: example.com
-              appBase: ../webapps/myapp
-              path: ''
-              docBase: '/var/lib/tomcat7/webapps/myapp'
-              unpackWARs: "true"
-              autoDeploy: "true"
-              reloadable: "true"
-              debug: 0
-            example.net:
-              appBase: ../webapps/myapp2
-              path: ''
-              docBase: '/var/lib/tomcat7/webapps/myapp2'
-              unpackWARs: "true"
-              autoDeploy: "true"
-              reloadable: "true"
-              debug: 0
+        cluster:
+          simple: true
         context:
           Environment:
             env.first:
@@ -86,7 +113,23 @@ provisioner:
             second:
               className: org.apache.catalina.core.AprLifecycleListener
               SSLEngine: "on"
-
+          Resource:
+            jdbc:
+              name: jdbc/__postgres
+              auth: Container
+              type: javax.sql.DataSource
+              driverClassName: org.postgresql.Driver
+              url: jdbc:postgresql://db.server/dbname
+              user: dbuser
+              password: aycaramba!
+              maxActive: 20
+              maxIdle: 10
+              maxWait: -1
+          ResourceLink:
+            any_name_here_will_be_ignored:
+              name: linkToGlobalResource
+              global: simpleValue
+              type: java.lang.Integer
 suites:
   - name: tomcat_install
     provisioner:
@@ -95,6 +138,7 @@ suites:
           '*':
             - tomcat
             - tomcat.manager
+
   - name: tomcat_config
     provisioner:
       state_top:
@@ -104,7 +148,8 @@ suites:
             - tomcat.manager
             - tomcat.vhosts
             - tomcat.expires
-            - tomcat.context  
+            - tomcat.context
+            - tomcat.cluster
   - name: tomcat_native
     provisioner:
       state_top:
@@ -129,9 +174,9 @@ suites:
         base:
           '*':
             - tomcat.context
-  - name: tomcat_native
+  - name: tomcat_cluster
     provisioner:
       state_top:
         base:
           '*':
-            - tomcat.native
+            - tomcat.cluster
