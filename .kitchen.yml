@@ -1,9 +1,3 @@
-<%
-require 'yaml'
-
-formula = YAML.load_file('FORMULA')
-formula_name = formula['name']
-%>
 ---
 verifier:
   name: inspec
@@ -22,7 +16,7 @@ provisioner:
   salt_bootstrap_url: https://bootstrap.saltstack.com
   salt_version: latest
   log_level: <%= ENV['SALT_DEBUG_LEVEL'] || 'info' %>
-  formula: <%= formula_name %>
+  formula: tomcat
   data_path: test/shared
   is_file_root: true
   pillars:
