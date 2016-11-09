@@ -1,7 +1,10 @@
 tomcat:
-    ver: 7
+    # The Tomcat version can be overridden like so.
+    # ver: 7
     security: 'no'
-    java_home: '/usr/lib/jvm/java-7-oracle'
+    # The Java home directory can be overridden like so.
+    # java_home: '/usr/lib/jvm/default-java'
+    
     # Any parameter you may pass to the java app, you can pass it here,
     # without the preceding dash. The template builds the correct JAVA_OPTS
     # line, adding the dash.
@@ -165,4 +168,3 @@ tomcat:
           name: linkToGlobalResource
           global: simpleValue
           type: java.lang.Integer
-
