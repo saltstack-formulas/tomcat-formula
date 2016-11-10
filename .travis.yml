@@ -1,0 +1,63 @@
+language: ruby
+
+rvm:
+  - 2.2.5
+
+sudo: required
+services: 
+  - docker
+
+env:
+  matrix:
+  - INSTANCE: install-ubuntu-1404
+  - INSTANCE: install-ubuntu-1604
+  - INSTANCE: install-debian-7   
+  - INSTANCE: install-debian-8   
+  - INSTANCE: install-centos-6   
+  - INSTANCE: install-centos-7   
+  - INSTANCE: config-ubuntu-1404 
+  - INSTANCE: config-ubuntu-1604 
+  - INSTANCE: config-debian-7    
+  - INSTANCE: config-debian-8    
+  - INSTANCE: config-centos-6    
+  - INSTANCE: config-centos-7    
+  - INSTANCE: native-ubuntu-1404 
+  - INSTANCE: native-ubuntu-1604 
+  - INSTANCE: native-debian-7    
+  - INSTANCE: native-debian-8    
+  - INSTANCE: native-centos-6    
+  - INSTANCE: native-centos-7    
+  - INSTANCE: manager-ubuntu-1404
+  - INSTANCE: manager-ubuntu-1604
+  - INSTANCE: manager-debian-7   
+  - INSTANCE: manager-debian-8   
+  - INSTANCE: manager-centos-6   
+  - INSTANCE: manager-centos-7   
+  - INSTANCE: expires-ubuntu-1404
+  - INSTANCE: expires-ubuntu-1604
+  - INSTANCE: expires-debian-7   
+  - INSTANCE: expires-debian-8   
+  - INSTANCE: expires-centos-6   
+  - INSTANCE: expires-centos-7   
+  - INSTANCE: context-ubuntu-1404
+  - INSTANCE: context-ubuntu-1604
+  - INSTANCE: context-debian-7   
+  - INSTANCE: context-debian-8   
+  - INSTANCE: context-centos-6   
+  - INSTANCE: context-centos-7   
+  - INSTANCE: cluster-ubuntu-1404
+  - INSTANCE: cluster-ubuntu-1604
+  - INSTANCE: cluster-debian-7   
+  - INSTANCE: cluster-debian-8   
+  - INSTANCE: cluster-centos-6   
+  - INSTANCE: cluster-centos-7
+
+# https://github.com/zuazo/kitchen-in-travis-native/issues/1#issuecomment-142455888
+before_script: sudo iptables -L DOCKER || sudo iptables -N DOCKER
+
+install:
+  # setup ci for test formula
+  - export BUNDLE_GEMFILE=$PWD/Gemfile
+  - bundle install
+
+script: bundle exec kitchen verify ${INSTANCE}
