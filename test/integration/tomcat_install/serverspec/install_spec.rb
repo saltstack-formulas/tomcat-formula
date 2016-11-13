@@ -3,11 +3,21 @@ require_relative '../../../kitchen/data/spec_helper'
 describe 'tomcat/init.sls' do
   case os[:family]
   when 'debian'
-    pkgs_installed = %w(tomcat8 haveged tomcat8-admin)
-    pkgs_not_installed = []
-    main_config = '/etc/default/tomcat8'
-    catalina_logfile = '/var/log/tomcat8/catalina.out'
-    service = 'tomcat8'
+  case os[:release]
+    when '7'
+      pkgs_installed = %w(tomcat7 haveged tomcat7-admin)
+      pkgs_not_installed = []
+      main_config = '/etc/default/tomcat7'
+      catalina_logfile = '/var/log/tomcat7/catalina.out'
+      service = 'tomcat7'
+    when '8'
+      pkgs_installed = %w(tomcat8 haveged tomcat8-admin)
+      pkgs_not_installed = []
+      main_config = '/etc/default/tomcat8'
+      catalina_logfile = '/var/log/tomcat8/catalina.out'
+      service = 'tomcat8'
+    end
+  end    
   when 'redhat'
     pkgs_installed = %w(tomcat tomcat-admin-webapps)
     pkgs_not_installed = %w(haveged)
