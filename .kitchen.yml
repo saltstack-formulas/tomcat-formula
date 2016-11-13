@@ -2,11 +2,15 @@
 driver:
   name: docker
   hostname: salt-formula.ci.local
-  use_sudo: true
-  require_chef_omnibus: false  
+  use_sudo: false
+  require_chef_omnibus: false
+
+driver_config:
+  cap_add:
+  - SYS_PTRACE
 
 # verifier:
-  # name: inspec
+#   name: inspec
 
 platforms:
   - name: ubuntu-14.04
@@ -21,6 +25,7 @@ provisioner:
   salt_install: bootstrap
   salt_bootstrap_url: https://bootstrap.saltstack.com
   salt_version: latest
+  data_path: test/shared
   salt_pillar_root: pillar.example
   log_level: <%= ENV['SALT_DEBUG_LEVEL'] || 'info' %>
   formula: tomcat
