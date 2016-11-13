@@ -17,7 +17,6 @@ describe 'tomcat/init.sls' do
       catalina_logfile = '/var/log/tomcat8/catalina.out'
       service = 'tomcat8'
     end
-  end    
   when 'redhat'
     pkgs_installed = %w(tomcat tomcat-admin-webapps)
     pkgs_not_installed = %w(haveged)
