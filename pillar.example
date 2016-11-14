@@ -37,7 +37,7 @@ tomcat:
     catalina_pid: /var/run/tomcat.pid
 
     limit:
-      soft: 64000
+      soft: 48000
       hard: 64000
     connector:
       example_connector:

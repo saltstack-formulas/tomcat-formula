@@ -18,7 +18,7 @@ tomcat:
     - 'XX:MaxPermSize=256m'
     - 'XX:+UseConcMarkSweepGC'
   limit:
-    soft: 64000
+    soft: 48000
     hard: 64000
   connectors: {}
   sites: {}
