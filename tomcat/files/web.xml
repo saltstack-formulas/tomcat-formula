@@ -1,4 +1,6 @@
+{% if accumulator is defined %}
 {% set expires = accumulator['100_web_xml'][0] if '100_web_xml' in accumulator else {} -%}
+{% endif %}
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!--
 
@@ -134,7 +136,7 @@
         <url-pattern>/cgi-bin/*</url-pattern>
     </servlet-mapping>
 -->
-{% if expires.enabled %}
+{% if expires is defined %}
 <filter>
  <filter-name>ExpiresFilter</filter-name>
  <filter-class>org.apache.catalina.filters.ExpiresFilter</filter-class>
