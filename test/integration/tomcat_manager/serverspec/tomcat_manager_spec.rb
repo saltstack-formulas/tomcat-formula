@@ -6,6 +6,7 @@ describe 'tomcat/manager.sls' do
     case os[:release]
     when '7.11'
       ver = '7'
+      pkgs_installed = %w(tomcat7-admin)
       main_config = '/etc/default/tomcat7'
       server_config = '/etc/tomcat7/server.xml'
       context_config = '/etc/tomcat7/context.xml'
@@ -26,6 +27,7 @@ describe 'tomcat/manager.sls' do
       end      
     when '8.6'
       ver = '8'
+      pkgs_installed = %w(tomcat8-admin)
       main_config = '/etc/default/tomcat8'
       server_config = '/etc/tomcat8/server.xml'
       context_config = '/etc/tomcat8/context.xml'
@@ -47,7 +49,7 @@ describe 'tomcat/manager.sls' do
     end
   when 'redhat'
     ver = '8'
-    pkgs_installed = %w(tomcat-native)
+    pkgs_installed = %w(tomcat-admin-webapps)
     main_config = '/etc/sysconfig/tomcat'
     server_config = '/etc/tomcat8/server.xml'
     context_config = '/etc/tomcat8/context.xml'
@@ -68,7 +70,7 @@ describe 'tomcat/manager.sls' do
     end
   when 'arch'
     ver = '8'
-    pkgs_installed = %w(tomcat-native)
+    pkgs_installed = %w(tomcat8)
     main_config = '/usr/lib/systemd/system/tomcat8.service'
     server_config = '/etc/tomcat8/server.xml'
     context_config = '/etc/tomcat8/context.xml'
@@ -91,7 +93,7 @@ describe 'tomcat/manager.sls' do
     case os[:release]
     when '14.04'
       ver = '7'
-      pkgs_installed = %w(libtcnative-1)
+      pkgs_installed = %w(tomcat7-admin)
       main_config = '/etc/default/tomcat7'
       server_config = '/etc/tomcat7/server.xml'
       context_config = '/etc/tomcat7/context.xml'
@@ -112,7 +114,7 @@ describe 'tomcat/manager.sls' do
       end
     when '16.04'
       ver = '8'
-      pkgs_installed = %w(libtcnative-1)
+      pkgs_installed = %w(tomcat8-admin)
       main_config = '/etc/default/tomcat8'
       server_config = '/etc/tomcat8/server.xml'
       context_config = '/etc/tomcat8/context.xml'
@@ -133,6 +135,12 @@ describe 'tomcat/manager.sls' do
       end
     end
   end
+
+  pkgs_installed.each do |p|
+    describe package(p) do
+      it { should be_installed }
+    end
+  end  
 
   describe service(service) do
     it { should be_running }

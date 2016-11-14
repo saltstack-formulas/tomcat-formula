@@ -6,6 +6,7 @@ describe 'tomcat/native.sls' do
     case os[:release]
     when '7.11'
       ver = '7'
+      pkgs_installed = %w(ibtcnative-1)
       main_config = '/etc/default/tomcat7'
       server_config = '/etc/tomcat7/server.xml'
       context_config = '/etc/tomcat7/context.xml'
@@ -23,9 +24,10 @@ describe 'tomcat/native.sls' do
 
       describe command("apt-get install libxml2-utils") do
         its(:exit_status) { should eq 0 }
-      end      
+      end
     when '8.6'
       ver = '8'
+      pkgs_installed = %w(ibtcnative-1)
       main_config = '/etc/default/tomcat8'
       server_config = '/etc/tomcat8/server.xml'
       context_config = '/etc/tomcat8/context.xml'
@@ -39,8 +41,8 @@ describe 'tomcat/native.sls' do
       user = 'tomcat8'
       group = 'tomcat8'
       java_home = '/usr/lib/jvm/java-7-openjdk'
-      limits_file = '/etc/security/limits.d/tomcat8.conf'      
-  
+      limits_file = '/etc/security/limits.d/tomcat8.conf'
+
       describe command("apt-get install libxml2-utils") do
         its(:exit_status) { should eq 0 }
       end
@@ -128,7 +130,7 @@ describe 'tomcat/native.sls' do
       java_home = '/usr/lib/jvm/java-7-openjdk'
       limits_file = '/etc/security/limits.d/tomcat8.conf'
 
-       describe command("apt install libxml2-utils") do
+      describe command("apt install libxml2-utils") do
         its(:exit_status) { should eq 0 }
       end
     end
