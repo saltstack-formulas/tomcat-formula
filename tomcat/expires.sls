@@ -1,7 +1,7 @@
 {% from "tomcat/map.jinja" import tomcat with context %}
 
 include:
-  - tomcat
+  - tomcat.config
 
 100_web_xml:
   file.accumulated:
