@@ -4,13 +4,13 @@ describe 'tomcat/init.sls' do
   case os[:family]
   when 'debian'
   case os[:release]
-    when '7'
+    when '7.11'
       pkgs_installed = %w(tomcat7 haveged tomcat7-admin)
       pkgs_not_installed = []
       main_config = '/etc/default/tomcat7'
       catalina_logfile = '/var/log/tomcat7/catalina.out'
       service = 'tomcat7'
-    when '8'
+    when '8.6'
       pkgs_installed = %w(tomcat8 haveged tomcat8-admin)
       pkgs_not_installed = []
       main_config = '/etc/default/tomcat8'
