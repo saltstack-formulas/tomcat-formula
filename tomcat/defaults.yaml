@@ -23,3 +23,5 @@ tomcat:
   connectors: {}
   sites: {}
   resources: {}
+  expires:
+    enabled: false
