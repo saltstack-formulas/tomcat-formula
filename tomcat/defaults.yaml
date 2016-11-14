@@ -25,3 +25,5 @@ tomcat:
   resources: {}
   expires:
     enabled: false
+  cluster:
+    simple: false
