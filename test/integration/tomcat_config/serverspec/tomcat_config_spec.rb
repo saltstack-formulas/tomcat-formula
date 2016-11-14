@@ -3,29 +3,49 @@ require_relative '../../../kitchen/data/spec_helper'
 describe 'tomcat/config.sls' do
   case os[:family]
   when 'debian'
-    ver = '8'
-    pkgs_installed = %w(libtcnative-1)
-    main_config = '/etc/default/tomcat8'
-    server_config = '/etc/tomcat8/server.xml'
-    context_config = '/etc/tomcat8/context.xml'
-    catalina_logfile = '/var/log/tomcat8/catalina.out'
-    web_config = '/etc/tomcat8/web.xml'
-    user_config = '/etc/tomcat8/tomcat-users.xml'
-    username = 'saltuser1'
-    password = 'RfgpE2iQwD'
-    roles = 'manager-gui,manager-script,manager-jmx,manager-status'
-    service = 'tomcat8'
-    user = 'tomcat8'
-    group = 'tomcat8'
-    java_home = '/usr/lib/jvm/java-7-openjdk'
-    limits_file = '/etc/security/limits.d/tomcat8.conf'
-
-    describe command("apt install libxml2-utils") do
-      its(:exit_status) { should eq 0 }
+    case os[:release]
+    when '7.11'
+      ver = '7'
+      main_config = '/etc/default/tomcat7'
+      server_config = '/etc/tomcat7/server.xml'
+      context_config = '/etc/tomcat7/context.xml'
+      catalina_logfile = '/var/log/tomcat7/catalina.out'
+      web_config = '/etc/tomcat7/web.xml'
+      user_config = '/etc/tomcat7/tomcat-users.xml'
+      username = 'saltuser1'
+      password = 'RfgpE2iQwD'
+      roles = 'manager-gui,manager-script,manager-jmx,manager-status'
+      service = 'tomcat7'
+      user = 'tomcat7'
+      group = 'tomcat7'
+      java_home = '/usr/lib/jvm/java-7-openjdk'
+      limits_file = '/etc/security/limits.d/tomcat7.conf'
+      describe command("apt install libxml2-utils") do
+        its(:exit_status) { should eq 0 }
+      end      
+    when '8.6'
+      ver = '8'
+      main_config = '/etc/default/tomcat8'
+      server_config = '/etc/tomcat8/server.xml'
+      context_config = '/etc/tomcat8/context.xml'
+      catalina_logfile = '/var/log/tomcat8/catalina.out'
+      web_config = '/etc/tomcat8/web.xml'
+      user_config = '/etc/tomcat8/tomcat-users.xml'
+      username = 'saltuser1'
+      password = 'RfgpE2iQwD'
+      roles = 'manager-gui,manager-script,manager-jmx,manager-status'
+      service = 'tomcat8'
+      user = 'tomcat8'
+      group = 'tomcat8'
+      java_home = '/usr/lib/jvm/java-7-openjdk'
+      limits_file = '/etc/security/limits.d/tomcat8.conf'      
+  
+      describe command("apt install libxml2-utils") do
+        its(:exit_status) { should eq 0 }
+      end
     end
   when 'redhat'
     ver = '8'
-    pkgs_installed = %w(tomcat-native)
     main_config = '/etc/sysconfig/tomcat'
     server_config = '/etc/tomcat8/server.xml'
     context_config = '/etc/tomcat8/context.xml'
@@ -46,7 +66,6 @@ describe 'tomcat/config.sls' do
     end
   when 'arch'
     ver = '8'
-    pkgs_installed = %w(tomcat-native)
     main_config = '/usr/lib/systemd/system/tomcat8.service'
     server_config = '/etc/tomcat8/server.xml'
     context_config = '/etc/tomcat8/context.xml'
@@ -69,7 +88,6 @@ describe 'tomcat/config.sls' do
     case os[:release]
     when '14.04'
       ver = '7'
-      pkgs_installed = %w(libtcnative-1)
       main_config = '/etc/default/tomcat7'
       server_config = '/etc/tomcat7/server.xml'
       context_config = '/etc/tomcat7/context.xml'
@@ -90,7 +108,6 @@ describe 'tomcat/config.sls' do
       end
     when '16.04'
       ver = '8'
-      pkgs_installed = %w(libtcnative-1)
       main_config = '/etc/default/tomcat8'
       server_config = '/etc/tomcat8/server.xml'
       context_config = '/etc/tomcat8/context.xml'
@@ -109,11 +126,6 @@ describe 'tomcat/config.sls' do
        describe command("apt install libxml2-utils") do
         its(:exit_status) { should eq 0 }
       end
-    end
-  end
-  pkgs_installed.each do |p|
-    describe package(p) do
-      it { should be_installed }
     end
   end
 
