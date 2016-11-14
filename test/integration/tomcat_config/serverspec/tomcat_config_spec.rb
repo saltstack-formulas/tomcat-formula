@@ -20,7 +20,8 @@ describe 'tomcat/config.sls' do
       group = 'tomcat7'
       java_home = '/usr/lib/jvm/java-7-openjdk'
       limits_file = '/etc/security/limits.d/tomcat7.conf'
-      describe command("apt install libxml2-utils") do
+
+      describe command("apt-get install libxml2-utils") do
         its(:exit_status) { should eq 0 }
       end      
     when '8.6'
@@ -40,7 +41,7 @@ describe 'tomcat/config.sls' do
     java_home = '/usr/lib/jvm/java-7-openjdk'
     limits_file = '/etc/security/limits.d/tomcat8.conf'
 
-    describe command("apt install libxml2-utils") do
+      describe command("apt-get install libxml2-utils") do
       its(:exit_status) { should eq 0 }
     end
     end
