@@ -6,7 +6,7 @@ describe 'tomcat/native.sls' do
     case os[:release]
     when '7.11'
       ver = '7'
-      pkgs_installed = %w(ibtcnative-1)
+      pkgs_installed = %w(libtcnative-1)
       main_config = '/etc/default/tomcat7'
       server_config = '/etc/tomcat7/server.xml'
       context_config = '/etc/tomcat7/context.xml'
@@ -27,7 +27,7 @@ describe 'tomcat/native.sls' do
       end
     when '8.6'
       ver = '8'
-      pkgs_installed = %w(ibtcnative-1)
+      pkgs_installed = %w(libtcnative-1)
       main_config = '/etc/default/tomcat8'
       server_config = '/etc/tomcat8/server.xml'
       context_config = '/etc/tomcat8/context.xml'
