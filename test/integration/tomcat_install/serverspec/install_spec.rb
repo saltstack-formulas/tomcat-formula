@@ -5,20 +5,20 @@ describe 'tomcat/init.sls' do
   when 'debian'
     case os[:release]
     when '7.11'
-      pkgs_installed = %w(tomcat7 haveged tomcat7-admin)
+      pkgs_installed = %w(tomcat7 haveged)
       pkgs_not_installed = []
       main_config = '/etc/default/tomcat7'
       catalina_logfile = '/var/log/tomcat7/catalina.out'
       service = 'tomcat7'
     when '8.6'
-      pkgs_installed = %w(tomcat8 haveged tomcat8-admin)
+      pkgs_installed = %w(tomcat8 haveged)
       pkgs_not_installed = []
       main_config = '/etc/default/tomcat8'
       catalina_logfile = '/var/log/tomcat8/catalina.out'
       service = 'tomcat8'
     end
   when 'redhat'
-    pkgs_installed = %w(tomcat tomcat-admin-webapps)
+    pkgs_installed = %w(tomcat)
     pkgs_not_installed = %w(haveged)
     main_config = '/etc/sysconfig/tomcat'
     cur_date = Time.now.strftime("%Y-%m-%d")
@@ -33,13 +33,13 @@ describe 'tomcat/init.sls' do
   when 'ubuntu'
     case os[:release]
     when '14.04'
-      pkgs_installed = %w(tomcat7 haveged tomcat7-admin)
+      pkgs_installed = %w(tomcat7 haveged)
       pkgs_not_installed = []
       main_config = '/etc/default/tomcat7'
       catalina_logfile = '/var/log/tomcat7/catalina.out'
       service = 'tomcat7'
     when '16.04'
-      pkgs_installed = %w(tomcat8 haveged tomcat8-admin)
+      pkgs_installed = %w(tomcat8 haveged)
       pkgs_not_installed = []
       main_config = '/etc/default/tomcat8'
       catalina_logfile = '/var/log/tomcat8/catalina.out'
