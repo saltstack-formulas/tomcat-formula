@@ -1,6 +1,4 @@
-{% if accumulator is defined %}
 {% set expires = accumulator['100_web_xml'][0] if '100_web_xml' in accumulator else {} -%}
-{% endif %}
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!--
 
