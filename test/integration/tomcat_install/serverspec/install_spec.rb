@@ -3,7 +3,7 @@ require_relative '../../../kitchen/data/spec_helper'
 describe 'tomcat/init.sls' do
   case os[:family]
   when 'debian'
-  case os[:release]
+    case os[:release]
     when '7.11'
       pkgs_installed = %w(tomcat7 haveged tomcat7-admin)
       pkgs_not_installed = []
@@ -31,7 +31,7 @@ describe 'tomcat/init.sls' do
     catalina_logfile = '/var/log/tomcat/catalina.out'
     service = 'tomcat8'
   when 'ubuntu'
-  case os[:release]
+    case os[:release]
     when '14.04'
       pkgs_installed = %w(tomcat7 haveged tomcat7-admin)
       pkgs_not_installed = []
@@ -46,6 +46,7 @@ describe 'tomcat/init.sls' do
       service = 'tomcat8'
     end
   end
+
   pkgs_installed.each do |p|
     describe package(p) do
       it { should be_installed }
@@ -57,6 +58,7 @@ describe 'tomcat/init.sls' do
       it { should_not be_installed }
     end
   end
+  
   describe service(service) do
     it { should be_running }
   end
@@ -69,5 +71,5 @@ describe 'tomcat/init.sls' do
   describe file(catalina_logfile) do
     it { should be_file }
     its(:content) { should contain('INFO: Server startup in') }
-  end  
+  end
 end
