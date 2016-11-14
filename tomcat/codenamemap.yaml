@@ -27,6 +27,7 @@ xenial:
   group: tomcat8
   java_home: /usr/lib/jvm/default-java
 wheezy:
+  ver: 7
   pkg: tomcat7
   native_pkg: libtcnative-1
   manager_pkg: tomcat7-admin
@@ -40,6 +41,7 @@ wheezy:
   group: tomcat7
   java_home: /usr/lib/jvm/default-java
 jessie:
+  ver: 8
   pkg: tomcat8
   native_pkg: libtcnative-1
   manager_pkg: tomcat8-admin
