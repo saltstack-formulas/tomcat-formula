@@ -45,6 +45,27 @@ describe 'tomcat/context.sls' do
         its(:exit_status) { should eq 0 }
       end
     end
+  when 'redhat'
+    ver = '8'
+    pkgs_installed = %w(tomcat-native)
+    main_config = '/etc/sysconfig/tomcat'
+    server_config = '/etc/tomcat/server.xml'
+    context_config = '/etc/tomcat/context.xml'
+    catalina_logfile = '/var/log/tomcat/catalina.out'
+    web_config = '/etc/tomcat/web.xml'
+    user_config = '/etc/tomcat/tomcat-users.xml'
+    username = 'saltuser1'
+    password = 'RfgpE2iQwD'
+    roles = 'manager-gui,manager-script,manager-jmx,manager-status'
+    service = 'tomcat'
+    user = 'tomcat'
+    group = 'tomcat'
+    java_home = '/usr/lib/jvm/jre'
+    limits_file = '/etc/security/limits.d/tomcat7.conf'
+
+    describe command("yum install libxml2") do
+      its(:exit_status) { should eq 0 }
+    end    
   when 'arch'
     ver = '8'
     pkgs_installed = %w(tomcat-native)
