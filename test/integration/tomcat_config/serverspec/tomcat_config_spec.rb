@@ -141,10 +141,10 @@ describe 'tomcat/config.sls' do
     when 'debian', 'redhat'
       its(:content) { should match(/^TOMCAT.?_USER=#{user}/) }
       its(:content) { should match(/^TOMCAT.?_GROUP=#{group}/) }
-      its(:content) { should match(/^JAVA_OPTS=\"-Djava\.awt\.headless=true -Xmx128m -XX:MaxPermSize=256m -XX:\+UseConcMarkSweepGC -XX:\+CMSIncrementalMode -Dlog4j\.configuration=file:\/path\/to\/log4j.properties -Dlogback.configurationFile=\/path\/to\/logback.xml\"/) }
+      its(:content) { should match(/^JAVA_OPTS=\"-Djava\.awt\.headless=true -Xmx128m -XX:MaxPermSize=256m -XX:\+UseConcMarkSweepGC -XX:\+CMSIncrementalMode\"/) }
     when 'arch'
       its(:content) { should match(/^Environment=TOMCAT_JAVA_HOME=#{java_home}/) }
-      its(:content) { should match(/^Environment=\"CATALINA_OPTS=-Djava\.awt\.headless=true -Xmx128m -XX:MaxPermSize=256m -XX:\+UseConcMarkSweepGC -XX:\+CMSIncrementalMode -Dlog4j\.configuration=file:\/path\/to\/log4j.properties -Dlogback.configurationFile=\/path\/to\/logback.xml\"/) }
+      its(:content) { should match(/^Environment=\"CATALINA_OPTS=-Djava\.awt\.headless=true -Xmx128m -XX:MaxPermSize=256m -XX:\+UseConcMarkSweepGC -XX:\+CMSIncrementalMode\"/) }
       its(:content) { should_not match(/^TOMCAT.?_GROUP=#{group}/) }
     end
   end
