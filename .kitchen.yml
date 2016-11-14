@@ -34,15 +34,7 @@ provisioner:
       '*':
         - tomcat
 suites:
-  - name: tomcat_install
-    provisioner:
-      state_top:
-        base:
-          '*':
-            - tomcat
-            - tomcat.manager
-
-  - name: tomcat_config
+  - name: tomcat_high
     provisioner:
       state_top:
         base:
@@ -53,6 +45,18 @@ suites:
             - tomcat.expires
             - tomcat.context
             - tomcat.cluster
+  - name: tomcat_install
+    provisioner:
+      state_top:
+        base:
+          '*':
+            - tomcat
+  - name: tomcat_config
+    provisioner:
+      state_top:
+        base:
+          '*':
+            - tomcat.config
   - name: tomcat_native
     provisioner:
       state_top:
