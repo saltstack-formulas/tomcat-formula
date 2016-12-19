@@ -141,18 +141,19 @@
       </Realm>
 
       {% if sites %}
-      {% for id, site in sites.iteritems()  %}
+      {% for id, site in sites.iteritems() %}
       {%- set host_name = site.name if site.name is defined else id %}
       <Host name="{{ host_name }}"
-          {% for k, v in site.host_parameters.iteritems()  %}
+          {%- for k, v in site.host_parameters.iteritems()  %}
             {{ k }}="{{ v }}"
-          {% endfor %}
-            >
+          {%- endfor %}>
+            {% if (site.path is defined and site.docBase is defined) %}
             <Context path="{{ site.path }}"
                      docBase="{{ site.docBase }}"
-                     debug="{{ site.debug }}"
-                     reloadable="{{ site.reloadable }}"
+                     debug="{{ site.debug|default(0) }}"
+                     reloadable="{{ site.reloadable|default(true) }}"
             />
+            {% endif %}
             {% if site.alias is defined %}
             <Alias>{{ site.alias }}</Alias>
             {% endif %}
