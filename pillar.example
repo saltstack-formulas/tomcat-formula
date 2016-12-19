@@ -4,7 +4,7 @@ tomcat:
     security: 'no'
     # The Java home directory can be overridden like so.
     # java_home: '/usr/lib/jvm/default-java'
-    
+
     # Any parameter you may pass to the java app, you can pass it here,
     # without the preceding dash. The template builds the correct JAVA_OPTS
     # line, adding the dash.
@@ -64,8 +64,10 @@ tomcat:
           path: ''
           docBase: '/var/lib/tomcat7/webapps/myapp'
           alias: {{ id }}
-          unpackWARs: "true"
-          autoDeploy: "true"
+          host_parameters:
+            unpackWARs: "true"
+            autoDeploy: "true"
+            deployXML: "false"
           reloadable: "true"
           debug: 0
         example.net:
@@ -103,7 +105,7 @@ tomcat:
       #     type="java.lang.String"
       #     override="true"
       # />
-      # <Environment 
+      # <Environment
       #     name="env.second"
       #     value="second.value"
       #     type="some.other.type"
@@ -150,7 +152,7 @@ tomcat:
           className: org.apache.catalina.security.SecurityListener
         second:
           className: org.apache.catalina.core.AprLifecycleListener
-          SSLEngine: on 
+          SSLEngine: on
       Resource:
         jdbc:
           name: jdbc/__postgres

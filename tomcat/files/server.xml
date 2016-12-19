@@ -144,9 +144,10 @@
       {% for id, site in sites.iteritems()  %}
       {%- set host_name = site.name if site.name is defined else id %}
       <Host name="{{ host_name }}"
-            appBase="{{ site.appBase }}"
-            debug="{{ site.debug }}"
-            unpackWARs="{{ site.unpackWARs }}">
+          {% for k, v in site.host_parameters.iteritems()  %}
+            {{ k }}="{{ v }}"
+          {% endfor %}
+            >
             <Context path="{{ site.path }}"
                      docBase="{{ site.docBase }}"
                      debug="{{ site.debug }}"
