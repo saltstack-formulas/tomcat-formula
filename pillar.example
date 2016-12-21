@@ -79,6 +79,14 @@ tomcat:
           autoDeploy: "true"
           reloadable: "true"
           debug: 0
+          valves:
+            - className: org.apache.catalina.valves.AccessLogValve
+              directory: logs
+              prefix: localhost_access_log.
+              fileDateFormat: yyyy-MM-dd-HH
+              suffix: .log
+              pattern: '%h %l %u %t &quot;%m http://%v%U %H&quot; %s %b &quot;%{Referer}i&quot; &quot;%{User-Agent}i&quot; %D'
+            - className: org.apache.catalina.authenticator.SingleSignOn
     manager:
         # UPDATE: This version of the pillar file now supports multiple user acccounts and variable roles.  The previous version of this formula supported only a single user and fixed roles.
         roles:

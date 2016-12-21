@@ -1,7 +1,7 @@
-{% set connectors = accumulator['100_server_xml'][0] if '100_server_xml' in accumulator else {} -%}
-{% set sites = accumulator['300_server_xml'][0] if '300_server_xml' in accumulator else {} -%}
-{% set resources = accumulator['500_server_xml'][0] if '500_server_xml' in accumulator else {} -%}
-{% set cluster = accumulator['600_server_xml'][0] if '600_server_xml' in accumulator else {} -%}
+{%- set connectors = accumulator['100_server_xml'][0] if '100_server_xml' in accumulator else {} -%}
+{%- set sites = accumulator['300_server_xml'][0] if '300_server_xml' in accumulator else {} -%}
+{%- set resources = accumulator['500_server_xml'][0] if '500_server_xml' in accumulator else {} -%}
+{%- set cluster = accumulator['600_server_xml'][0] if '600_server_xml' in accumulator else {} -%}
 <?xml version='1.0' encoding='utf-8'?>
 <!--
 
@@ -147,22 +147,22 @@
           {%- for k, v in site.host_parameters.iteritems()  %}
             {{ k }}="{{ v }}"
           {%- endfor %}>
-            {% if (site.path is defined and site.docBase is defined) %}
+            {%- if (site.path is defined and site.docBase is defined) %}
             <Context path="{{ site.path }}"
                      docBase="{{ site.docBase }}"
                      debug="{{ site.debug|default(0) }}"
                      reloadable="{{ site.reloadable|default(true) }}"
             />
             {% endif %}
-            {% if site.alias is defined %}
+            {%- if site.alias is defined %}
             <Alias>{{ site.alias }}</Alias>
             {% endif %}
-            <Logger className="org.apache.catalina.logger.FileLogger"
-                    directory="logs"
-                    prefix="{{ host_name }}\_log."
-                    suffix=".txt"
-                    timestamp="true"
-            />
+            {%- for valve in site.valves  %}
+              <Valve
+              {%- for k, v in valve.iteritems() %}
+                {{ k }}="{{ v }}"
+              {%- endfor %} />
+            {%- endfor %}
       </Host>
       {% endfor %}
       {% else %}
