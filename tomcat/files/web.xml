@@ -1,3 +1,4 @@
+{% set expires = accumulator['100_web_xml'][0] if '100_web_xml' in accumulator else {} -%}
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!--
 
@@ -133,21 +134,21 @@
         <url-pattern>/cgi-bin/*</url-pattern>
     </servlet-mapping>
 -->
-{% if expires_when is defined %}
+{% if expires is defined %}
 <filter>
  <filter-name>ExpiresFilter</filter-name>
  <filter-class>org.apache.catalina.filters.ExpiresFilter</filter-class>
  <init-param>
     <param-name>ExpiresByType image</param-name>
-    <param-value>access plus {{ expires_when }}</param-value>
+    <param-value>access plus {{ expires.when }}</param-value>
  </init-param>
  <init-param>
     <param-name>ExpiresByType text/css</param-name>
-    <param-value>access plus {{ expires_when }}</param-value>
+    <param-value>access plus {{ expires.when }}</param-value>
  </init-param>
  <init-param>
     <param-name>ExpiresByType application/javascript</param-name>
-    <param-value>access plus {{ expires_when }}</param-value>
+    <param-value>access plus {{ expires.when }}</param-value>
  </init-param>
 </filter>
 

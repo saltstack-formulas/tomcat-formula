@@ -17,8 +17,13 @@ tomcat:
     - 'Xmx128m'
     - 'XX:MaxPermSize=256m'
     - 'XX:+UseConcMarkSweepGC'
-  limit_soft: 64000
-  limit_hard: 64000
+  limit:
+    soft: 48000
+    hard: 64000
   connectors: {}
   sites: {}
   resources: {}
+  expires:
+    enabled: false
+  cluster:
+    simple: false

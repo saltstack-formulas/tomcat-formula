@@ -3,6 +3,7 @@
 include:
   - tomcat
 
+{% if tomcat.context is defined %}
 {{ tomcat.conf_dir }}/context.xml:
   file.managed:
     - source: salt://tomcat/files/context.xml
@@ -18,4 +19,5 @@ include:
       - service: tomcat
     - watch_in:
       - service: tomcat
+{% endif %}
 

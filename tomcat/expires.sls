@@ -3,6 +3,15 @@
 include:
   - tomcat
 
+100_web_xml:
+  file.accumulated:
+    - filename: {{ tomcat.conf_dir }}/web.xml
+{% if tomcat.expires %}
+    - text: {{ tomcat.expires }}
+{% endif %}
+    - require_in:
+      - file: web_xml
+
 web_xml:
   file.managed:
     - name: {{ tomcat.conf_dir }}/web.xml
@@ -11,5 +20,3 @@ web_xml:
     - group: {{ tomcat.group }}
     - mode: '644'
     - template: jinja
-    - defaults:
-        expires_when: {{ salt['pillar.get']('tomcat:expires_when') }}

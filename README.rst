@@ -2,6 +2,8 @@
 tomcat
 ======
 
+[![Build Status](https://travis-ci.org/saltstack-formula/tomcat-formula.svg?branch=master)](https://travis-ci.org/saltstack-formula/tomcat-formula)
+
 Formula to set up and configure tomcat webserver
 
 .. note::

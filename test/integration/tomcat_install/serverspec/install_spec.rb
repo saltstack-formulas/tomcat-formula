@@ -3,13 +3,22 @@ require_relative '../../../kitchen/data/spec_helper'
 describe 'tomcat/init.sls' do
   case os[:family]
   when 'debian'
-    pkgs_installed = %w(tomcat8 haveged tomcat8-admin)
-    pkgs_not_installed = []
-    main_config = '/etc/default/tomcat8'
-    catalina_logfile = '/var/log/tomcat8/catalina.out'
-    service = 'tomcat8'
+    case os[:release]
+    when '7.11'
+      pkgs_installed = %w(tomcat7 haveged)
+      pkgs_not_installed = []
+      main_config = '/etc/default/tomcat7'
+      catalina_logfile = '/var/log/tomcat7/catalina.out'
+      service = 'tomcat7'
+    when '8.6'
+      pkgs_installed = %w(tomcat8 haveged)
+      pkgs_not_installed = []
+      main_config = '/etc/default/tomcat8'
+      catalina_logfile = '/var/log/tomcat8/catalina.out'
+      service = 'tomcat8'
+    end
   when 'redhat'
-    pkgs_installed = %w(tomcat tomcat-admin-webapps)
+    pkgs_installed = %w(tomcat)
     pkgs_not_installed = %w(haveged)
     main_config = '/etc/sysconfig/tomcat'
     cur_date = Time.now.strftime("%Y-%m-%d")
@@ -22,21 +31,22 @@ describe 'tomcat/init.sls' do
     catalina_logfile = '/var/log/tomcat/catalina.out'
     service = 'tomcat8'
   when 'ubuntu'
-  case os[:release]
+    case os[:release]
     when '14.04'
-      pkgs_installed = %w(tomcat7 haveged tomcat7-admin)
+      pkgs_installed = %w(tomcat7 haveged)
       pkgs_not_installed = []
       main_config = '/etc/default/tomcat7'
       catalina_logfile = '/var/log/tomcat7/catalina.out'
       service = 'tomcat7'
     when '16.04'
-      pkgs_installed = %w(tomcat8 haveged tomcat8-admin)
+      pkgs_installed = %w(tomcat8 haveged)
       pkgs_not_installed = []
       main_config = '/etc/default/tomcat8'
       catalina_logfile = '/var/log/tomcat8/catalina.out'
       service = 'tomcat8'
     end
   end
+
   pkgs_installed.each do |p|
     describe package(p) do
       it { should be_installed }
@@ -48,6 +58,7 @@ describe 'tomcat/init.sls' do
       it { should_not be_installed }
     end
   end
+  
   describe service(service) do
     it { should be_running }
   end
@@ -60,5 +71,5 @@ describe 'tomcat/init.sls' do
   describe file(catalina_logfile) do
     it { should be_file }
     its(:content) { should contain('INFO: Server startup in') }
-  end  
+  end
 end

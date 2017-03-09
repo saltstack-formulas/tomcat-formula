@@ -23,7 +23,9 @@ tomcat:
     logfile_compress: 1
     jvm_tmp: /tmp/tomcat
     authbind: no
-    expires_when: '2 weeks'
+    expires:
+      enabled: false
+      when: '2 weeks'
     with_haveged: true
     haveged_enabled: true
     cluster:
@@ -35,7 +37,7 @@ tomcat:
     catalina_pid: /var/run/tomcat.pid
 
     limit:
-      soft: 64000
+      soft: 48000
       hard: 64000
     connector:
       example_connector:
