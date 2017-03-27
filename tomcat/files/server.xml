@@ -157,12 +157,15 @@
             {%- if site.alias is defined %}
             <Alias>{{ site.alias }}</Alias>
             {% endif %}
-            {%- for valve in site.valves  %}
+
+            {%- if site.valves is defined %}
+	    {%- for valve in site.valves  %}
               <Valve
               {%- for k, v in valve.iteritems() %}
                 {{ k }}="{{ v }}"
               {%- endfor %} />
-            {%- endfor %}
+	    {%- endfor %}
+            {% endif %}
       </Host>
       {% endfor %}
       {% else %}
