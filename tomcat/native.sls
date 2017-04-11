@@ -14,7 +14,7 @@ include:
       - file: server_xml
 
 {% if grains.get('oscodename') == 'trusty' %}
-/usr/lib/{{grains['cpuarch']}}-linux-gnu/libtcnative-1.so:
+/usr/lib/libtcnative-1.so:
   file.symlink:
-    - target: /usr/lib/libtcnative-1.so
+    - target: /usr/lib/{{grains['cpuarch']}}-linux-gnu/libtcnative-1.so
 {% endif %}
