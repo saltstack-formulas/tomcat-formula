@@ -37,7 +37,7 @@ tomcat:
     limit:
       soft: 64000
       hard: 64000
-    connector:
+    connectors:
       example_connector:
         port: 8443
         protocol: 'org.apache.coyote.http11.Http11Protocol'
