@@ -46,7 +46,7 @@ CATALINA_PID="{{ tomcat.catalina_pid }}"
 #JAVA_OPTS="-Xminf0.1 -Xmaxf0.3"
 JAVA_OPTS="{{ tomcat_java_opts }}"
 
-{% if tommcat.java_classpath is defined -%}
+{% if tomcat.java_classpath is defined -%}
 CLASSPATH="{{ tomcat.java_classpath }}"
 {% else -%}
 #if CLASSPATH is defined in JAVA_OPTS it may no longer munge with the default CLASSPATH
