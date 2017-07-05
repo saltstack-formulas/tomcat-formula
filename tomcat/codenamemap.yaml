@@ -52,3 +52,16 @@ jessie:
   user: tomcat8
   group: tomcat8
   java_home: /usr/lib/jvm/default-java
+stretch:
+  pkg: tomcat8
+  native_pkg: libtcnative-1
+  manager_pkg: tomcat8-admin
+  with_haveged: true
+  haveged_enabled: true
+  conf_dir: /etc/tomcat8
+  main_config: /etc/default/tomcat8
+  main_config_template: salt://tomcat/files/tomcat-default-Debian.template
+  service: tomcat8
+  user: tomcat8
+  group: tomcat8
+  java_home: /usr/lib/jvm/default-java
