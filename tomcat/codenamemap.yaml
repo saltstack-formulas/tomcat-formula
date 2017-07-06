@@ -1,27 +1,19 @@
 trusty:
   ver: 7
   pkg: tomcat7
-  native_pkg: libtcnative-1
   manager_pkg: tomcat7-admin
-  with_haveged: true
-  haveged_enabled: true
   conf_dir: /etc/tomcat7
   main_config: /etc/default/tomcat7
   main_config_template: salt://tomcat/files/tomcat-default-Debian.template
   service: tomcat7
   user: tomcat7
   group: tomcat7
-  java_home: /usr/lib/jvm/default-java
 wheezy:
   pkg: tomcat7
-  native_pkg: libtcnative-1
   manager_pkg: tomcat7-admin
-  with_haveged: true,
-  haveged_enabled: true,
   conf_dir: /etc/tomcat7
   main_config: /etc/default/tomcat7
   main_config_template: salt://tomcat/files/tomcat-default-Debian.template
   service: tomcat7
   user: tomcat7
   group: tomcat7
-  java_home: /usr/lib/jvm/default-java
