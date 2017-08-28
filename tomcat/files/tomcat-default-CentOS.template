@@ -46,6 +46,14 @@ CATALINA_PID="{{ tomcat.catalina_pid }}"
 #JAVA_OPTS="-Xminf0.1 -Xmaxf0.3"
 JAVA_OPTS="{{ tomcat_java_opts }}"
 
+{% if tomcat.java_classpath is defined -%}
+CLASSPATH="{{ tomcat.java_classpath }}"
+{% else -%}
+#if CLASSPATH is defined in JAVA_OPTS it may no longer munge with the default CLASSPATH
+#replace and customize if necessary
+#CLASSPATH=/usr/share/tomcat/bin/bootstrap.jar:/usr/share/tomcat/bin/tomcat-juli.jar:/usr/share/java/commons-daemon.jar
+{%- endif %}
+
 # Use JAVA_OPTS to set java.library.path for libtcnative.so
 #JAVA_OPTS="-Djava.library.path=/usr/lib64"
 
