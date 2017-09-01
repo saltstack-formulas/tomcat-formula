@@ -182,3 +182,23 @@ tomcat:
           name: linkToGlobalResource
           global: simpleValue
           type: java.lang.Integer
+      other_contexts:
+        'path#to#context':   # will be available at '/path/to/context'
+          params:            # parameters to the context itself.
+            docBase: /path/to/webapp
+            debug: 1
+            reloadable: 'true'
+            crossContext: 'true'
+          elements:          # elements take the same form as the default 'context' section above.
+            Resource:
+              jdbc:
+                name: jdbc/__postgres
+                auth: Container
+                type: javax.sql.DataSource
+                driverClassName: org.postgresql.Driver
+                url: jdbc:postgresql://db.server/dbname
+                user: dbuser
+                password: aycaramba!
+                maxActive: 20
+                maxIdle: 10
+                maxWait: -1
