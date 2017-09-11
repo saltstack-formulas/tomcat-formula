@@ -1,5 +1,3 @@
-{% from "tomcat/map.jinja" import tomcat with context -%}
-{% set context_elements = tomcat.context if tomcat.context else {} -%}
 <?xml version='1.0' encoding='utf-8'?>
 <!--
 
@@ -27,35 +25,35 @@
   limitations under the License.
 -->
 <!-- The contents of this file will be loaded for each web application -->
-<Context>
+<Context
+{%- for k, v in context_params.items() %}
+  {{ k }}="{{ v }}"
+{%- endfor %}
+  >
 
     <!-- Default set of monitored resources. If one of these changes, the    -->
     <!-- web application will be reloaded.                                   -->
     <WatchedResource>WEB-INF/web.xml</WatchedResource>
     <WatchedResource>${catalina.base}/conf/web.xml</WatchedResource>
 
-    {% if context_elements -%}
-    {% for element_type, elements in context_elements.iteritems() -%}
-    {% for element, params in elements.iteritems() -%}
+{% for element_type, elements in context_elements.iteritems() -%}
+  {% for element, params in elements.iteritems() -%}
     <{{ element_type }}
             {%- for k, v in params.iteritems() %}
             {{ k }}="{{ v }}"
             {%- endfor %}
     />
-    {% endfor -%}
-    {% endfor -%}
-    {% else %}
+  {% endfor -%}
+{% endfor -%}
 
     <!-- Uncomment this to disable session persistence across Tomcat restarts -->
     <!--
     <Manager pathname="" />
     -->
-  
+
     <!-- Uncomment this to enable Comet connection tacking (provides events
          on session expiration as well as webapp lifecycle) -->
     <!--
     <Valve className="org.apache.catalina.valves.CometConnectionManagerValve" />
     -->
-    {% endif %}
 </Context>
-
