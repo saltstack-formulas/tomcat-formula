@@ -1,6 +1,6 @@
 ## Required variables for functional pillar.example ##
 {% set host_name = salt['grains.get']('hostname') %}
-{% set id        = salt['grains.get']('get_hostname_id') %}
+{% set id        = salt['grains.get']('get_server_id') %}
 {% set inetdomain1 = 'example.com' %}
 {% set inetdomain2 = 'example.net' %}
 
