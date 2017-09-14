@@ -1,8 +1,6 @@
-## Required variables for functional pillar.example ##
-{% set host_name = salt['grains.get']('hostname') %}
-{% set id        = salt['grains.get']('get_server_id') %}
-{% set inetdomain1 = 'example.com' %}
-{% set inetdomain2 = 'example.net' %}
+# Required for functional pillar.example #
+{% set host_name   = salt['grains.get']('hostname') %}
+{% set id = 'example' %}
 
 tomcat:
     # The Tomcat version can be overridden like so.
@@ -64,23 +62,23 @@ tomcat:
         keystoreFile: '/path/to/keystoreFile'
         keystorePass: 'somerandomtext'
     sites:
-        {{ inetdomain1 }}: # must be unique; used as an ID declaration in Salt; also used in the  template as {{ host_name }} if name is not declared
+        {{ id }}.com: # must be unique; used as an ID declaration in Salt; also used in the  template as {{ host_name }} if name is not declared
           name: {{ host_name }} # to use as "Host name=" in server.xml definitions. If not declared, ID declaration will be used
           appBase: ../webapps/myapp
           path: ''
           docBase: '/var/lib/tomcat7/webapps/myapp'
-          alias: {{ id }}
+          alias: www.{{ id }}.com
           host_parameters:
             unpackWARs: "true"
             autoDeploy: "true"
             deployXML: "false"
           reloadable: "true"
           debug: 0
-        {{ inetdomain2 }}:
+        {{ id }}.net:
           appBase: ../webapps/myapp2
           path: ''
           docBase: '/var/lib/tomcat7/webapps/myapp2'
-          alias: {{ id }}
+          alias: www.{{ id }}.net
           unpackWARs: "true"
           autoDeploy: "true"
           reloadable: "true"
