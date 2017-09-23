@@ -26,6 +26,10 @@ openSUSE:
   native_pkg: libtcnative-1-0
   manager_pkg: tomcat-admin-webapps
   main_config_template: salt://tomcat/files/tomcat-default-CentOS.template
+Suse:
+  native_pkg: libtcnative-1-0
+  manager_pkg: tomcat-admin-webapps
+  main_config_template: salt://tomcat/files/tomcat-default-CentOS.template
 FreeBSD:
   native_pkg: tomcat-native
   ini_config: /etc/rc.conf

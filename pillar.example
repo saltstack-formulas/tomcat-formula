@@ -1,3 +1,7 @@
+# Required for functional pillar.example #
+{% set host_name   = salt['grains.get']('hostname') %}
+{% set id = 'example' %}
+
 tomcat:
     # The Tomcat version can be overridden like so.
     # ver: 7
@@ -58,23 +62,23 @@ tomcat:
         keystoreFile: '/path/to/keystoreFile'
         keystorePass: 'somerandomtext'
     sites:
-        example.com: # must be unique; used as an ID declaration in Salt; also used in the  template as {{ host_name }} is name is not declared
-          name: some_string # to use as "Host name=" in server.xml definitions. If not declared, ID declaration will be used
+        {{ id }}.com: # must be unique; used as an ID declaration in Salt; also used in the  template as {{ host_name }} if name is not declared
+          name: {{ host_name }} # to use as "Host name=" in server.xml definitions. If not declared, ID declaration will be used
           appBase: ../webapps/myapp
           path: ''
           docBase: '/var/lib/tomcat7/webapps/myapp'
-          alias: {{ id }}
+          alias: www.{{ id }}.com
           host_parameters:
             unpackWARs: "true"
             autoDeploy: "true"
             deployXML: "false"
           reloadable: "true"
           debug: 0
-        example.net:
+        {{ id }}.net:
           appBase: ../webapps/myapp2
           path: ''
           docBase: '/var/lib/tomcat7/webapps/myapp2'
-          alias: {{ id }}
+          alias: www.{{ id }}.net
           unpackWARs: "true"
           autoDeploy: "true"
           reloadable: "true"
