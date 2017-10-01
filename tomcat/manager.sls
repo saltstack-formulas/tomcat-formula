@@ -5,8 +5,8 @@ include:
 
 {% if grains.os != 'FreeBSD' %}
 
-# on archlinux tomcat manager is already in tomcat package
-{% if grains.os != 'Arch' %}
+# on archlinux family tomcat manager is already in tomcat package
+{% if grains.os_family != 'Arch' %}
 {{ tomcat.manager_pkg }}:
   pkg.installed:
     - require:
