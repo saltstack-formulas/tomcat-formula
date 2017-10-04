@@ -1,6 +1,5 @@
-# Required for functional pillar.example #
 {% set host_name   = salt['grains.get']('hostname') %}
-{% set id = 'example' %}
+{% set id          = ['example.com','example.net'] %}
 
 tomcat:
     # The Tomcat version can be overridden like so.
@@ -20,23 +19,14 @@ tomcat:
       - 'XX:MaxPermSize=256m'
       - 'XX:+UseConcMarkSweepGC'
       - 'XX:+CMSIncrementalMode'
-      - 'Dlog4j.configuration=file:/path/to/log4j.properties'
-      - 'Dlogback.configurationFile=/path/to/logback.xml'
+    # Change paths to correct locations
+      - 'Dlog4j.configuration=file:/tmp/log4j.properties'
+      - 'Dlogback.configurationFile=/tmp/logback.xml'
     jsp_compiler: javac
     logfile_days: 14
     logfile_compress: 1
-    jvm_tmp: /tmp/tomcat
     authbind: no
     expires_when: '2 weeks'
-    with_haveged: true
-    haveged_enabled: true
-    cluster:
-      simple: true
-
-    catalina_base: /usr/share/tomcat
-    catalina_home: /usr/share/tomcat
-    catalina_tmpdir: /var/cache/tomcat/temp
-    catalina_pid: /var/run/tomcat.pid
 
     limit:
       soft: 64000
@@ -56,31 +46,33 @@ tomcat:
         acceptCount: 100
         scheme: https
         secure: 'true'
-        SSLEnabled: 'true'
         clientAuth: 'false'
         sslProtocol: TLS
+        SSLEnabled: 'false'
+        #Change to realpath before setting "SSLEnabled: 'true'"
         keystoreFile: '/path/to/keystoreFile'
         keystorePass: 'somerandomtext'
     sites:
-        {{ id }}.com: # must be unique; used as an ID declaration in Salt; also used in the  template as {{ host_name }} if name is not declared
+        {{ id[0] }}: # must be unique; used as an ID declaration in Salt; also used in the  template as {{ host_name }} if name is not declared
           name: {{ host_name }} # to use as "Host name=" in server.xml definitions. If not declared, ID declaration will be used
           appBase: ../webapps/myapp
           path: ''
-          docBase: '/var/lib/tomcat7/webapps/myapp'
-          alias: www.{{ id }}.com
+          docBase: ../webapps/myapp
+          alias: www.{{ id[0] }}
           host_parameters:
             unpackWARs: "true"
             autoDeploy: "true"
             deployXML: "false"
           reloadable: "true"
           debug: 0
-        {{ id }}.net:
+        {{ id[1] }}:
           appBase: ../webapps/myapp2
           path: ''
-          docBase: '/var/lib/tomcat7/webapps/myapp2'
-          alias: www.{{ id }}.net
-          unpackWARs: "true"
-          autoDeploy: "true"
+          docBase: ../webapps/myapp2
+          alias: www.{{ id[1] }}
+          host_parameters:
+            unpackWARs: "true"
+            autoDeploy: "true"
           reloadable: "true"
           debug: 0
           valves:
@@ -183,7 +175,7 @@ tomcat:
           global: simpleValue
           type: java.lang.Integer
     other_contexts:
-      'path#to#context':   # will be available at '/path/to/context'
+      'other-contexts':   # will be available at 'tomcat.conf_dir/Catalina/localhost/context'
         params:            # parameters to the context itself.
           docBase: /path/to/webapp
           debug: 1
