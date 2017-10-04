@@ -8,13 +8,23 @@ tomcat:
     {% if tomcat.version is defined %}
     - version: {{ tomcat.version }}
     {% endif %}
+  {%- if grains.os == 'MacOS' %}
+   #Register as Launchd LaunchAgent for users
+    - require_in: tomcat.file.managed
+  file.managed:
+    - name: /Library/LaunchAgents/{{ tomcat.service }}.plist
+    - source: /usr/local/opt/tomcat/{{ tomcat.service }}.plist
+    - group: wheel
+    - require_in: tomcat.cmd.run
+  {% endif %}
   service.running:
     - name: {{ tomcat.service }}
     - enable: {{ tomcat.service_enabled }}
     - watch:
       - pkg: tomcat
 # To install haveged in centos you need the EPEL repository
-{% if tomcat.with_haveged %}
+# There is no haveged in MacOS
+{% if tomcat.with_haveged and grains.os != 'MacOS' %}
   require:
     - pkg: haveged
 
