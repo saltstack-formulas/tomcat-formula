@@ -49,3 +49,31 @@ Arch:
   catalina_pid: /var/run/tomcat8.pid
   catalina_base: /usr/share/tomcat8
   catalina_home: /usr/share/tomcat8
+  #Not used on Arch
+  manager_pkg:
+MacOS:
+  {% set darwin_javahome = salt['cmd.run']('/usr/libexec/java_home') if grains.os =='MacOS' else {} %}
+  service: homebrew.mxcl.tomcat
+  ver: 8
+  pkg: tomcat
+  native_pkg: tomcat-native
+  conf_dir: /usr/local/opt/tomcat/libexec/conf
+  main_config: /usr/local/opt/tomcat/libexec/bin/setenv.sh
+  main_config_template: salt://tomcat/files/tomcat-default-CentOS.template
+  limits_prefix: /Library/LaunchAgents/maxfiles.plist
+  java_home: {{ darwin_javahome }}
+  jvm_tmp: /usr/local/opt/tomcat/libexec/temp
+  catalina_base: /usr/local/opt/tomcat/libexec
+  catalina_home: /usr/local/opt/tomcat/libexec
+  catalina_tmpdir: /usr/local/opt/tomcat/libexec/temp
+
+  #Not used on Darwin
+  manager_pkg:
+  user: nobody
+  group: nobody
+  with_haveged: false
+  haveged_enabled: false
+
+  #Not verified on Darwin
+  cluster:
+    simple: false
