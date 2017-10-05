@@ -23,3 +23,17 @@ tomcat:
   connectors: {}
   sites: {}
   resources: {}
+
+  #Relocated from pillar.example
+  id: ['example.com','example.net']
+  jvm_tmp: /tmp/tomcat
+  with_haveged: true
+  haveged_enabled: true
+  cluster:
+    simple: true
+
+  catalina_base: /usr/share/tomcat
+  catalina_home: /usr/share/tomcat
+  catalina_pid: /var/run/tomcat.pid
+  #Used by generic 'tomcat-default-CentOS.template'
+  catalina_tmpdir: /var/cache/tomcat/temp

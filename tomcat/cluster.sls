@@ -3,6 +3,7 @@
 include:
   - tomcat.config
 
+{% if grains.os != 'MacOS' %}
 600_server_xml:
   file.accumulated:
     - filename: {{ tomcat.conf_dir }}/server.xml
@@ -11,3 +12,4 @@ include:
     {% endif %}
     - require_in:
       - file: server_xml
+{% endif %}

@@ -56,8 +56,11 @@ server_xml:
   file.managed:
     - name: {{ tomcat.conf_dir }}/server.xml
     - source: salt://tomcat/files/server.xml
+   {% if grains.os != 'MacOS' %}
+    #Inherit logged-on user permissions on Darwin
     - user: {{ tomcat.user }}
     - group: {{ tomcat.group }}
+   {% endif %}
     - mode: '644'
     - template: jinja
     - require_in:
@@ -71,13 +74,24 @@ limits_conf:
   file.append:
     - name: /etc/security/limits.conf
     - text:
-  {% else %}
-  file.managed:
-    - name: /etc/security/limits.d/tomcat{{ tomcat.ver }}.conf
-    - contents:
-  {% endif %}
       - {{ tomcat.user }} soft nofile {{ tomcat.limit.soft }}
       - {{ tomcat.user }} hard nofile {{ tomcat.limit.hard }}
+  {% else %}
+  file.managed:
+    {%- if grains.os == 'MacOS' %}
+    - name: /Library/LaunchDaemons/limit.maxfiles.plist
+    - source: salt://tomcat/files/limit.maxfiles.plist
+    - context:
+      soft_limit: {{ tomcat.limit.soft }}
+      hard_limit: {{ tomcat.limit.hard }}
+    - group: wheel
+    {%- else %}
+    - name: /etc/security/limits.d/tomcat{{ tomcat.ver }}.conf
+    - contents:
+      - {{ tomcat.user }} soft nofile {{ tomcat.limit.soft }}
+      - {{ tomcat.user }} hard nofile {{ tomcat.limit.hard }}
+    {%- endif %}
+  {% endif %}
     - require:
       - pkg: tomcat
     - require_in:
