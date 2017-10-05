@@ -23,10 +23,12 @@ CentOS:
   manager_pkg: tomcat-admin-webapps
   main_config_template: salt://tomcat/files/tomcat-default-CentOS.template
 openSUSE:
+  ver: 8
   native_pkg: libtcnative-1-0
   manager_pkg: tomcat-admin-webapps
   main_config_template: salt://tomcat/files/tomcat-default-CentOS.template
 Suse:
+  ver: 8
   native_pkg: libtcnative-1-0
   manager_pkg: tomcat-admin-webapps
   main_config_template: salt://tomcat/files/tomcat-default-CentOS.template
