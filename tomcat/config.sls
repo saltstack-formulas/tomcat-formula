@@ -16,6 +16,7 @@ tomcat_conf:
   file.managed:
     - name: {{ tomcat.main_config }}
     - source: {{ tomcat.main_config_template }}
+    - makedirs: True
     - template: jinja
     - defaults:
         tomcat: {{ tomcat }}
@@ -43,14 +44,13 @@ tomcat_conf:
 
 # Jasper Listener deprecated in tomcat >= 8
 # https://tomcat.apache.org/tomcat-8.0-doc/changelog.html
-{% if tomcat.ver < 8 %}
 400_server_xml:
   file.accumulated:
     - filename: {{ tomcat.conf_dir }}/server.xml
     - text: enabled
     - require_in:
       - file: server_xml
-{% endif %}
+    - onlyif: test {{ tomcat.ver }} -lt 8
 
 server_xml:
   file.managed:
@@ -68,7 +68,6 @@ server_xml:
     - watch_in:
       - service: tomcat
 
-{% if grains.os != 'FreeBSD' %}
 limits_conf:
   {% if grains.os == 'Arch' %}
   file.append:
@@ -98,5 +97,5 @@ limits_conf:
       - service: tomcat
     - watch_in:
       - service: tomcat
-{% endif %}
+    - unless: test "`uname`" = "FreeBSD"
 
