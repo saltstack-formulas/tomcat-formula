@@ -3,8 +3,6 @@
 include:
   - tomcat
 
-{% if grains.os != 'FreeBSD' %}
-
 # on archlinux/MacOS family tomcat manager is already in tomcat package
 {% if grains.os_family not in ('Arch','MacOS') %}
 {{ tomcat.manager_pkg }}:
@@ -28,5 +26,5 @@ include:
       - service: tomcat
     - watch_in:
       - service: tomcat
-{% endif %}
+    - unless: test "`uname`" = "FreeBSD"
 
