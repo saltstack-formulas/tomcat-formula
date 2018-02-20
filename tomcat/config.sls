@@ -16,6 +16,7 @@ tomcat_conf:
   file.managed:
     - name: {{ tomcat.main_config }}
     - source: {{ tomcat.main_config_template }}
+    - makedirs: True
     - template: jinja
     - defaults:
         tomcat: {{ tomcat }}
