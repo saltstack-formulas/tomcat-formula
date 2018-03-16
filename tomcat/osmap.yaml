@@ -54,7 +54,11 @@ Arch:
   #Not used on Arch
   manager_pkg:
 MacOS:
-  {% set darwin_javahome = salt['cmd.run']('/usr/libexec/java_home') if grains.os =='MacOS' else {} %}
+  {% if grains.os == 'MacOS' and salt['cmd.run']('/usr/libexec/java_home -F', output_loglevel="quiet") == 0 %}
+    {% set darwin_javahome = salt['cmd.run']('/usr/libexec/java_home') %}
+  {% else %}
+    {% set darwin_javahome = "" %}
+  {% endif %}
   service: homebrew.mxcl.tomcat
   ver: 8
   pkg: tomcat
