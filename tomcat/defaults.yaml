@@ -27,8 +27,6 @@ tomcat:
   #Relocated from pillar.example
   id: ['example.com','example.net']
   jvm_tmp: /tmp/tomcat
-  with_haveged: true
-  haveged_enabled: true
   cluster:
     simple: true
 
