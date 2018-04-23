@@ -19,7 +19,7 @@ include:
     - mode: '640'
     - template: jinja
     - defaults:
-      tomcat: {{ tomcat }}
+      tomcat: {{ tomcat|yaml }}
     - require:
       - pkg: tomcat
     - require_in:
