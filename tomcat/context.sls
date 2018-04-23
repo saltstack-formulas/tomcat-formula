@@ -39,7 +39,7 @@ include:
     - mode: '640'
     - template: jinja
     - defaults:
-      context_elements: {{ tomcat.get('context', {}) }}
+      context_elements: {{ tomcat.get('context', {})|yaml }}
       context_params: {}
     - require:
       - pkg: tomcat
@@ -76,8 +76,8 @@ include:
     - mode: '640'
     - template: jinja
     - defaults:
-      context_elements: {{ data.get('elements', {}) }}
-      context_params: {{ data.get('params', {}) }}
+      context_elements: {{ data.get('elements', {})|yaml }}
+      context_params: {{ data.get('params', {})|yaml }}
     - require:
       - pkg: tomcat
       - file: {{ tomcat.conf_dir }}/Catalina/localhost

@@ -19,7 +19,7 @@ tomcat_conf:
     - makedirs: True
     - template: jinja
     - defaults:
-        tomcat: {{ tomcat }}
+        tomcat: {{ tomcat|yaml }}
   {% endif %}
     - require:
       - pkg: tomcat
