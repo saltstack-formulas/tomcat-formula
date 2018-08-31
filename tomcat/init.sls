@@ -11,6 +11,9 @@ tomcat:
   {%- if grains.os == 'MacOS' %}
    #Register as Launchd LaunchAgent for users
     - require_in: tomcat.file.managed
+  cmd.run:
+    - name: brew unlink tomcat && brew link tomcat
+    - unless: test -f /usr/local/opt/tomcat/{{ tomcat.service }}.plist
   file.managed:
     - name: /Library/LaunchAgents/{{ tomcat.service }}.plist
     - source: /usr/local/opt/tomcat/{{ tomcat.service }}.plist
