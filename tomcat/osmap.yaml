@@ -53,12 +53,18 @@ Arch:
   catalina_home: /usr/share/tomcat8
   #Not used on Arch
   manager_pkg:
+
+ {%- if grains.os == 'MacOS' %}
 MacOS:
-  {% if grains.os == 'MacOS' and salt['cmd.run']('/usr/libexec/java_home -F', output_loglevel="quiet") == 0 %}
-    {% set darwin_javahome = salt['cmd.run']('/usr/libexec/java_home') %}
-  {% else %}
-    {% set darwin_javahome = "" %}
-  {% endif %}
+      {% if salt['cmd.run']('/usr/libexec/java_home -F', output_loglevel="quiet") == 0 %}
+        {% set darwin_javahome = salt['cmd.run']('/usr/libexec/java_home') %}
+      {% else %}
+        {% set darwin_javahome = "" %}
+      {% endif %}
+  user: {{ salt['pillar.get']('tomcat:user', salt['cmd.run']("stat -f '%Su' /dev/console")) }}
+  group: {{ salt['pillar.get']('tomcat:group', salt['cmd.run']("stat -f '%Sg' /dev/console")) }}
+
+  java_home: {{ darwin_javahome }}
   service: homebrew.mxcl.tomcat
   ver: 8
   pkg: tomcat
@@ -67,7 +73,6 @@ MacOS:
   main_config: /usr/local/opt/tomcat/libexec/bin/setenv.sh
   main_config_template: salt://tomcat/files/tomcat-default-CentOS.template
   limits_prefix: /Library/LaunchAgents/maxfiles.plist
-  java_home: {{ darwin_javahome }}
   jvm_tmp: /usr/local/opt/tomcat/libexec/temp
   catalina_base: /usr/local/opt/tomcat/libexec
   catalina_home: /usr/local/opt/tomcat/libexec
@@ -75,11 +80,11 @@ MacOS:
 
   #Not used on Darwin
   manager_pkg:
-  user: nobody
-  group: nobody
   with_haveged: false
   haveged_enabled: false
 
   #Not verified on Darwin
   cluster:
     simple: false
+
+ {% endif %}
