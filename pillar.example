@@ -17,8 +17,6 @@ tomcat:
       - 'Djava.awt.headless=true'
       - 'Xmx128m'
       - 'XX:MaxPermSize=256m'
-      - 'XX:+UseConcMarkSweepGC'
-      - 'XX:+CMSIncrementalMode'
     # Change paths to correct locations
       - 'Dlog4j.configuration=file:/tmp/log4j.properties'
       - 'Dlogback.configurationFile=/tmp/logback.xml'
