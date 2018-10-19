@@ -15,6 +15,28 @@ TOMCAT{{ tomcat.ver }}_GROUP={{ tomcat.group }}
 # OpenJDK and the Oracle JDK are tried.
 JAVA_HOME={{ tomcat.java_home }}
 
+{% if tomcat.catalina_base is defined -%}
+CATALINA_BASE="{{ tomcat.catalina_base }}"
+{% else -%}
+#CATALINA_BASE="/usr/share/tomcat8"
+{%- endif %}
+{% if tomcat.catalina_home is defined -%}
+CATALINA_HOME="{{ tomcat.catalina_home }}"
+{% else -%}
+#CATALINA_HOME="/usr/share/tomcat8"
+{%- endif %}
+{% if tomcat.catalina_tmpdir is defined -%}
+CATALINA_TMPDIR="{{ tomcat.catalina_tmpdir }}"
+{% else -%}
+#CATALINA_TMPDIR="/var/cache/tomcat/temp"
+{%- endif %}
+{% if tomcat.catalina_pid is defined -%}
+CATALINA_PID="{{ tomcat.catalina_pid }}"
+{% else -%}
+#CATALINA_PID="/var/run/tomcat.pid"
+{%- endif %}
+
+
 # You may pass JVM startup parameters to Java here. If unset, the default
 # options will be: -Djava.awt.headless=true -Xmx128m -XX:+UseConcMarkSweepGC
 #
