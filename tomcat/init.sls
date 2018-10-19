@@ -40,3 +40,9 @@ haveged:
        - pkg: haveged
 {% endif %}
 
+tomcat init whats tomcat status:
+  cmd.run:
+  - name: systemctl status tomcat8.service
+  - onfail:
+    - service: tomcat
+

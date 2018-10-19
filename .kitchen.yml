@@ -1,8 +1,13 @@
 ---
 driver:
   name: docker
+
+driver_config:
+  use_sudo: false
+  privileged: true
+  provision_command: mkdir -p /run/sshd
+  run_command: /lib/systemd/systemd
   hostname: salt-formula.ci.local
-  use_sudo: true
   require_chef_omnibus: false  
 
 # verifier:
@@ -32,46 +37,16 @@ suites:
         base:
           '*':
             - tomcat
-            - tomcat.manager
+            - tomcat.native
+            - tomcat.config
 
-  - name: tomcat_config
+  - name: tomcat_extend
     provisioner:
       state_top:
         base:
           '*':
-            - tomcat.config
             - tomcat.manager
             - tomcat.vhosts
             - tomcat.expires
             - tomcat.context
-            - tomcat.cluster
-  - name: tomcat_native
-    provisioner:
-      state_top:
-        base:
-          '*':
-            - tomcat.native
-  - name: tomcat_manager
-    provisioner:
-      state_top:
-        base:
-          '*':
-            - tomcat.manager
-  - name: tomcat_expires
-    provisioner:
-      state_top:
-        base:
-          '*':
-            - tomcat.expires
-  - name: tomcat_context
-    provisioner:
-      state_top:
-        base:
-          '*':
-            - tomcat.context
-  - name: tomcat_cluster
-    provisioner:
-      state_top:
-        base:
-          '*':
             - tomcat.cluster

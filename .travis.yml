@@ -1,7 +1,7 @@
 language: ruby
 
 rvm:
-  - 2.2.5
+  - 2.2.6
 
 sudo: required
 services: 
@@ -12,19 +12,9 @@ env:
   - INSTANCE: install-ubuntu-1804
   - INSTANCE: install-centos-7   
   - INSTANCE: install-debian-9
-  - INSTANCE: config-ubuntu-1804 
-  - INSTANCE: config-centos-7    
-  - INSTANCE: config-debian-9
-  - INSTANCE: native-ubuntu-1804 
-  - INSTANCE: native-centos-7    
-  - INSTANCE: manager-ubuntu-1804
-  - INSTANCE: manager-centos-7   
-  - INSTANCE: expires-ubuntu-1804
-  - INSTANCE: expires-centos-7   
-  - INSTANCE: context-ubuntu-1804
-  - INSTANCE: context-centos-7   
-  - INSTANCE: cluster-ubuntu-1804
-  - INSTANCE: cluster-centos-7
+  - INSTANCE: extend-ubuntu-1804 
+  - INSTANCE: extend-centos-7    
+  - INSTANCE: extend-debian-9
 
 # https://github.com/zuazo/kitchen-in-travis-native/issues/1#issuecomment-142455888
 before_script: sudo iptables -L DOCKER || sudo iptables -N DOCKER
