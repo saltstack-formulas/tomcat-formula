@@ -13,7 +13,7 @@
 {% for role in salt['pillar.get']('tomcat:manager:roles', {}) %}
     <role rolename="{{ role }}" />
 {% endfor %}
-{% for user, userconfig in salt['pillar.get']('tomcat:manager:users', {}).iteritems() %}
+{% for user, userconfig in salt['pillar.get']('tomcat:manager:users', {}).items() %}
     <user username="{{ user }}" password="{{ userconfig['passwd'] }}" roles="{{ userconfig['roles'] }}"/>
 {% endfor %}
 </tomcat-users>

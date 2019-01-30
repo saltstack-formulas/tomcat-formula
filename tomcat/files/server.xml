@@ -56,9 +56,9 @@
   -->
   <GlobalNamingResources>
     {% if resources -%}
-    {% for id, params in resources.iteritems() -%}
+    {% for id, params in resources.items() -%}
     <Resource
-    {% for k, v in params.iteritems() %}
+    {% for k, v in params.items() %}
               {{ k }}="{{ v }}"
     {%- endfor %}
     />
@@ -82,9 +82,9 @@
    -->
   <Service name="Catalina">
     {% if connectors -%}
-    {% for id, params in connectors.iteritems() -%}
+    {% for id, params in connectors.items() -%}
     <Connector
-    {% for k, v in params.iteritems() %}
+    {% for k, v in params.items() %}
                {{ k }}="{{ v }}"
     {%- endfor %}
     />
@@ -141,10 +141,10 @@
       </Realm>
 
       {% if sites %}
-      {% for id, site in sites.iteritems() %}
+      {% for id, site in sites.items() %}
       {%- set host_name = site.name if site.name is defined else id %}
       <Host name="{{ host_name }}"
-          {%- for k, v in site.host_parameters.iteritems()  %}
+          {%- for k, v in site.host_parameters.items()  %}
             {{ k }}="{{ v }}"
           {%- endfor %}>
             {%- if (site.path is defined and site.docBase is defined) %}
@@ -161,7 +161,7 @@
             {%- if site.valves is defined %}
 	    {%- for valve in site.valves  %}
               <Valve
-              {%- for k, v in valve.iteritems() %}
+              {%- for k, v in valve.items() %}
                 {{ k }}="{{ v }}"
               {%- endfor %} />
 	    {%- endfor %}

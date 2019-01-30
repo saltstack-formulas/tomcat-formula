@@ -36,10 +36,10 @@
     <WatchedResource>WEB-INF/web.xml</WatchedResource>
     <WatchedResource>${catalina.base}/conf/web.xml</WatchedResource>
 
-{% for element_type, elements in context_elements.iteritems() -%}
-  {% for element, params in elements.iteritems() -%}
+{% for element_type, elements in context_elements.items() -%}
+  {% for element, params in elements.items() -%}
     <{{ element_type }}
-            {%- for k, v in params.iteritems() %}
+            {%- for k, v in params.items() %}
             {{ k }}="{{ v }}"
             {%- endfor %}
     />
