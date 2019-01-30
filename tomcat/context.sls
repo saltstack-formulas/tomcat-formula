@@ -8,8 +8,8 @@ include:
 #Tomcat fails if pillar-defined webapps are not deployed yet.
 #Create the missing 'appBase' directories so Tomcat works!
 
-    {% for id, data in tomcat.get('sites', {}).iteritems() %}
-      {% for k, v in data.iteritems() %}
+    {% for id, data in tomcat.get('sites', {}).items() %}
+      {% for k, v in data.items() %}
         {% if k == 'appBase' %}
 {{ tomcat.catalina_home }}/webapps/{{ data['appBase'] }}:
   file.directory:
