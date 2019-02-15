@@ -2,6 +2,7 @@
 {% set tomcat_java_home = tomcat.java_home %}
 {% set tomcat_java_opts = tomcat.java_opts %}
 
+    {%- if grains.os == 'MacOS' %}
 tomcat ensure keg is linked on macos if already installed:
   cmd.run:
     - names:
@@ -11,8 +12,8 @@ tomcat ensure keg is linked on macos if already installed:
     - require_in:
       - pkg: tomcat package installed and service running
     - onlyif:
-      - {{ grains.os == 'MacOS' }}
       - test -d /usr/local/Cellar/tomcat
+    {%- endif %}
 
 tomcat package installed and service running:
   pkg.installed:
@@ -41,14 +42,12 @@ tomcat package installed and service running:
   service.running:
     - name: {{ tomcat.service }}
     - enable: {{ tomcat.service_enabled }}
-         {% if grains.os == 'MacOS' %}
-    - unless: {{tomcat.ver|int > 8 }}  ####no plist file with version 9
-         {%- else %}
     - watch:
       - pkg: tomcat package installed and service running
-         {%- endif %}
-# To install haveged on centos you need the EPEL repository. There is no haveged in MacOS
-{% if tomcat.with_haveged and grains.os != 'MacOS' %}
+         {% if grains.os == 'MacOS' %}
+    - unless: {{tomcat.ver|int > 8 }}  ####no plist file with version 9
+         {%- elif tomcat.with_haveged  %}
+             ###To install haveged on centos you need the EPEL repository.
   require:
     - pkg: tomcat haveged package installed and service running
 
@@ -56,6 +55,7 @@ tomcat haveged package installed and service running:
   pkg.installed:
     - name: haveged
   service.running:
+    - name: haveged
     - enable: {{ tomcat.haveged_enabled }}
     - watch:
        - pkg: tomcat haveged package installed and service running
