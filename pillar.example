@@ -26,6 +26,9 @@ tomcat:
     authbind: no
     expires_when: '2 weeks'
 
+    ##important: leave false for Travis CI
+    service_enabled: False
+
     limit:
       soft: 64000
       hard: 64000
@@ -51,8 +54,8 @@ tomcat:
         keystoreFile: '/path/to/keystoreFile'
         keystorePass: 'somerandomtext'
     sites:
-        {{ id[0] }}: # must be unique; used as an ID declaration in Salt; also used in the  template as {{ host_name }} if name is not declared
-          name: {{ host_name }} # to use as "Host name=" in server.xml definitions. If not declared, ID declaration will be used
+        {{ id[0] }}: #unique; used as salt ID and in template as {{ host_name }} if name is not declared
+          name: {{ host_name }} #for "Host name=" in server.xml. If not declared ID declaration will be used
           appBase: ../webapps/myapp
           path: ''
           docBase: ../webapps/myapp
@@ -82,7 +85,7 @@ tomcat:
               pattern: '%h %l %u %t &quot;%m http://%v%U %H&quot; %s %b &quot;%{Referer}i&quot; &quot;%{User-Agent}i&quot; %D'
             - className: org.apache.catalina.authenticator.SingleSignOn
     manager:
-        # UPDATE: This version of the pillar file now supports multiple user acccounts and variable roles.  The previous version of this formula supported only a single user and fixed roles.
+        # This now supports multiple user acccounts and variable roles.
         roles:
           - manager-gui
           - manager-script
