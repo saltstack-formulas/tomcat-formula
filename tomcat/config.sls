@@ -3,9 +3,9 @@
 {% set tomcat_java_opts = '-' ~ tomcat.java_opts | join(' -') %}
 
 include:
-  - tomcat
+  - tomcat.init
 
-tomcat_conf:
+tomcat tomcat_conf:
   {% if grains.os == 'FreeBSD' %}
   file.append:
     - name: {{ tomcat.main_config }}
@@ -22,37 +22,37 @@ tomcat_conf:
         tomcat: {{ tomcat|yaml }}
   {% endif %}
     - require:
-      - pkg: tomcat
+      - pkg: tomcat package installed and service running
     - require_in:
-      - service: tomcat
+      - service: tomcat package installed and service running
     - watch_in:
-      - service: tomcat
+      - service: tomcat package installed and service running
 
-100_server_xml:
+tomcat 100_server_xml:
   file.accumulated:
     - filename: {{ tomcat.conf_dir }}/server.xml
     - text: {{ tomcat.connectors }}
     - require_in:
-      - file: server_xml
+      - file: tomcat server_xml
 
-500_server_xml:
+tomcat 500_server_xml:
   file.accumulated:
     - filename: {{ tomcat.conf_dir }}/server.xml
     - text: {{ tomcat.resources }}
     - require_in:
-      - file: server_xml
+      - file: tomcat server_xml
 
 # Jasper Listener deprecated in tomcat >= 8
 # https://tomcat.apache.org/tomcat-8.0-doc/changelog.html
-400_server_xml:
+tomcat 400_server_xml:
   file.accumulated:
     - filename: {{ tomcat.conf_dir }}/server.xml
     - text: enabled
     - require_in:
-      - file: server_xml
+      - file: tomcat server_xml
     - onlyif: test {{ tomcat.ver }} -lt 8
 
-server_xml:
+tomcat server_xml:
   file.managed:
     - name: {{ tomcat.conf_dir }}/server.xml
     - source: salt://tomcat/files/server.xml
@@ -64,11 +64,11 @@ server_xml:
     - mode: '644'
     - template: jinja
     - require_in:
-      - service: tomcat
+      - service: tomcat package installed and service running
     - watch_in:
-      - service: tomcat
+      - service: tomcat package installed and service running
 
-limits_conf:
+tomcat limits_conf:
   {% if grains.os == 'Arch' %}
   file.append:
     - name: /etc/security/limits.conf
@@ -92,10 +92,10 @@ limits_conf:
     {%- endif %}
   {% endif %}
     - require:
-      - pkg: tomcat
+      - pkg: tomcat package installed and service running
     - require_in:
-      - service: tomcat
+      - service: tomcat package installed and service running
     - watch_in:
-      - service: tomcat
+      - service: tomcat package installed and service running
     - unless: test "`uname`" = "FreeBSD"
 
