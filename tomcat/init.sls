@@ -4,7 +4,9 @@
 
 tomcat ensure keg is linked on macos if already installed:
   cmd.run:
-    - name: brew link tomcat || True
+    - names:
+      - /usr/local/bin/brew unlink tomcat || True
+      - /usr/local/bin/brew link tomcat || True
     - runas: {{ tomcat.user }}
     - require_in:
       - pkg: tomcat package installed and service running
@@ -21,13 +23,16 @@ tomcat package installed and service running:
     - require_in:
       - file: tomcat package installed and service running
   cmd.run:
-    - name: brew unlink tomcat && brew link tomcat
+    - names:
+      - /usr/local/bin/brew unlink tomcat || True
+      - /usr/local/bin/brew link tomcat || True
     - runas: {{ tomcat.user }}
     - unless: test -f /usr/local/opt/tomcat/{{ tomcat.service }}.plist
   file.managed:
     - name: /Library/LaunchAgents/{{ tomcat.service }}.plist
     - source: /usr/local/opt/tomcat/{{ tomcat.service }}.plist
     - group: wheel
+    - onlyif: test -f /usr/local/opt/tomcat/{{ tomcat.service }}.plist
     - require_in:
       - cmd: tomcat package installed and service running
   {% endif %}
