@@ -1,7 +1,7 @@
 {% from "tomcat/map.jinja" import tomcat with context %}
 
 include:
-  - tomcat.init
+  - tomcat
 
 {% if tomcat.get('sites', False) %}
 
@@ -22,7 +22,7 @@ tomcat {{ tomcat.catalina_home }}/webapps/{{ data['appBase'] }}:
     - mode: 775
     - makedirs: True
     - require_in:
-      - file: tomcat package installed and service running {{ tomcat.conf_dir }}/context.xml
+      - file: tomcat {{ tomcat.conf_dir }}/context.xml
         {% endif %}
       {% endfor %}
     {% endfor %}

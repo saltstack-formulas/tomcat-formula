@@ -3,18 +3,20 @@
 include:
   - tomcat.config
 
-{{ tomcat.native_pkg }}:
-  pkg.installed
+tomcat {{ tomcat.native_pkg }}:
+  pkg.installed:
+    - name: {{ tomcat.native_pkg }}
 
-200_server_xml:
+tomcat 200_server_xml:
   file.accumulated:
     - filename: {{ tomcat.conf_dir }}/server.xml
     - text: enabled
     - require_in:
-      - file: server_xml
+      - file: tomcat server_xml
 
 {% if grains.get('oscodename') == 'trusty' %}
-/usr/lib/libtcnative-1.so:
+tomcat /usr/lib/libtcnative-1.so:
   file.symlink:
+    - name: /usr/lib/libtcnative-1.so
     - target: /usr/lib/{{grains['cpuarch']}}-linux-gnu/libtcnative-1.so
 {% endif %}

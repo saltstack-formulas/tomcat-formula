@@ -1,7 +1,7 @@
 {% from "tomcat/map.jinja" import tomcat with context %}
 
 include:
-  - tomcat.init
+  - tomcat
 
 # on archlinux/MacOS family tomcat manager is already in tomcat package
 {% if grains.os_family not in ('Arch','MacOS') %}

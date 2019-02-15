@@ -3,7 +3,7 @@
 include:
   - tomcat
 
-web_xml:
+tomcat web_xml:
   file.managed:
     - name: {{ tomcat.conf_dir }}/web.xml
     - source: salt://tomcat/files/web.xml

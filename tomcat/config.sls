@@ -3,7 +3,7 @@
 {% set tomcat_java_opts = '-' ~ tomcat.java_opts | join(' -') %}
 
 include:
-  - tomcat.init
+  - tomcat
 
 tomcat tomcat_conf:
   {% if grains.os == 'FreeBSD' %}

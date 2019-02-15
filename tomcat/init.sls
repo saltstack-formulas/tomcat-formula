@@ -20,16 +20,16 @@ tomcat package installed and service running:
    #Register as Launchd LaunchAgent for users
     - require_in:
       - file: tomcat package installed and service running
+  cmd.run:
+    - name: brew unlink tomcat && brew link tomcat
+    - runas: {{ tomcat.user }}
+    - unless: test -f /usr/local/opt/tomcat/{{ tomcat.service }}.plist
   file.managed:
     - name: /Library/LaunchAgents/{{ tomcat.service }}.plist
     - source: /usr/local/opt/tomcat/{{ tomcat.service }}.plist
     - group: wheel
     - require_in:
       - cmd: tomcat package installed and service running
-  cmd.run:
-    - name: brew unlink tomcat && brew link tomcat
-    - runas: {{ tomcat.user }}
-    - unless: test -f /usr/local/opt/tomcat/{{ tomcat.service }}.plist
   {% endif %}
   service.running:
     - name: {{ tomcat.service }}
