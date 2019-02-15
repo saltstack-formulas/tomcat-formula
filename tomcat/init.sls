@@ -2,6 +2,14 @@
 {% set tomcat_java_home = tomcat.java_home %}
 {% set tomcat_java_opts = tomcat.java_opts %}
 
+tomcat ensure keg is linked on macos if already installed:
+  cmd.run:
+    - name: brew link tomcat || True
+    - runas: {{ tomcat.user }}
+    - require_in:
+      - pkg: tomcat package installed and service running
+    - onlyif: {{ grains.os == 'MacOS' }}
+
 tomcat package installed and service running:
   pkg.installed:
     - name: {{ tomcat.pkg }}
