@@ -10,7 +10,9 @@ tomcat ensure keg is linked on macos if already installed:
     - runas: {{ tomcat.user }}
     - require_in:
       - pkg: tomcat package installed and service running
-    - onlyif: {{ grains.os == 'MacOS' }}
+    - onlyif:
+      - {{ grains.os == 'MacOS' }}
+      - test -d /usr/local/Cellar/tomcat
 
 tomcat package installed and service running:
   pkg.installed:
