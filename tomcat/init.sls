@@ -40,16 +40,16 @@ tomcat package installed and service running:
       - cmd: tomcat package installed and service running
   {%- endif %}
   service.running:
+    - onlyif: {{ tomcat.service_running }}    ##Set False for Travis CI
     - name: {{ tomcat.service }}
     - enable: {{ tomcat.service_enabled }}
     - watch:
       - pkg: tomcat package installed and service running
-         {% if grains.os == 'MacOS' %}
-    - unless: {{tomcat.ver|int > 8 }}  ####no plist file with version 9
-         {%- elif tomcat.with_haveged  %}
-             ###To install haveged on centos you need the EPEL repository.
-  require:
-    - pkg: tomcat haveged package installed and service running
+   {% if grains.os == 'MacOS' %}
+    - unless: {{tomcat.ver|int > 8 }}         ##no plist file shipped with Tomcat9
+   {% elif tomcat.with_haveged %}
+         # To install haveged in centos you need the EPEL repository
+         # There is no haveged in MacOS
 
 tomcat haveged package installed and service running:
   pkg.installed:
@@ -59,4 +59,6 @@ tomcat haveged package installed and service running:
     - enable: {{ tomcat.haveged_enabled }}
     - watch:
        - pkg: tomcat haveged package installed and service running
-{% endif %}
+    - require_in:
+       - service: tomcat package installed and service running 
+   {% endif %}

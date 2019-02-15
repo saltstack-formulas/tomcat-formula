@@ -26,8 +26,8 @@ tomcat:
     authbind: no
     expires_when: '2 weeks'
 
-    ##important: leave false for Travis CI
-    service_enabled: False
+    ##important: False for Travis CI and maybe MacOS
+    service_running: False
 
     limit:
       soft: 64000

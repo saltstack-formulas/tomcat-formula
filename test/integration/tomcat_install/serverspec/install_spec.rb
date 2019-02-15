@@ -8,7 +8,7 @@ describe 'tomcat/init.sls' do
     main_config = '/etc/default/tomcat8'
     catalina_logfile = '/var/log/tomcat8/catalina.out'
     service = 'tomcat8'
-    service_enabled: False
+    service_running: False
   when 'redhat'
     pkgs_installed = %w(tomcat tomcat-admin-webapps)
     pkgs_not_installed = %w(haveged)
@@ -16,14 +16,14 @@ describe 'tomcat/init.sls' do
     cur_date = Time.now.strftime("%Y-%m-%d")
     catalina_logfile = "/var/log/tomcat/catalina.#{cur_date}.log"
     service = 'tomcat'
-    service_enabled: False
+    service_running: False
   when 'arch'
     pkgs_installed = %w(tomcat8 haveged)
     pkgs_not_installed = []
     main_config = '/usr/lib/systemd/system/tomcat8.service'
     catalina_logfile = '/var/log/tomcat/catalina.out'
     service = 'tomcat8'
-    service_enabled: False
+    service_running: False
   when 'ubuntu'
   case os[:release]
     when '14.04'
@@ -32,21 +32,21 @@ describe 'tomcat/init.sls' do
       main_config = '/etc/default/tomcat7'
       catalina_logfile = '/var/log/tomcat7/catalina.out'
       service = 'tomcat7'
-      service_enabled: False
+      service_running: False
     when '16.04'
       pkgs_installed = %w(tomcat8 haveged tomcat8-admin)
       pkgs_not_installed = []
       main_config = '/etc/default/tomcat8'
       catalina_logfile = '/var/log/tomcat8/catalina.out'
       service = 'tomcat8'
-      service_enabled: False
+      service_running: False
     when '18.04'
       pkgs_installed = %w(tomcat8 haveged tomcat8-admin)
       pkgs_not_installed = []
       main_config = '/etc/default/tomcat8'
       catalina_logfile = '/var/log/tomcat8/catalina.out'
       service = 'tomcat'
-      service_enabled: False
+      service_running: False
     end
   end
   pkgs_installed.each do |p|
