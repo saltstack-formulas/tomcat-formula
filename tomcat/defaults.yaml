@@ -9,6 +9,7 @@ tomcat:
   main_config: /etc/sysconfig/tomcat
   service: tomcat
   service_enabled: true
+  service_running: true   #reserved for Travis CI and maybe MacOS
   user: tomcat
   group: tomcat
   java_home: /usr/lib/jvm/jre

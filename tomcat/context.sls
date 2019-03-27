@@ -11,8 +11,9 @@ include:
     {% for id, data in tomcat.get('sites', {}).items() %}
       {% for k, v in data.items() %}
         {% if k == 'appBase' %}
-{{ tomcat.catalina_home }}/webapps/{{ data['appBase'] }}:
+tomcat {{ tomcat.catalina_home }}/webapps/{{ data['appBase'] }}:
   file.directory:
+    - name: {{ tomcat.catalina_home }}/webapps/{{ data['appBase'] }}
    {% if grains.os != 'MacOS' %}
     #Inherit logged-on user permissions on Darwin
     - user: root
@@ -21,15 +22,16 @@ include:
     - mode: 775
     - makedirs: True
     - require_in:
-      - file: {{ tomcat.conf_dir }}/context.xml
+      - file: tomcat {{ tomcat.conf_dir }}/context.xml
         {% endif %}
       {% endfor %}
     {% endfor %}
 {% endif %}
 
 {% if tomcat.get('context', False) %}
-{{ tomcat.conf_dir }}/context.xml:
+tomcat {{ tomcat.conf_dir }}/context.xml:
   file.managed:
+    - name: {{ tomcat.conf_dir }}/context.xml
     - source: salt://tomcat/files/context.xml
    {% if grains.os != 'MacOS' %}
     #Inherit logged-on user permissions on Darwin
@@ -42,18 +44,18 @@ include:
       context_elements: {{ tomcat.get('context', {})|yaml }}
       context_params: {}
     - require:
-      - pkg: tomcat
+      - pkg: tomcat package installed and service running
     - require_in:
-      - service: tomcat
+      - service: tomcat package installed and service running
     - watch_in:
-      - service: tomcat
+      - service: tomcat package installed and service running
 
 {% endif %}
 
 {% if tomcat.get('other_contexts', False) %}
 
 #Target directory for 'other-contexts.xml' must exist.
-{{ tomcat.conf_dir }}/Catalina/localhost:
+tomcat {{ tomcat.conf_dir }}/Catalina/localhost:
   file.directory:
     - name: {{ tomcat.conf_dir }}/Catalina/localhost
    {% if grains.os != 'MacOS' %}
@@ -65,8 +67,9 @@ include:
     - makedirs: True
 
   {% for label, data in tomcat.get('other_contexts', {}).items() %}
-{{ tomcat.conf_dir }}/Catalina/localhost/{{ data.get('context', label) }}.xml:
+tomcat {{ tomcat.conf_dir }}/Catalina/localhost/{{ data.get('context', label) }}.xml:
   file.managed:
+    - name: {{ tomcat.conf_dir }}/Catalina/localhost/{{ data.get('context', label) }}.xml
     - source: salt://tomcat/files/context.xml
    {% if grains.os != 'MacOS' %}
     #Inherit logged-on user permissions on Darwin
@@ -79,11 +82,11 @@ include:
       context_elements: {{ data.get('elements', {})|yaml }}
       context_params: {{ data.get('params', {})|yaml }}
     - require:
-      - pkg: tomcat
+      - pkg: tomcat package installed and service running
       - file: {{ tomcat.conf_dir }}/Catalina/localhost
     - require_in:
-      - service: tomcat
+      - service: tomcat package installed and service running
     - watch_in:
-      - service: tomcat
+      - service: tomcat package installed and service running
   {% endfor %}
 {% endif %}
