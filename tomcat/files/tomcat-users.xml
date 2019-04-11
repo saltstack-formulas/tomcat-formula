@@ -1,3 +1,10 @@
+{%- macro comma_list(roles) %}
+{%-  if roles is iterable and roles is not string %}
+     {{- ','.join(roles) }}
+{%- else %}
+     {{- roles }}
+{%- endif %}
+{%- endmacro -%}
 <?xml version='1.0' encoding='utf-8'?>
 <!--
 
@@ -15,6 +22,6 @@
 {%- endfor %}
 {# Users #}
 {%- for user, userconfig in salt['pillar.get']('tomcat:manager:users', {}).items() %}
-    <user username="{{ user }}" password="{{ userconfig['passwd'] }}" roles="{{ userconfig['roles'] }}"/>
+    <user username="{{ user }}" password="{{ userconfig['passwd'] }}" roles="{{ comma_list(userconfig['roles']) }}"/>
 {%- endfor %}
 </tomcat-users>

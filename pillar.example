@@ -97,7 +97,12 @@ tomcat:
             roles: manager-gui,manager-script,manager-jmx,manager-status
           saltuser2:
             passwd: RfgpE2iQwD
-            roles: manager-gui,manager-script,manager-jmx,manager-status
+            # Alternatively, roles can also be a list
+            roles:
+              - manager-gui
+              - manager-script
+              - manager-jmx
+              - manager-status
     context:
       # Let's you define multiple elements in the global context.xml file.
       # The state does not try to be clever about the correctness of what you add here,
