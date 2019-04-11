@@ -9,11 +9,12 @@
 
 -->
 <tomcat-users>
-
-{% for role in salt['pillar.get']('tomcat:manager:roles', {}) %}
+{# Roles #}
+{%- for role in salt['pillar.get']('tomcat:manager:roles', {}) %}
     <role rolename="{{ role }}" />
-{% endfor %}
-{% for user, userconfig in salt['pillar.get']('tomcat:manager:users', {}).items() %}
+{%- endfor %}
+{# Users #}
+{%- for user, userconfig in salt['pillar.get']('tomcat:manager:users', {}).items() %}
     <user username="{{ user }}" password="{{ userconfig['passwd'] }}" roles="{{ userconfig['roles'] }}"/>
-{% endfor %}
+{%- endfor %}
 </tomcat-users>
