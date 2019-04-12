@@ -30,6 +30,7 @@ tomcat tomcat_conf:
 
 tomcat 100_server_xml:
   file.accumulated:
+    - name: 100_server_xml
     - filename: {{ tomcat.conf_dir }}/server.xml
     - text: {{ tomcat.connectors }}
     - require_in:
@@ -37,6 +38,7 @@ tomcat 100_server_xml:
 
 tomcat 500_server_xml:
   file.accumulated:
+    - name: 500_server_xml
     - filename: {{ tomcat.conf_dir }}/server.xml
     - text: {{ tomcat.resources }}
     - require_in:
@@ -46,6 +48,7 @@ tomcat 500_server_xml:
 # https://tomcat.apache.org/tomcat-8.0-doc/changelog.html
 tomcat 400_server_xml:
   file.accumulated:
+    - name: 400_server_xml
     - filename: {{ tomcat.conf_dir }}/server.xml
     - text: enabled
     - require_in:
