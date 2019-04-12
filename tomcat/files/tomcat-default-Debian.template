@@ -13,26 +13,30 @@ TOMCAT{{ tomcat.ver }}_GROUP={{ tomcat.group }}
 # The home directory of the Java development kit (JDK). You need at least
 # JDK version 7. If JAVA_HOME is not set, some common directories for
 # OpenJDK and the Oracle JDK are tried.
+{%- if tomcat.java_home|default %}
 JAVA_HOME={{ tomcat.java_home }}
-
-{% if tomcat.catalina_base is defined -%}
+{%- else %}
+#JAVA_HOME=
+{%- endif %}
+{# keep an empty line between JAVA_HOME and CATALINA_xxx #}
+{%- if tomcat.catalina_base|default %}
 CATALINA_BASE="{{ tomcat.catalina_base }}"
-{% else -%}
+{%- else %}
 #CATALINA_BASE="/usr/share/tomcat8"
 {%- endif %}
-{% if tomcat.catalina_home is defined -%}
+{%- if tomcat.catalina_home|default %}
 CATALINA_HOME="{{ tomcat.catalina_home }}"
-{% else -%}
+{%- else %}
 #CATALINA_HOME="/usr/share/tomcat8"
 {%- endif %}
-{% if tomcat.catalina_tmpdir is defined -%}
+{%- if tomcat.catalina_tmpdir|default %}
 CATALINA_TMPDIR="{{ tomcat.catalina_tmpdir }}"
-{% else -%}
+{%- else %}
 #CATALINA_TMPDIR="/var/cache/tomcat/temp"
 {%- endif %}
-{% if tomcat.catalina_pid is defined -%}
+{%- if tomcat.catalina_pid|default %}
 CATALINA_PID="{{ tomcat.catalina_pid }}"
-{% else -%}
+{%- else %}
 #CATALINA_PID="/var/run/tomcat.pid"
 {%- endif %}
 
@@ -52,14 +56,14 @@ JAVA_OPTS="{{ tomcat_java_opts }}"
 
 # Java compiler to use for translating JavaServer Pages (JSPs). You can use all
 # compilers that are accepted by Ant's build.compiler property.
-{% if tomcat.jsp_compiler is defined -%}
+{% if tomcat.jsp_compiler|default -%}
 JSP_COMPILER={{ tomcat.jsp_compiler }}
 {% else -%}
 #JSP_COMPILER=javac
 {%- endif %}
 
 # Use the Java security manager? (yes/no, default: no)
-{% if tomcat.security is defined -%}
+{% if tomcat.security|default -%}
 TOMCAT{{ tomcat.ver }}_SECURITY={{ tomcat.security }}
 {% else -%}
 #TOMCAT8_SECURITY=no
@@ -80,7 +84,7 @@ LOGFILE_COMPRESS={{ tomcat.logfile_compress }}
 
 # Location of the JVM temporary directory
 # WARNING: This directory will be destroyed and recreated at every startup !
-{% if tomcat.jvm_tmp is defined -%}
+{% if tomcat.jvm_tmp|default -%}
 JVM_TMP={{ tomcat.jvm_tmp }}
 {% else -%}
 #JVM_TMP=/tmp/tomcat8-temp
@@ -89,7 +93,7 @@ JVM_TMP={{ tomcat.jvm_tmp }}
 # If you run Tomcat on port numbers that are all higher than 1023, then you
 # do not need authbind.  It is used for binding Tomcat to lower port numbers.
 # (yes/no, default: no)
-{% if tomcat.authbind is defined -%}
+{% if tomcat.authbind|default -%}
 AUTHBIND={{ tomcat.authbind }}
 {% else -%}
 #AUTHBIND=no
