@@ -13,30 +13,30 @@ TOMCAT{{ tomcat.ver }}_GROUP={{ tomcat.group }}
 # The home directory of the Java development kit (JDK). You need at least
 # JDK version 7. If JAVA_HOME is not set, some common directories for
 # OpenJDK and the Oracle JDK are tried.
-{% if tomcat.java_home|default -%}
+{%- if tomcat.java_home|default %}
 JAVA_HOME={{ tomcat.java_home }}
-{% else %}
+{%- else %}
 #JAVA_HOME=
-{% endif %}
-
-{% if tomcat.catalina_base|default -%}
+{%- endif %}
+{# keep an empty line between JAVA_HOME and CATALINA_xxx #}
+{%- if tomcat.catalina_base|default %}
 CATALINA_BASE="{{ tomcat.catalina_base }}"
-{% else -%}
+{%- else %}
 #CATALINA_BASE="/usr/share/tomcat8"
 {%- endif %}
-{% if tomcat.catalina_home|default -%}
+{%- if tomcat.catalina_home|default %}
 CATALINA_HOME="{{ tomcat.catalina_home }}"
-{% else -%}
+{%- else %}
 #CATALINA_HOME="/usr/share/tomcat8"
 {%- endif %}
-{% if tomcat.catalina_tmpdir|default -%}
+{%- if tomcat.catalina_tmpdir|default %}
 CATALINA_TMPDIR="{{ tomcat.catalina_tmpdir }}"
-{% else -%}
+{%- else %}
 #CATALINA_TMPDIR="/var/cache/tomcat/temp"
 {%- endif %}
-{% if tomcat.catalina_pid|default -%}
+{%- if tomcat.catalina_pid|default %}
 CATALINA_PID="{{ tomcat.catalina_pid }}"
-{% else -%}
+{%- else %}
 #CATALINA_PID="/var/run/tomcat.pid"
 {%- endif %}
 
