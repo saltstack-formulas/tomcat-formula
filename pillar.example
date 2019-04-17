@@ -200,3 +200,12 @@ tomcat:
               maxActive: 20
               maxIdle: 10
               maxWait: -1
+              
+          Resources:
+            PostResources:
+              className: org.apache.catalina.webresources.DirResourceSet
+              base: "/var/lib/tomcat8/appconfig"
+              webAppMount: "/WEB-INF/classes"
+
+
+

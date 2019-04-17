@@ -37,13 +37,33 @@
     <WatchedResource>${catalina.base}/conf/web.xml</WatchedResource>
 
 {% for element_type, elements in context_elements.items() -%}
-  {% for element, params in elements.items() -%}
+  {% if (element_type|string() == "Resource") -%}
+    {% for element, params in elements.items() %}
     <{{ element_type }}
             {%- for k, v in params.items() %}
             {{ k }}="{{ v }}"
             {%- endfor %}
     />
-  {% endfor -%}
+    {% endfor -%}
+  {% elif (element_type|string() == "Resources") -%}
+    <Resources>
+    {%- for element, params in elements.items() %}
+      <{{ element }}
+            {%- for k, v in params.items() %}
+            {{ k }}="{{ v }}"
+            {%- endfor %}
+      />
+    {% endfor -%}
+    </Resources>
+  {% else %}
+    {% for element, params in elements.items() -%}
+    <{{ element_type }}
+            {%- for k, v in params.items() %}
+            {{ k }}="{{ v }}"
+            {%- endfor %}
+    />
+    {% endfor -%}
+  {% endif -%}
 {% endfor -%}
 
     <!-- Uncomment this to disable session persistence across Tomcat restarts -->
