@@ -9,6 +9,7 @@ tomcat {{ tomcat.native_pkg }}:
 
 tomcat 200_server_xml:
   file.accumulated:
+    - name: 200_server_xml
     - filename: {{ tomcat.conf_dir }}/server.xml
     - text: enabled
     - require_in:
