@@ -23,9 +23,9 @@ tomcat {{ tomcat.catalina_home }}/webapps/{{ data['appBase'] }}:
     - makedirs: True
     - require_in:
       - file: tomcat {{ tomcat.conf_dir }}/context.xml
-	  
+
 #Tomcat fails if pillar-defined webapps are not deployed yet.
-# if catalina_base != catalina_home	  
+# if catalina_base != catalina_home
           {% if tomcat.catalina_base != tomcat.catalina_home %}
 tomcat {{ tomcat.catalina_base }}/webapps/{{ data['appBase'] }}:
   file.directory:
