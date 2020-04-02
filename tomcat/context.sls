@@ -23,6 +23,23 @@ tomcat {{ tomcat.catalina_home }}/webapps/{{ data['appBase'] }}:
     - makedirs: True
     - require_in:
       - file: tomcat {{ tomcat.conf_dir }}/context.xml
+
+#Tomcat fails if pillar-defined webapps are not deployed yet.
+# if catalina_base != catalina_home
+          {% if tomcat.catalina_base != tomcat.catalina_home %}
+tomcat {{ tomcat.catalina_base }}/webapps/{{ data['appBase'] }}:
+  file.directory:
+    - name: {{ tomcat.catalina_base }}/webapps/{{ data['appBase'] }}
+   {% if grains.os != 'MacOS' %}
+    #Inherit logged-on user permissions on Darwin
+    - user: {{ tomcat.user }}
+    - group: {{ tomcat.group }}
+   {% endif %}
+    - mode: 775
+    - makedirs: True
+    - require_in:
+      - file: tomcat {{ tomcat.conf_dir }}/context.xml
+          {% endif %}
         {% endif %}
       {% endfor %}
     {% endfor %}
