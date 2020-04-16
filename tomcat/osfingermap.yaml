@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # vim: ft=yaml
 ---
-trusty:
+Ubuntu-14.04:
   ver: 7
   pkg: tomcat7
   manager_pkg: tomcat7-admin
@@ -11,7 +11,7 @@ trusty:
   service: tomcat7
   user: tomcat7
   group: tomcat7
-wheezy:
+Debian-7:
   pkg: tomcat7
   manager_pkg: tomcat7-admin
   conf_dir: /etc/tomcat7
@@ -20,3 +20,12 @@ wheezy:
   service: tomcat7
   user: tomcat7
   group: tomcat7
+Debian-10:
+  ver: 9
+  pkg: tomcat9
+  manager_pkg: tomcat9-admin
+  conf_dir: /etc/tomcat9
+  main_config: /etc/default/tomcat9
+  service: tomcat9
+  user: tomcat
+  group: tomcat
