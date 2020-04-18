@@ -1,27 +1,123 @@
-language: ruby
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+---
+## Machine config
+os: 'linux'
+arch: 'amd64'
+dist: 'bionic'
+version: '~> 1.0'
 
-rvm:
-  - 2.2.6
+## Language and cache config
+language: 'ruby'
+cache: 'bundler'
 
-sudo: required
-services: 
+## Services config
+services:
   - docker
 
-env:
-  matrix:
-  - INSTANCE: install-ubuntu-1804
-  - INSTANCE: install-centos-7   
-  - INSTANCE: install-debian-9
-  - INSTANCE: extend-ubuntu-1804 
-  - INSTANCE: extend-centos-7    
-  - INSTANCE: extend-debian-9
+## Script to run for the test stage
+script:
+  - bin/kitchen verify "${INSTANCE}"
 
-# https://github.com/zuazo/kitchen-in-travis-native/issues/1#issuecomment-142455888
-before_script: sudo iptables -L DOCKER || sudo iptables -N DOCKER
+## Stages and jobs matrix
+stages:
+  - test
+  - name: 'release'
+    if: 'branch = master AND type != pull_request'
+jobs:
+  include:
+    ## Define the test stage that runs the linters (and testing matrix, if applicable)
 
-install:
-  # setup ci for test formula
-  - export BUNDLE_GEMFILE=$PWD/Gemfile
-  - bundle install
+    # Run all of the linters in a single job
+    - language: 'node_js'
+      node_js: 'lts/*'
+      env: 'Lint'
+      name: 'Lint: salt-lint, yamllint, rubocop, shellcheck & commitlint'
+      before_install: 'skip'
+      script:
+        # Install and run `salt-lint`
+        - pip install --user salt-lint
+        - git ls-files -- '*.sls' '*.jinja' '*.j2' '*.tmpl' '*.tst'
+                        | xargs salt-lint
+        # Install and run `yamllint`
+        # Need at least `v1.17.0` for the `yaml-files` setting
+        - pip install --user yamllint>=1.17.0
+        - yamllint -s .
+        # Install and run `rubocop`
+        - gem install rubocop
+        - rubocop -d
+        # Run `shellcheck` (already pre-installed in Travis)
+        - shellcheck --version
+        - git ls-files -- '*.sh' '*.bash' '*.ksh'
+                        | xargs shellcheck
+        # Install and run `commitlint`
+        - npm i -D @commitlint/config-conventional
+                   @commitlint/travis-cli
+        - commitlint-travis
 
-script: bundle exec kitchen verify ${INSTANCE}
+    ## Define the rest of the matrix based on Kitchen testing
+    # Make sure the instances listed below match up with
+    # the `platforms` defined in `kitchen.yml`
+    # - env: INSTANCE=tomcat-install-debian-10-master-py3
+    - env: INSTANCE=tomcat-install-ubuntu-1804-master-py3
+    # - env: INSTANCE=tomcat-extend-ubuntu-1804-master-py3
+    # - env: INSTANCE=tomcat-install-centos-8-master-py3
+    - env: INSTANCE=tomcat-install-fedora-31-master-py3
+    - env: INSTANCE=tomcat-install-opensuse-leap-151-master-py3
+    # - env: INSTANCE=tomcat-install-amazonlinux-2-master-py3
+    # - env: INSTANCE=tomcat-install-arch-base-latest-master-py2
+    # - env: INSTANCE=tomcat-install-debian-10-3000-1-py3
+    # - env: INSTANCE=tomcat-install-ubuntu-1804-3000-1-py3
+    # - env: INSTANCE=tomcat-install-centos-8-3000-1-py3
+    # - env: INSTANCE=tomcat-install-fedora-31-3000-1-py3
+    # - env: INSTANCE=tomcat-install-opensuse-leap-151-3000-1-py3
+    - env: INSTANCE=tomcat-install-amazonlinux-2-3000-1-py3
+    # - env: INSTANCE=tomcat-install-arch-base-latest-3000-1-py2
+    # - env: INSTANCE=tomcat-install-debian-10-2019-2-py3
+    - env: INSTANCE=tomcat-install-debian-9-2019-2-py3
+    # - env: INSTANCE=tomcat-install-ubuntu-1804-2019-2-py3
+    # - env: INSTANCE=tomcat-install-ubuntu-1604-2019-2-py3
+    # - env: INSTANCE=tomcat-install-centos-8-2019-2-py3
+    - env: INSTANCE=tomcat-install-centos-7-2019-2-py3
+    # - env: INSTANCE=tomcat-install-fedora-31-2019-2-py3
+    # - env: INSTANCE=tomcat-install-opensuse-leap-151-2019-2-py3
+    # - env: INSTANCE=tomcat-install-amazonlinux-2-2019-2-py3
+    # - env: INSTANCE=tomcat-install-ubuntu-1804-2019-2-py2
+    # - env: INSTANCE=tomcat-install-amazonlinux-1-2019-2-py2
+    # - env: INSTANCE=tomcat-install-arch-base-latest-2019-2-py2
+    # - env: INSTANCE=tomcat-install-centos-7-2018-3-py3
+    # - env: INSTANCE=tomcat-install-fedora-30-2018-3-py3
+    # - env: INSTANCE=tomcat-install-debian-9-2018-3-py2
+    # - env: INSTANCE=tomcat-install-debian-8-2018-3-py2
+    # - env: INSTANCE=tomcat-install-ubuntu-1804-2018-3-py2
+    # - env: INSTANCE=tomcat-install-ubuntu-1604-2018-3-py2
+    # - env: INSTANCE=tomcat-install-centos-6-2018-3-py2
+    # - env: INSTANCE=tomcat-install-opensuse-leap-151-2018-3-py2
+    # - env: INSTANCE=tomcat-install-amazonlinux-1-2018-3-py2
+    # - env: INSTANCE=tomcat-install-arch-base-latest-2018-3-py2
+
+    ## Define the release stage that runs `semantic-release`
+    - stage: 'release'
+      language: 'node_js'
+      node_js: 'lts/*'
+      env: 'Release'
+      name: 'Run semantic-release inc. file updates to AUTHORS, CHANGELOG & FORMULA'
+      before_install: 'skip'
+      script:
+        # Update `AUTHORS.md`
+        - export MAINTAINER_TOKEN=${GH_TOKEN}
+        - go get github.com/myii/maintainer
+        - maintainer contributor
+
+        # Install all dependencies required for `semantic-release`
+        - npm i -D @semantic-release/changelog@3
+                   @semantic-release/exec@3
+                   @semantic-release/git@7
+      deploy:
+        provider: 'script'
+        # Opt-in to `dpl v2` to complete the Travis build config validation (beta)
+        # * https://docs.travis-ci.com/user/build-config-validation
+        # Deprecated `skip_cleanup` can now be avoided, `cleanup: false` is by default
+        edge: true
+        # Run `semantic-release`
+        script: 'npx semantic-release@15.14'
