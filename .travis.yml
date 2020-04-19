@@ -58,7 +58,7 @@ jobs:
     ## Define the rest of the matrix based on Kitchen testing
     # Make sure the instances listed below match up with
     # the `platforms` defined in `kitchen.yml`
-    # - env: INSTANCE=tomcat-install-debian-10-master-py3
+    - env: INSTANCE=tomcat-install-debian-10-master-py3
     - env: INSTANCE=tomcat-install-ubuntu-1804-master-py3
     # - env: INSTANCE=tomcat-extend-ubuntu-1804-master-py3
     # - env: INSTANCE=tomcat-install-centos-8-master-py3

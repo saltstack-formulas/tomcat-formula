@@ -8,7 +8,12 @@ control 'Tomcat services' do
   services =
     case platform[:family]
     when 'debian'
-      %w[tomcat8 haveged]
+      case platform[:release]
+      when /^10/
+        %w[tomcat9 haveged]
+      else
+        %w[tomcat8 haveged]
+      end
     when 'redhat', 'fedora', 'suse'
       %w[tomcat]
     end

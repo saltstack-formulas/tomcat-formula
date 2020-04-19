@@ -7,7 +7,28 @@ control 'Tomcat `map.jinja` YAML dump' do
   yaml_dump +=
     case platform[:family]
     when 'debian'
+      case platform[:release]
+      when /^10/
+        conf_dir = '/etc/tomcat9'
+        group = 'tomcat'
+        main_config = '/etc/default/tomcat9'
+        manager_pkg = 'tomcat9-admin'
+        pkg = 'tomcat9'
+        service = 'tomcat9'
+        user = 'tomcat'
+        ver = 9
+      else
+        conf_dir = '/etc/tomcat8'
+        group = 'tomcat8'
+        main_config = '/etc/default/tomcat8'
+        manager_pkg = 'tomcat8-admin'
+        pkg = 'tomcat8'
+        service = 'tomcat8'
+        user = 'tomcat8'
+        ver = 8
+      end
       <<~YAML_DUMP.chomp
+        arch: amd64
         authbind: 'no'
         catalina_base: /usr/share/tomcat
         catalina_home: /usr/share/tomcat
@@ -15,7 +36,7 @@ control 'Tomcat `map.jinja` YAML dump' do
         catalina_tmpdir: /var/cache/tomcat/temp
         cluster:
           simple: true
-        conf_dir: /etc/tomcat8
+        conf_dir: #{conf_dir}
         connectors:
           example_connector:
             port: 8443
@@ -72,7 +93,7 @@ control 'Tomcat `map.jinja` YAML dump' do
               global: simpleValue
               type: java.lang.Integer
         expires_when: 2 weeks
-        group: tomcat8
+        group: #{group}
         haveged_enabled: true
         id:
         - example.com
@@ -91,7 +112,7 @@ control 'Tomcat `map.jinja` YAML dump' do
           soft: 64000
         logfile_compress: 1
         logfile_days: 14
-        main_config: /etc/default/tomcat8
+        main_config: #{main_config}
         main_config_template: salt://tomcat/files/tomcat-default-Debian.template
         manager:
           roles:
@@ -110,7 +131,7 @@ control 'Tomcat `map.jinja` YAML dump' do
               - manager-script
               - manager-jmx
               - manager-status
-        manager_pkg: tomcat8-admin
+        manager_pkg: #{manager_pkg}
         native_pkg: libtcnative-1
         other_contexts:
           other-contexts:
@@ -137,10 +158,10 @@ control 'Tomcat `map.jinja` YAML dump' do
                   className: org.apache.catalina.webresources.DirResourceSet
                   base: /var/lib/tomcat8/appconfig
                   webAppMount: /WEB-INF/classes
-        pkg: tomcat8
+        pkg: #{pkg}
         resources: {}
         security: 'no'
-        service: tomcat8
+        service: #{service}
         service_enabled: true
         service_running: false
         sites:
@@ -175,12 +196,13 @@ control 'Tomcat `map.jinja` YAML dump' do
               pattern: '%h %l %u %t &quot;%m http://%v%U %H&quot; %s %b &quot;%{Referer}i&quot;
                 &quot;%{User-Agent}i&quot; %D'
             - className: org.apache.catalina.authenticator.SingleSignOn
-        user: tomcat8
-        ver: 8
+        user: #{user}
+        ver: #{ver}
         with_haveged: true
       YAML_DUMP
     when 'redhat', 'fedora'
       <<~YAML_DUMP.chomp
+        arch: amd64
         authbind: 'no'
         catalina_base: /usr/share/tomcat
         catalina_home: /usr/share/tomcat
@@ -354,6 +376,7 @@ control 'Tomcat `map.jinja` YAML dump' do
       YAML_DUMP
     when 'suse'
       <<~YAML_DUMP.chomp
+        arch: amd64
         authbind: 'no'
         catalina_base: /usr/share/tomcat
         catalina_home: /usr/share/tomcat
