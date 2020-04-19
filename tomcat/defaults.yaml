@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # vim: ft=yaml
+---
 tomcat:
   pkg: tomcat
   ver: 7
@@ -9,7 +10,7 @@ tomcat:
   main_config: /etc/sysconfig/tomcat
   service: tomcat
   service_enabled: true
-  service_running: true   #reserved for Travis CI and maybe MacOS
+  service_running: true  # reserved for Travis CI and maybe MacOS
   user: tomcat
   group: tomcat
   java_home: /usr/lib/jvm/jre
@@ -25,8 +26,8 @@ tomcat:
   sites: {}
   resources: {}
 
-  #Relocated from pillar.example
-  id: ['example.com','example.net']
+  # Relocated from pillar.example
+  id: ['example.com', 'example.net']
   jvm_tmp: /tmp/tomcat
   cluster:
     simple: true
@@ -34,5 +35,5 @@ tomcat:
   catalina_base: /usr/share/tomcat
   catalina_home: /usr/share/tomcat
   catalina_pid: /var/run/tomcat.pid
-  #Used by generic 'tomcat-default-CentOS.template'
+  # Used by generic 'tomcat-default-CentOS.template'
   catalina_tmpdir: /var/cache/tomcat/temp

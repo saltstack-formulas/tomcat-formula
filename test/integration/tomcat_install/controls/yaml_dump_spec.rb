@@ -8,7 +8,7 @@ control 'Tomcat `map.jinja` YAML dump' do
     case platform[:family]
     when 'debian'
       <<~YAML_DUMP.chomp
-        authbind: false
+        authbind: 'no'
         catalina_base: /usr/share/tomcat
         catalina_home: /usr/share/tomcat
         catalina_pid: /var/run/tomcat.pid
@@ -145,7 +145,7 @@ control 'Tomcat `map.jinja` YAML dump' do
         service_running: false
         sites:
           example.com:
-            name: null
+            name: tomcat-server
             appBase: ../webapps/myapp
             path: ''
             docBase: ../webapps/myapp
@@ -181,7 +181,7 @@ control 'Tomcat `map.jinja` YAML dump' do
       YAML_DUMP
     when 'redhat', 'fedora'
       <<~YAML_DUMP.chomp
-        authbind: false
+        authbind: 'no'
         catalina_base: /usr/share/tomcat
         catalina_home: /usr/share/tomcat
         catalina_pid: /var/run/tomcat.pid
@@ -318,7 +318,7 @@ control 'Tomcat `map.jinja` YAML dump' do
         service_running: false
         sites:
           example.com:
-            name: null
+            name: tomcat-server
             appBase: ../webapps/myapp
             path: ''
             docBase: ../webapps/myapp
@@ -354,7 +354,7 @@ control 'Tomcat `map.jinja` YAML dump' do
       YAML_DUMP
     when 'suse'
       <<~YAML_DUMP.chomp
-        authbind: false
+        authbind: 'no'
         catalina_base: /usr/share/tomcat
         catalina_home: /usr/share/tomcat
         catalina_pid: /var/run/tomcat.pid
@@ -491,7 +491,7 @@ control 'Tomcat `map.jinja` YAML dump' do
         service_running: false
         sites:
           example.com:
-            name: null
+            name: tomcat-server
             appBase: ../webapps/myapp
             path: ''
             docBase: ../webapps/myapp
