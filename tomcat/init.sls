@@ -46,7 +46,7 @@ tomcat package installed and service running:
     - watch:
       - pkg: tomcat package installed and service running
    {% if grains.os == 'MacOS' %}
-    - unless: {{tomcat.ver|int > 8 }}         ##no plist file shipped with Tomcat9
+    - unless: {{ tomcat.ver|int > 8 }}         ##no plist file shipped with Tomcat9
    {% elif tomcat.with_haveged %}
          # To install haveged in centos you need the EPEL repository
          # There is no haveged in MacOS
@@ -60,5 +60,5 @@ tomcat haveged package installed and service running:
     - watch:
        - pkg: tomcat haveged package installed and service running
     - require_in:
-       - service: tomcat package installed and service running 
+       - service: tomcat package installed and service running
    {% endif %}

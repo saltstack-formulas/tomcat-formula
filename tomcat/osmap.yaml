@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # vim: ft=yaml
+---
 Debian:
   ver: 8
   pkg: tomcat8
@@ -51,18 +52,20 @@ Arch:
   catalina_pid: /var/run/tomcat8.pid
   catalina_base: /usr/share/tomcat8
   catalina_home: /usr/share/tomcat8
-  #Not used on Arch
-  manager_pkg:
+  # Not used on Arch
+  manager_pkg: ''
 
- {%- if grains.os == 'MacOS' %}
+{%- if grains.os == 'MacOS' %}
+{%-   if salt['cmd.run']('/usr/libexec/java_home -F', output_loglevel="quiet") == 0 %}
+{%-     set darwin_javahome = salt['cmd.run']('/usr/libexec/java_home') %}
+{%-   else %}
+{%-     set darwin_javahome = "" %}
+{%-   endif %}
 MacOS:
-      {% if salt['cmd.run']('/usr/libexec/java_home -F', output_loglevel="quiet") == 0 %}
-        {% set darwin_javahome = salt['cmd.run']('/usr/libexec/java_home') %}
-      {% else %}
-        {% set darwin_javahome = "" %}
-      {% endif %}
+  # yamllint disable rule:line-length
   user: {{ salt['pillar.get']('tomcat:user', salt['cmd.run']("stat -f '%Su' /dev/console")) }}
   group: {{ salt['pillar.get']('tomcat:group', salt['cmd.run']("stat -f '%Sg' /dev/console")) }}
+  # yamllint enable rule:line-length
 
   java_home: {{ darwin_javahome }}
   service: homebrew.mxcl.tomcat
@@ -78,13 +81,13 @@ MacOS:
   catalina_home: /usr/local/opt/tomcat/libexec
   catalina_tmpdir: /usr/local/opt/tomcat/libexec/temp
 
-  #Not used on Darwin
-  manager_pkg:
+  # Not used on Darwin
+  manager_pkg: ''
   with_haveged: false
   haveged_enabled: false
 
-  #Not verified on Darwin
+  # Not verified on Darwin
   cluster:
     simple: false
 
- {% endif %}
+{%- endif %}

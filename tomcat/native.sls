@@ -19,5 +19,5 @@ tomcat 200_server_xml:
 tomcat /usr/lib/libtcnative-1.so:
   file.symlink:
     - name: /usr/lib/libtcnative-1.so
-    - target: /usr/lib/{{grains['cpuarch']}}-linux-gnu/libtcnative-1.so
+    - target: /usr/lib/{{ grains['cpuarch'] }}-linux-gnu/libtcnative-1.so
 {% endif %}
