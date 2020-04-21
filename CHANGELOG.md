@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.17.1](https://github.com/saltstack-formulas/tomcat-formula/compare/v0.17.0...v0.17.1) (2020-04-21)
+
+
+### Code Refactoring
+
+* standardise structure from the `template-formula` ([db49764](https://github.com/saltstack-formulas/tomcat-formula/commit/db49764ef1af145e9469f5dcd888a2b2779b04f3))
+* **map.jinja:** use `template-formula` structure & add `debian-10` ([d1bb84f](https://github.com/saltstack-formulas/tomcat-formula/commit/d1bb84fdf0c788044ff6b72d45c7dc033346aac6))
+
+
+### Continuous Integration
+
+* **travis+inspec:** test `debian-10` as well ([9b2bab5](https://github.com/saltstack-formulas/tomcat-formula/commit/9b2bab530575f90ce9070bd4e64ecc026ac73d1c))
+
 # [0.17.0](https://github.com/saltstack-formulas/tomcat-formula/compare/v0.16.0...v0.17.0) (2020-04-20)
 
 
