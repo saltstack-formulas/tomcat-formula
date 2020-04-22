@@ -17,6 +17,10 @@ control 'Tomcat `map.jinja` YAML dump' do
         service = 'tomcat9'
         user = 'tomcat'
         ver = 9
+        catalina_base = '/var/lib/tomcat9'
+        catalina_home = '/usr/share/tomcat9'
+        catalina_pid = '/var/run/tomcat9.pid'
+        catalina_tmpdir = '/var/cache/tomcat9/temp'
       else
         conf_dir = '/etc/tomcat8'
         group = 'tomcat8'
@@ -26,14 +30,18 @@ control 'Tomcat `map.jinja` YAML dump' do
         service = 'tomcat8'
         user = 'tomcat8'
         ver = 8
+        catalina_base = '/var/lib/tomcat8'
+        catalina_home = '/usr/share/tomcat8'
+        catalina_pid = '/var/run/tomcat8.pid'
+        catalina_tmpdir = '/var/cache/tomcat8/temp'
       end
       <<~YAML_DUMP.chomp
         arch: amd64
         authbind: 'no'
-        catalina_base: /usr/share/tomcat
-        catalina_home: /usr/share/tomcat
-        catalina_pid: /var/run/tomcat.pid
-        catalina_tmpdir: /var/cache/tomcat/temp
+        catalina_base: #{catalina_base}
+        catalina_home: #{catalina_home}
+        catalina_pid: #{catalina_pid}
+        catalina_tmpdir: #{catalina_tmpdir}
         cluster:
           simple: true
         conf_dir: #{conf_dir}
