@@ -15,6 +15,10 @@ Debian:
   user: tomcat8
   group: tomcat8
   java_home: /usr/lib/jvm/default-java
+  catalina_base: /var/lib/tomcat8
+  catalina_home: /usr/share/tomcat8
+  catalina_pid: /var/run/tomcat8.pid
+  catalina_tmpdir: /var/cache/tomcat8/temp
 
 RedHat:
   native_pkg: tomcat-native

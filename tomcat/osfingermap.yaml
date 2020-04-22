@@ -11,6 +11,10 @@ Debian-10:
   service: tomcat9
   user: tomcat
   group: tomcat
+  catalina_base: /var/lib/tomcat9
+  catalina_home: /usr/share/tomcat9
+  catalina_pid: /var/run/tomcat9.pid
+  catalina_tmpdir: /var/cache/tomcat9/temp
 Debian-9: {}
 Debian-8: {}
 Debian-7:
