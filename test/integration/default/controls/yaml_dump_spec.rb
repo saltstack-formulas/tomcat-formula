@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+# Prepare platform "finger"
+platform_finger = "#{platform[:name]}-#{platform[:release].split('.')[0]}"
+
 control 'Tomcat `map.jinja` YAML dump' do
   title 'should contain the lines'
 
@@ -7,8 +10,8 @@ control 'Tomcat `map.jinja` YAML dump' do
   yaml_dump +=
     case platform[:family]
     when 'debian'
-      case platform[:release]
-      when /^10/
+      case platform_finger
+      when 'debian-10'
         conf_dir = '/etc/tomcat9'
         group = 'tomcat'
         main_config = '/etc/default/tomcat9'
@@ -21,20 +24,7 @@ control 'Tomcat `map.jinja` YAML dump' do
         catalina_home = '/usr/share/tomcat9'
         catalina_pid = '/var/run/tomcat9.pid'
         catalina_tmpdir = '/var/cache/tomcat9/temp'
-      when /^8/
-        conf_dir = '/etc/tomcat7'
-        group = 'tomcat7'
-        main_config = '/etc/default/tomcat7'
-        manager_pkg = 'tomcat7-admin'
-        pkg = 'tomcat7'
-        service = 'tomcat7'
-        user = 'tomcat7'
-        ver = 7
-        catalina_base = '/var/lib/tomcat7'
-        catalina_home = '/usr/share/tomcat7'
-        catalina_pid = '/var/run/tomcat7.pid'
-        catalina_tmpdir = '/var/cache/tomcat7/temp'
-      else
+      when 'debian-9', 'ubuntu-18', 'ubuntu-16'
         conf_dir = '/etc/tomcat8'
         group = 'tomcat8'
         main_config = '/etc/default/tomcat8'
@@ -47,6 +37,19 @@ control 'Tomcat `map.jinja` YAML dump' do
         catalina_home = '/usr/share/tomcat8'
         catalina_pid = '/var/run/tomcat8.pid'
         catalina_tmpdir = '/var/cache/tomcat8/temp'
+      when 'debian-8'
+        conf_dir = '/etc/tomcat7'
+        group = 'tomcat7'
+        main_config = '/etc/default/tomcat7'
+        manager_pkg = 'tomcat7-admin'
+        pkg = 'tomcat7'
+        service = 'tomcat7'
+        user = 'tomcat7'
+        ver = 7
+        catalina_base = '/var/lib/tomcat7'
+        catalina_home = '/usr/share/tomcat7'
+        catalina_pid = '/var/run/tomcat7.pid'
+        catalina_tmpdir = '/var/cache/tomcat7/temp'
       end
       <<~YAML_DUMP.chomp
         arch: amd64

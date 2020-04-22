@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+# Prepare platform "finger"
+platform_finger = "#{platform[:name]}-#{platform[:release].split('.')[0]}"
+
 control 'Tomcat packages' do
   title 'should be installed'
 
@@ -7,11 +10,13 @@ control 'Tomcat packages' do
   packages =
     case platform[:family]
     when 'debian'
-      case platform[:release]
-      when /^10/
+      case platform_finger
+      when 'debian-10'
         %w[tomcat9 haveged]
-      else
+      when 'debian-9', 'ubuntu-18', 'ubuntu-16'
         %w[tomcat8 haveged]
+      when 'debian-8'
+        %w[tomcat7 haveged]
       end
     when 'redhat', 'fedora', 'suse'
       %w[tomcat]
