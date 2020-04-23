@@ -209,6 +209,12 @@ control 'Tomcat `map.jinja` YAML dump' do
         with_haveged: true
       YAML_DUMP
     when 'redhat', 'fedora'
+      case platform[:family]
+      when 'redhat'
+        ver = 7
+      when 'fedora'
+        ver = 9
+      end
       <<~YAML_DUMP.chomp
         arch: amd64
         authbind: 'no'
@@ -379,7 +385,7 @@ control 'Tomcat `map.jinja` YAML dump' do
                 &quot;%{User-Agent}i&quot; %D'
             - className: org.apache.catalina.authenticator.SingleSignOn
         user: tomcat
-        ver: 7
+        ver: #{ver}
         with_haveged: false
       YAML_DUMP
     when 'suse'

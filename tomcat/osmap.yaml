@@ -15,7 +15,8 @@ Ubuntu: {}
 Raspbian: {}
 
 # os_family: RedHat
-Fedora: {}
+Fedora:
+  ver: 9
 CentOS: {}
 Amazon: {}
 
