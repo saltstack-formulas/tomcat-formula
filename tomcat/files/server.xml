@@ -159,12 +159,12 @@
             {% endif %}
 
             {%- if site.valves is defined %}
-	    {%- for valve in site.valves  %}
+            {%- for valve in site.valves  %}
               <Valve
               {%- for k, v in valve.items() %}
                 {{ k }}="{{ v }}"
               {%- endfor %} />
-	    {%- endfor %}
+            {%- endfor %}
             {% endif %}
       </Host>
       {% endfor %}
