@@ -16,7 +16,19 @@ Debian-10:
   catalina_pid: /var/run/tomcat9.pid
   catalina_tmpdir: /var/cache/tomcat9/temp
 Debian-9: {}
-Debian-8: {}
+Debian-8:
+  ver: 7
+  pkg: tomcat7
+  manager_pkg: tomcat7-admin
+  conf_dir: /etc/tomcat7
+  main_config: /etc/default/tomcat7
+  service: tomcat7
+  user: tomcat7
+  group: tomcat7
+  catalina_base: /var/lib/tomcat7
+  catalina_home: /usr/share/tomcat7
+  catalina_pid: /var/run/tomcat7.pid
+  catalina_tmpdir: /var/cache/tomcat7/temp
 Debian-7:
   pkg: tomcat7
   manager_pkg: tomcat7-admin

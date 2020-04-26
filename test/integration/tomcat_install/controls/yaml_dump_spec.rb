@@ -21,6 +21,19 @@ control 'Tomcat `map.jinja` YAML dump' do
         catalina_home = '/usr/share/tomcat9'
         catalina_pid = '/var/run/tomcat9.pid'
         catalina_tmpdir = '/var/cache/tomcat9/temp'
+      when /^8/
+        conf_dir = '/etc/tomcat7'
+        group = 'tomcat7'
+        main_config = '/etc/default/tomcat7'
+        manager_pkg = 'tomcat7-admin'
+        pkg = 'tomcat7'
+        service = 'tomcat7'
+        user = 'tomcat7'
+        ver = 7
+        catalina_base = '/var/lib/tomcat7'
+        catalina_home = '/usr/share/tomcat7'
+        catalina_pid = '/var/run/tomcat7.pid'
+        catalina_tmpdir = '/var/cache/tomcat7/temp'
       else
         conf_dir = '/etc/tomcat8'
         group = 'tomcat8'
