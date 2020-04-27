@@ -2,6 +2,42 @@
 Changelog
 =========
 
+`0.18.0 <https://github.com/saltstack-formulas/tomcat-formula/compare/v0.17.2...v0.18.0>`_ (2020-04-27)
+-----------------------------------------------------------------------------------------------------------
+
+Bug Fixes
+^^^^^^^^^
+
+
+* **cluster:** set accumlator name (\ `51f2968 <https://github.com/saltstack-formulas/tomcat-formula/commit/51f2968ed0014079d392b52fc613e181bce3501f>`_\ )
+* **fedora:** use ``ver: 9`` (Jasper Listener deprecated in tomcat >= 8) (\ `ba9cbf1 <https://github.com/saltstack-formulas/tomcat-formula/commit/ba9cbf12f79702b18eb0b5c95b62f219281f44fc>`_\ )
+* **native:** use EPEL repo for ``amazonlinux-2`` (\ `242f063 <https://github.com/saltstack-formulas/tomcat-formula/commit/242f06378e4e9772be9f3ebffbe26ed3ca45bdb3>`_\ )
+* **server.xml:** replace tabs with spaces (\ `58d65f9 <https://github.com/saltstack-formulas/tomcat-formula/commit/58d65f91e46aa2174985f4728da69e5efcd9c4ce>`_\ )
+
+Continuous Integration
+^^^^^^^^^^^^^^^^^^^^^^
+
+
+* **kitchen+travis+inspec:** merge test suites into single ``default`` suite (\ `429c56e <https://github.com/saltstack-formulas/tomcat-formula/commit/429c56e9b940e03f0b24ecb93540961fd450737b>`_\ )
+
+Documentation
+^^^^^^^^^^^^^
+
+
+* **readme:** switch mixed-up state descriptions (\ `d43958f <https://github.com/saltstack-formulas/tomcat-formula/commit/d43958fe613312d74b5f78c973081a31c8a923f1>`_\ )
+
+Features
+^^^^^^^^
+
+
+* **osfingermap:** add settings for ``debian-8`` (\ `7c86d80 <https://github.com/saltstack-formulas/tomcat-formula/commit/7c86d801ef492dc210ad8dc396502d9b60e0129b>`_\ )
+
+Tests
+^^^^^
+
+
+* update and fix all tests (inc. provide files for comparison) (\ `50262c3 <https://github.com/saltstack-formulas/tomcat-formula/commit/50262c3c012b0ebdb86810edd04793c31d2a0a79>`_\ )
+
 `0.17.2 <https://github.com/saltstack-formulas/tomcat-formula/compare/v0.17.1...v0.17.2>`_ (2020-04-27)
 -----------------------------------------------------------------------------------------------------------
 
