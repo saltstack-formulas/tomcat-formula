@@ -173,28 +173,15 @@ verifier:
     - cli
 
 suites:
-  - name: tomcat_install
+  - name: default
     provisioner:
       state_top:
         base:
           '*':
             - tomcat.yaml_dump
             - tomcat
-      pillars:
-        top.sls:
-          base:
-            '*':
-              - tomcat
-      pillars_from_files:
-        tomcat.sls: pillar.example
-    verifier:
-      inspec_tests:
-        - path: test/integration/tomcat_install
-  - name: tomcat_extend
-    provisioner:
-      state_top:
-        base:
-          '*':
+            - tomcat.native
+            - tomcat.config
             - tomcat.manager
             - tomcat.vhosts
             - tomcat.expires
@@ -207,6 +194,9 @@ suites:
               - tomcat
       pillars_from_files:
         tomcat.sls: pillar.example
+      dependencies:
+        - name: comparison_files
+          path: ./test/salt
     verifier:
       inspec_tests:
-        - path: test/integration/tomcat_extend
+        - path: test/integration/default

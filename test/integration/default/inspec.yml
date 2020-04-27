@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # vim: ft=yaml
 ---
-name: tomcat_extend
+name: default
 title: tomcat formula
 maintainer: SaltStack Formulas
 license: Apache-2.0
-summary: Verify that the extended tomcat configuration takes place correctly
+summary: Verify that the tomcat formula is setup and configured correctly
 supports:
   - platform-name: debian
   - platform-name: ubuntu

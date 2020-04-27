@@ -1,7 +1,3 @@
-{%- set connectors = accumulator['100_server_xml'][0] if '100_server_xml' in accumulator else {} -%}
-{%- set sites = accumulator['300_server_xml'][0] if '300_server_xml' in accumulator else {} -%}
-{%- set resources = accumulator['500_server_xml'][0] if '500_server_xml' in accumulator else {} -%}
-{%- set cluster = accumulator['600_server_xml'][0] if '600_server_xml' in accumulator else {} -%}
 <?xml version='1.0' encoding='utf-8'?>
 <!--
 
@@ -36,14 +32,14 @@
   <!-- Security listener. Documentation at /docs/config/listeners.html
   <Listener className="org.apache.catalina.security.SecurityListener" />
   -->
-  {% if '200_server_xml' in accumulator %}
+  
   <!--APR library loader. Documentation at /docs/apr.html -->
   <Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="on" />
-  {% endif %}
+  
 
-  {% if '400_server_xml' in accumulator %}
+  
   <Listener className="org.apache.catalina.core.JasperListener" />
-  {% endif %}
+  
 
   <!-- Prevent memory leaks due to use of particular java/javax APIs-->
   <!--Initialize Jasper prior to webapps are loaded. Documentation at /docs/jasper-howto.html -->
@@ -55,15 +51,7 @@
        Documentation at /docs/jndi-resources-howto.html
   -->
   <GlobalNamingResources>
-    {% if resources -%}
-    {% for id, params in resources.items() -%}
-    <Resource
-    {% for k, v in params.items() %}
-              {{ k }}="{{ v }}"
-    {%- endfor %}
-    />
-    {% endfor %}
-    {% endif %}
+    
 
     <!-- Editable user database that can also be used by
          UserDatabaseRealm to authenticate users
@@ -81,31 +69,31 @@
        Documentation at /docs/config/service.html
    -->
   <Service name="Catalina">
-    {% if connectors -%}
-    {% for id, params in connectors.items() -%}
     <Connector
-    {% for k, v in params.items() %}
-               {{ k }}="{{ v }}"
-    {%- endfor %}
-    />
-    {% endfor %}
-    {% else %}
-    <!-- Setting a default connector, as no connectors were defined in the formula -->
-    <!-- A "Connector" represents an endpoint by which requests are received
-         and responses are returned. Documentation at :
-         Java HTTP Connector: /docs/config/http.html (blocking & non-blocking)
-         Java AJP  Connector: /docs/config/ajp.html
-         APR (HTTP/AJP) Connector: /docs/apr.html
-         Define a non-SSL HTTP/1.1 Connector on port 8080
-    -->
-    <Connector port="8080" protocol="HTTP/1.1"
+    
+               port="8443"
+               protocol="org.apache.coyote.http11.Http11Protocol"
                connectionTimeout="20000"
                URIEncoding="UTF-8"
                redirectPort="8443"
+               maxHttpHeaderSize="8192"
+               maxThreads="150"
+               minSpareThreads="25"
+               enableLookups="false"
+               disableUploadTimeout="true"
+               acceptCount="100"
+               scheme="https"
+               secure="true"
+               clientAuth="false"
+               sslProtocol="TLS"
+               SSLEnabled="false"
+               keystoreFile="/path/to/keystoreFile"
+               keystorePass="somerandomtext"
     />
-    {% endif %}
-    <Engine name="Catalina" defaultHost="localhost"{% if cluster %} jvmRoute="{{ grains['nodename'] }}"{% endif %}>
-    {% if cluster %}
+    
+    
+    <Engine name="Catalina" defaultHost="localhost" jvmRoute="HOSTNAME_PLACEHOLDER">
+    
       <Cluster className="org.apache.catalina.ha.tcp.SimpleTcpCluster" channelSendOptions="8">
           <Manager className="org.apache.catalina.ha.session.DeltaManager" expireSessionsOnShutdown="false" notifyListenersOnReplication="true"/>
               <Channel className="org.apache.catalina.tribes.group.GroupChannel">
@@ -122,13 +110,13 @@
               </Channel>
               <Valve className="org.apache.catalina.ha.tcp.ReplicationValve" filter=""/>
               <Valve className="org.apache.catalina.ha.session.JvmRouteBinderValve"/>
-              {# JvmRouteSessionIDBinderListener deprecated in tomcat >= 8 #}
-              {% if '400_server_xml' in accumulator %}
+              
+              
               <ClusterListener className="org.apache.catalina.ha.session.JvmRouteSessionIDBinderListener"/>
-              {% endif %}
+              
               <ClusterListener className="org.apache.catalina.ha.session.ClusterSessionListener"/>
       </Cluster>
-    {% endif %}
+    
       <!-- Use the LockOutRealm to prevent attempts to guess user passwords
            via a brute-force attack -->
       <Realm className="org.apache.catalina.realm.LockOutRealm">
@@ -140,42 +128,46 @@
                resourceName="UserDatabase"/>
       </Realm>
 
-      {% if sites %}
-      {% for id, site in sites.items() %}
-      {%- set host_name = site.name if site.name is defined else id %}
-      <Host name="{{ host_name }}"
-          {%- for k, v in site.host_parameters.items()  %}
-            {{ k }}="{{ v }}"
-          {%- endfor %}>
-            {%- if (site.path is defined and site.docBase is defined) %}
-            <Context path="{{ site.path }}"
-                     docBase="{{ site.docBase }}"
-                     debug="{{ site.debug|default(0) }}"
-                     reloadable="{{ site.reloadable|default(true) }}"
+      
+      
+      <Host name="tomcat-server"
+            unpackWARs="true"
+            autoDeploy="true"
+            deployXML="false">
+            <Context path=""
+                     docBase="../webapps/myapp"
+                     debug="0"
+                     reloadable="true"
             />
-            {% endif %}
-            {%- if site.alias is defined %}
-            <Alias>{{ site.alias }}</Alias>
-            {% endif %}
-
-            {%- if site.valves is defined %}
-            {%- for valve in site.valves  %}
-              <Valve
-              {%- for k, v in valve.items() %}
-                {{ k }}="{{ v }}"
-              {%- endfor %} />
-            {%- endfor %}
-            {% endif %}
+            
+            <Alias>www.example.com</Alias>
+            
       </Host>
-      {% endfor %}
-      {% else %}
-        <!-- Setting a default site, as no sites were defined in the formula -->
-        <Host name="localhost"  appBase="webapps" unpackWARs="true" autoDeploy="true">
-        <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
-               prefix="localhost_access_log." suffix=".txt"
-               pattern="%h %l %u %t &quot;%r&quot; %s %b" />
-        </Host>
-      {% endif %}
+      
+      <Host name="example.net"
+            unpackWARs="true"
+            autoDeploy="true">
+            <Context path=""
+                     docBase="../webapps/myapp2"
+                     debug="0"
+                     reloadable="true"
+            />
+            
+            <Alias>www.example.net</Alias>
+            
+              <Valve
+                className="org.apache.catalina.valves.AccessLogValve"
+                directory="logs"
+                prefix="localhost_access_log."
+                fileDateFormat="yyyy-MM-dd-HH"
+                suffix=".log"
+                pattern="%h %l %u %t &quot;%m http://%v%U %H&quot; %s %b &quot;%{Referer}i&quot; &quot;%{User-Agent}i&quot; %D" />
+              <Valve
+                className="org.apache.catalina.authenticator.SingleSignOn" />
+            
+      </Host>
+      
+      
     </Engine>
   </Service>
 </Server>
