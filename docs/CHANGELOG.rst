@@ -2,6 +2,28 @@
 Changelog
 =========
 
+`0.17.2 <https://github.com/saltstack-formulas/tomcat-formula/compare/v0.17.1...v0.17.2>`_ (2020-04-27)
+-----------------------------------------------------------------------------------------------------------
+
+Bug Fixes
+^^^^^^^^^
+
+
+* **config.sls:** ensure catalina_tmpdir created with correct permissions (\ `4b5387f <https://github.com/saltstack-formulas/tomcat-formula/commit/4b5387f412766558962ea92d1f9fd9a852562c2a>`_\ )
+* **debian:** define catalina_* variables for Debian based OSes (\ `7062834 <https://github.com/saltstack-formulas/tomcat-formula/commit/706283490bb52eda7b191f458efd0ef7cbadd55b>`_\ )
+
+Continuous Integration
+^^^^^^^^^^^^^^^^^^^^^^
+
+
+* **gemfile.lock:** add to repo with updated ``Gemfile`` [skip ci] (\ `479c014 <https://github.com/saltstack-formulas/tomcat-formula/commit/479c0147bedb57cca8d670e92387fa806fe5dbfc>`_\ )
+
+Tests
+^^^^^
+
+
+* **yaml_dump:** update tests for changed catalina_* variables (\ `20cbcb8 <https://github.com/saltstack-formulas/tomcat-formula/commit/20cbcb82c6d81ef07bef6d24936b420d096fafea>`_\ )
+
 `0.17.1 <https://github.com/saltstack-formulas/tomcat-formula/compare/v0.17.0...v0.17.1>`_ (2020-04-21)
 -----------------------------------------------------------------------------------------------------------
 
