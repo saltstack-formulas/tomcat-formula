@@ -12,7 +12,7 @@ control 'Tomcat services' do
     case platform[:family]
     when 'debian'
       case platform_finger
-      when 'debian-10'
+      when 'debian-10', 'ubuntu-20'
         %w[tomcat9 haveged]
       when 'debian-9', 'ubuntu-18', 'ubuntu-16'
         %w[tomcat8 haveged]

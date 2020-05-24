@@ -22,7 +22,7 @@ when 'debian'
   conf_dir = '/etc/tomcat8'
   server_xml_user_and_group = 'tomcat8'
   case platform_finger
-  when 'debian-10'
+  when 'debian-10', 'ubuntu-20'
     main_config_file = '/etc/default/tomcat9'
     catalina_tmpdir = '/var/cache/tomcat9/temp'
     catalina_tmpdir_user_and_group = 'tomcat'
@@ -48,6 +48,7 @@ when 'redhat'
   end
 when 'fedora'
   case platform_finger
+  when 'fedora-32'
   when 'fedora-31'
   when 'fedora-30'
   end
