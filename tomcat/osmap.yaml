@@ -1,90 +1,34 @@
 # -*- coding: utf-8 -*-
 # vim: ft=yaml
-Debian:
-  ver: 8
-  pkg: tomcat8
-  native_pkg: libtcnative-1
-  manager_pkg: tomcat8-admin
-  with_haveged: true
-  haveged_enabled: true
-  conf_dir: /etc/tomcat8
-  main_config: /etc/default/tomcat8
-  main_config_template: salt://tomcat/files/tomcat-default-Debian.template
-  service: tomcat8
-  user: tomcat8
-  group: tomcat8
-  java_home: /usr/lib/jvm/default-java
-RedHat:
-  native_pkg: tomcat-native
-  manager_pkg: tomcat-admin-webapps
-  main_config_template: salt://tomcat/files/tomcat-default-CentOS.template
-CentOS:
-  native_pkg: tomcat-native
-  manager_pkg: tomcat-admin-webapps
-  main_config_template: salt://tomcat/files/tomcat-default-CentOS.template
-openSUSE:
-  ver: 8
-  native_pkg: libtcnative-1-0
-  manager_pkg: tomcat-admin-webapps
-  main_config_template: salt://tomcat/files/tomcat-default-CentOS.template
-Suse:
-  ver: 8
-  native_pkg: libtcnative-1-0
-  manager_pkg: tomcat-admin-webapps
-  main_config_template: salt://tomcat/files/tomcat-default-CentOS.template
-FreeBSD:
-  native_pkg: tomcat-native
-  ini_config: /etc/rc.conf
-  java_home: /usr
-Arch:
-  pkg: tomcat8
-  ver: 8
-  service: tomcat8
-  native_pkg: tomcat-native
-  conf_dir: /etc/tomcat8
-  main_config: /usr/lib/systemd/system/tomcat8.service
-  main_config_template: salt://tomcat/files/tomcat-default-Arch.template
-  user: tomcat8
-  group: tomcat8
-  java_home: /usr/lib/jvm/default-runtime
-  jvm_tmp: /var/tmp/tomcat8/temp
-  catalina_pid: /var/run/tomcat8.pid
-  catalina_base: /usr/share/tomcat8
-  catalina_home: /usr/share/tomcat8
-  #Not used on Arch
-  manager_pkg:
+#
+# Setup variables using grains['os'] based logic.
+# You just need to add the key:values for an `os` that differ
+# from `defaults.yaml` + `osarch.yaml` + `os_family.yaml`.
+# Only add an `os` which is/will be supported by the formula.
+#
+# If you do not need to provide defaults via the `os` grain,
+# you will need to provide at least an empty dict in this file, e.g.
+# osmap: {}
+---
+# os_family: Debian
+Ubuntu: {}
+Raspbian: {}
 
- {%- if grains.os == 'MacOS' %}
-MacOS:
-      {% if salt['cmd.run']('/usr/libexec/java_home -F', output_loglevel="quiet") == 0 %}
-        {% set darwin_javahome = salt['cmd.run']('/usr/libexec/java_home') %}
-      {% else %}
-        {% set darwin_javahome = "" %}
-      {% endif %}
-  user: {{ salt['pillar.get']('tomcat:user', salt['cmd.run']("stat -f '%Su' /dev/console")) }}
-  group: {{ salt['pillar.get']('tomcat:group', salt['cmd.run']("stat -f '%Sg' /dev/console")) }}
+# os_family: RedHat
+Fedora:
+  ver: 9
+CentOS: {}
+Amazon: {}
 
-  java_home: {{ darwin_javahome }}
-  service: homebrew.mxcl.tomcat
-  ver: 8
-  pkg: tomcat
-  native_pkg: tomcat-native
-  conf_dir: /usr/local/opt/tomcat/libexec/conf
-  main_config: /usr/local/opt/tomcat/libexec/bin/setenv.sh
-  main_config_template: salt://tomcat/files/tomcat-default-CentOS.template
-  limits_prefix: /Library/LaunchAgents/maxfiles.plist
-  jvm_tmp: /usr/local/opt/tomcat/libexec/temp
-  catalina_base: /usr/local/opt/tomcat/libexec
-  catalina_home: /usr/local/opt/tomcat/libexec
-  catalina_tmpdir: /usr/local/opt/tomcat/libexec/temp
+# os_family: Suse
+SUSE: {}
+openSUSE: {}
 
-  #Not used on Darwin
-  manager_pkg:
-  with_haveged: false
-  haveged_enabled: false
+# os_family: Gentoo
+Funtoo: {}
 
-  #Not verified on Darwin
-  cluster:
-    simple: false
+# os_family: Arch
+Manjaro: {}
 
- {% endif %}
+# os_family: Solaris
+SmartOS: {}

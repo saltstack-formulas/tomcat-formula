@@ -1,25 +1,49 @@
 # -*- coding: utf-8 -*-
 # vim: ft=jinja
 
-{% import_yaml "tomcat/defaults.yaml" as defaults %}
-{% import_yaml "tomcat/osmap.yaml" as osmap %}
-{% import_yaml "tomcat/codenamemap.yaml" as codemap %}
+{#- Get the `tplroot` from `tpldir` #}
+{%- set tplroot = tpldir.split('/')[0] %}
+{#- Start imports as #}
+{%- import_yaml tplroot ~ "/defaults.yaml" as default_settings %}
+{%- import_yaml tplroot ~ "/osarchmap.yaml" as osarchmap %}
+{%- import_yaml tplroot ~ "/osfamilymap.yaml" as osfamilymap %}
+{%- import_yaml tplroot ~ "/osmap.yaml" as osmap %}
+{%- import_yaml tplroot ~ "/osfingermap.yaml" as osfingermap %}
 
-{# get the settings for the os_family grain #}
-{% set osfam = salt['grains.filter_by'](osmap) or {} %}
-{# get the settings for the oscodename grain, os_family data will override
-    oscodename data #}
-{% set oscode = salt['grains.filter_by'](codemap,
-                                         grain='oscodename',
-                                         merge=osfam) or {} %}
+{#- Retrieve the config dict only once #}
+{%- set _config = salt['config.get'](tplroot, default={}) %}
 
-{# merge the os family/codename specific data over the defaults #}
-{% do defaults.tomcat.update(oscode) %}
+{%- set defaults = salt['grains.filter_by'](
+      default_settings,
+      default=tplroot,
+      merge=salt['grains.filter_by'](
+        osarchmap,
+        grain='osarch',
+        merge=salt['grains.filter_by'](
+          osfamilymap,
+          grain='os_family',
+          merge=salt['grains.filter_by'](
+            osmap,
+            grain='os',
+            merge=salt['grains.filter_by'](
+              osfingermap,
+              grain='osfinger',
+              merge=salt['grains.filter_by'](
+                _config,
+                default='lookup'
+              )
+            )
+          )
+        )
+      )
+    )
+%}
 
-{# merge the pillar:lookup dict into the defaults/os specific dict #}
-{% set lookup = salt['pillar.get']('tomcat:lookup',
-                                   default=defaults.tomcat,
-                                   merge=True) %}
+{%- set config = salt['grains.filter_by'](
+      {'defaults': defaults},
+      default='defaults',
+      merge=_config
+    )
+%}
 
-{# merge the actual tomcat pillar into the above combined dict #}
-{% set tomcat = salt['pillar.get']('tomcat', default=lookup, merge=True) %}
+{%- set tomcat = config %}

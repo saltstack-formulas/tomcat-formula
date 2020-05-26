@@ -1,0 +1,28 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+---
+# General overrides used across formulas in the org
+Layout/LineLength:
+  # Increase from default of `80`
+  # Based on https://github.com/PyCQA/flake8-bugbear#opinionated-warnings (`B950`)
+  Max: 88
+Metrics/BlockLength:
+  ExcludedMethods:
+    - control
+    - describe
+  # Increase from default of `25`
+  Max: 30
+
+# General settings across all cops in this formula
+AllCops:
+  # Files to ignore completely
+  Exclude:
+    - test/integration/**/serverspec/*
+
+# Any offenses that should be fixed, e.g. collected via. `rubocop --auto-gen-config`
+Lint/EmptyWhen:
+  Exclude:
+    - test/integration/default/controls/config_spec.rb
+Style/FormatStringToken:
+  Exclude:
+    - test/integration/default/controls/yaml_dump_spec.rb
