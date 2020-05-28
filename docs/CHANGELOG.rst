@@ -2,6 +2,27 @@
 Changelog
 =========
 
+`0.19.0 <https://github.com/saltstack-formulas/tomcat-formula/compare/v0.18.0...v0.19.0>`_ (2020-05-28)
+-----------------------------------------------------------------------------------------------------------
+
+Continuous Integration
+^^^^^^^^^^^^^^^^^^^^^^
+
+
+* **kitchen+travis:** add new platforms [skip ci] (\ `91e57b5 <https://github.com/saltstack-formulas/tomcat-formula/commit/91e57b5672e2a9f93fe9cf8f216ce513ba89b613>`_\ )
+* **kitchen+travis:** adjust matrix to add ``3000.2`` & remove ``2018.3`` [skip ci] (\ `fea7a6c <https://github.com/saltstack-formulas/tomcat-formula/commit/fea7a6c07f4ca7e7273b9c0d406941f5d53bcb09>`_\ )
+* **kitchen+travis:** adjust matrix to add ``3000.3`` [skip ci] (\ `b378533 <https://github.com/saltstack-formulas/tomcat-formula/commit/b378533a10cc11e339c81e40d7ef39a13f137870>`_\ )
+* **kitchen+travis:** remove ``master-py2-arch-base-latest`` [skip ci] (\ `7ee2926 <https://github.com/saltstack-formulas/tomcat-formula/commit/7ee2926402e291243edf301b8733f24d80a22518>`_\ )
+* **kitchen+travis:** use new platforms (\ `2fd6f92 <https://github.com/saltstack-formulas/tomcat-formula/commit/2fd6f92a7976b42b61a21687b67a425b0ca5f54e>`_\ )
+* **travis:** add notifications => zulip [skip ci] (\ `65a5733 <https://github.com/saltstack-formulas/tomcat-formula/commit/65a5733198495632fc08da803fce832b4adc81ca>`_\ )
+* **workflows/commitlint:** add to repo [skip ci] (\ `2451442 <https://github.com/saltstack-formulas/tomcat-formula/commit/2451442b07659439ade466a0f2626482f24514f8>`_\ )
+
+Features
+^^^^^^^^
+
+
+* support new platforms (\ ``ubuntu-20.04`` & ``fedora-32``\ ) (\ `fce35a5 <https://github.com/saltstack-formulas/tomcat-formula/commit/fce35a522d8effc99f0d1e03e0ed63518c114530>`_\ )
+
 `0.18.0 <https://github.com/saltstack-formulas/tomcat-formula/compare/v0.17.2...v0.18.0>`_ (2020-04-27)
 -----------------------------------------------------------------------------------------------------------
 
