@@ -40,6 +40,19 @@ Debian-7:
   group: tomcat7
 
 # os: Ubuntu
+Ubuntu-20.04:
+  ver: 9
+  pkg: tomcat9
+  manager_pkg: tomcat9-admin
+  conf_dir: /etc/tomcat9
+  main_config: /etc/default/tomcat9
+  service: tomcat9
+  user: tomcat
+  group: tomcat
+  catalina_base: /var/lib/tomcat9
+  catalina_home: /usr/share/tomcat9
+  catalina_pid: /var/run/tomcat9.pid
+  catalina_tmpdir: /var/cache/tomcat9/temp
 Ubuntu-18.04: {}
 Ubuntu-16.04: {}
 Ubuntu-14.04:
@@ -54,6 +67,7 @@ Ubuntu-14.04:
   group: tomcat7
 
 # os: Fedora
+Fedora-32: {}
 Fedora-31: {}
 Fedora-30: {}
 

@@ -11,7 +11,7 @@ control 'Tomcat `map.jinja` YAML dump' do
     case platform[:family]
     when 'debian'
       case platform_finger
-      when 'debian-10'
+      when 'debian-10', 'ubuntu-20'
         conf_dir = '/etc/tomcat9'
         group = 'tomcat'
         main_config = '/etc/default/tomcat9'
