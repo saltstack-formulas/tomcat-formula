@@ -23,6 +23,7 @@ tomcat:
     soft: 64000
     hard: 64000
   connectors: {}
+  realm: {}
   sites: {}
   resources: {}
 

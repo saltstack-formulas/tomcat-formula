@@ -53,6 +53,28 @@ tomcat:
       # Change to realpath before setting "SSLEnabled: 'true'"
       keystoreFile: '/path/to/keystoreFile'
       keystorePass: 'somerandomtext'
+
+    # User encrypted passwords with LokoutRealm
+    realm:
+      "org.apache.catalina.realm.LockOutRealm":
+        name: "org.apache.catalina.realm.LockOutRealm"
+        realm:
+          name: "org.apache.catalina.realm.UserDatabaseRealm"
+          realm_parameters:
+            resourceName: "UserDatabase"
+          value: '<CredentialHandler className="org.apache.catalina.realm.MessageDigestCredentialHandler" algorithm="md5"/>'
+
+    # User encrypted passwords without LokoutRealm
+    realm:
+      "org.apache.catalina.realm.UserDatabaseRealm":
+        name: "org.apache.catalina.realm.UserDatabaseRealm"
+        realm_parameters:
+          resourceName: "UserDatabase"
+          value: '<CredentialHandler className="org.apache.catalina.realm.MessageDigestCredentialHandler" algorithm="md5"/>'
+
+    # Password encryption command
+    # /usr/share/tomcat8/bin/digest.sh -a md5 -h org.apache.catalina.realm.MessageDigestCredentialHandler PASSWORT
+
   sites:
     # unique; used as salt ID and in template as `host_name` if
     # `name` is not declared
