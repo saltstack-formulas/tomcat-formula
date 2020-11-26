@@ -3,6 +3,8 @@
 ---
 tomcat:
   pkg: tomcat
+  manager_pkg: tomcat-admin
+  common_pkg: tomcat-common
   ver: 7
   with_haveged: false
   haveged_enabled: false
