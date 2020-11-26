@@ -9,6 +9,7 @@ tomcat stop services and clean packages:
   file.absent:
     - names:
       - /usr/local/opt/tomcat
+      - /etc/init.d/tomcat{{ tomcat.ver }}
   pkg.removed:
     - names:
       - {{ tomcat.native_pkg }}
