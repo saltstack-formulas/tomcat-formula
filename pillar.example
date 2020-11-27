@@ -3,7 +3,7 @@
 ---
 tomcat:
   # The Tomcat version can be overridden like so.
-  # ver: 7
+  # ver: 9
   security: 'no'
   # The Java home directory can be overridden like so.
   # java_home: '/usr/lib/jvm/default-java'
