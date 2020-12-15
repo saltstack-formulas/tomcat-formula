@@ -24,6 +24,7 @@ control 'Tomcat `map.jinja` YAML dump' do
         catalina_home = '/usr/share/tomcat9'
         catalina_pid = '/var/run/tomcat9.pid'
         catalina_tmpdir = '/var/cache/tomcat9/temp'
+        common_pkg = 'tomcat9-common'
       when 'debian-9', 'ubuntu-18', 'ubuntu-16'
         conf_dir = '/etc/tomcat8'
         group = 'tomcat8'
@@ -37,6 +38,7 @@ control 'Tomcat `map.jinja` YAML dump' do
         catalina_home = '/usr/share/tomcat8'
         catalina_pid = '/var/run/tomcat8.pid'
         catalina_tmpdir = '/var/cache/tomcat8/temp'
+        common_pkg = 'tomcat8-common'
       when 'debian-8'
         conf_dir = '/etc/tomcat7'
         group = 'tomcat7'
@@ -50,6 +52,7 @@ control 'Tomcat `map.jinja` YAML dump' do
         catalina_home = '/usr/share/tomcat7'
         catalina_pid = '/var/run/tomcat7.pid'
         catalina_tmpdir = '/var/cache/tomcat7/temp'
+        common_pkg = 'tomcat7-common'
       end
       <<~YAML_DUMP.chomp
         arch: amd64
@@ -60,6 +63,7 @@ control 'Tomcat `map.jinja` YAML dump' do
         catalina_tmpdir: #{catalina_tmpdir}
         cluster:
           simple: true
+        common_pkg: #{common_pkg}
         conf_dir: #{conf_dir}
         connectors:
           example_connector:
@@ -240,6 +244,7 @@ control 'Tomcat `map.jinja` YAML dump' do
         catalina_tmpdir: /var/cache/tomcat/temp
         cluster:
           simple: true
+        common_pkg: tomcat-common
         conf_dir: /etc/tomcat
         connectors:
           example_connector:
@@ -414,6 +419,7 @@ control 'Tomcat `map.jinja` YAML dump' do
         catalina_tmpdir: /var/cache/tomcat/temp
         cluster:
           simple: true
+        common_pkg: tomcat-common
         conf_dir: /etc/tomcat
         connectors:
           example_connector:
