@@ -117,7 +117,7 @@ default-fedora-32-master-py3: {extends: '.test_instance'}
 # default-opensuse-leap-152-master-py3: {extends: '.test_instance'}
 # default-amazonlinux-2-master-py3: {extends: '.test_instance'}
 # default-debian-10-3000-3-py3: {extends: '.test_instance'}
-# default-debian-9-3000-3-py3: {extends: '.test_instance'}
+default-debian-9-3000-3-py3: {extends: '.test_instance'}
 # default-ubuntu-1804-3000-3-py3: {extends: '.test_instance'}
 # default-centos-8-3000-3-py3: {extends: '.test_instance'}
 # default-centos-7-3000-3-py3: {extends: '.test_instance'}
