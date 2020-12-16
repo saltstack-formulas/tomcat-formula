@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.19.1](https://github.com/saltstack-formulas/tomcat-formula/compare/v0.19.0...v0.19.1) (2020-12-16)
+
+
+### Continuous Integration
+
+* **gitlab-ci:** use GitLab CI as Travis CI replacement ([c99d984](https://github.com/saltstack-formulas/tomcat-formula/commit/c99d98431a41a9a118a34c692923a9c80942f75d))
+* **kitchen:** use `saltimages` Docker Hub where available [skip ci] ([b4c10cf](https://github.com/saltstack-formulas/tomcat-formula/commit/b4c10cfd33e386fff5fdd521a2fcf236013b589a))
+* **pre-commit:** add to formula [skip ci] ([eb14b1f](https://github.com/saltstack-formulas/tomcat-formula/commit/eb14b1f32fd73afb0545e7ac30b296053f5fc5bf))
+* **pre-commit:** enable/disable `rstcheck` as relevant [skip ci] ([82e157e](https://github.com/saltstack-formulas/tomcat-formula/commit/82e157e0362ee86cc2b23c02eea5f9299bdef102))
+* **pre-commit:** finalise `rstcheck` configuration [skip ci] ([ed06e07](https://github.com/saltstack-formulas/tomcat-formula/commit/ed06e07f3a01c9c46b3cbadcfaab2d42e0841352))
+
+
+### Tests
+
+* **yaml_dump_spec:** update with `common_pkg` from PR [#119](https://github.com/saltstack-formulas/tomcat-formula/issues/119) [skip ci] ([29db014](https://github.com/saltstack-formulas/tomcat-formula/commit/29db014282d8c80050cdf1114115dccc77bd7ae9))
+
 # [0.19.0](https://github.com/saltstack-formulas/tomcat-formula/compare/v0.18.0...v0.19.0) (2020-05-28)
 
 
