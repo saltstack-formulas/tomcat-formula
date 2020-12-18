@@ -92,7 +92,7 @@ jobs:
     # - env: INSTANCE=default-opensuse-leap-152-master-py3
     # - env: INSTANCE=default-amazonlinux-2-master-py3
     # - env: INSTANCE=default-debian-10-3000-3-py3
-    # - env: INSTANCE=default-debian-9-3000-3-py3
+    - env: INSTANCE=default-debian-9-3000-3-py3
     # - env: INSTANCE=default-ubuntu-1804-3000-3-py3
     # - env: INSTANCE=default-centos-8-3000-3-py3
     # - env: INSTANCE=default-centos-7-3000-3-py3
