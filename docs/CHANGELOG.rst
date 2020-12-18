@@ -2,6 +2,15 @@
 Changelog
 =========
 
+`0.19.2 <https://github.com/saltstack-formulas/tomcat-formula/compare/v0.19.1...v0.19.2>`_ (2020-12-18)
+-----------------------------------------------------------------------------------------------------------
+
+Bug Fixes
+^^^^^^^^^
+
+
+* **osfingermap:** reinstate values for ``Debian-9`` after regression (\ `5170561 <https://github.com/saltstack-formulas/tomcat-formula/commit/517056194d41e117179405c4471aa68eb66f152e>`_\ ), closes `#119 <https://github.com/saltstack-formulas/tomcat-formula/issues/119>`_
+
 `0.19.1 <https://github.com/saltstack-formulas/tomcat-formula/compare/v0.19.0...v0.19.1>`_ (2020-12-16)
 -----------------------------------------------------------------------------------------------------------
 
