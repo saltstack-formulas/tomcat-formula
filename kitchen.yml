@@ -153,7 +153,7 @@ suites:
       state_top:
         base:
           '*':
-            - tomcat.yaml_dump
+            - tomcat._mapdata
             - tomcat
             - tomcat.native
             - tomcat.config
