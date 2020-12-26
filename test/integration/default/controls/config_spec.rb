@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
-# Prepare platform "finger" and base path to file comparison directory
-platform_finger = "#{platform[:name]}-#{platform[:release].split('.')[0]}"
-comparison_files_dir = '/tmp/kitchen/srv/salt/comparison_files'
+# Strip the `platform[:finger]` version number down to the "OS major release"
+platform_finger = system.platform[:finger].split('.').first.to_s
 
 # Default values for `control 'Tomcat main config'`
 main_config_file = '/etc/sysconfig/tomcat'
@@ -67,8 +66,8 @@ control 'Tomcat main config' do
   title 'should contain the lines'
 
   # Prepare comparison file
-  main_config_path = "#{comparison_files_dir}/main_config/#{platform_finger}"
-  main_config = file(main_config_path).content
+  main_config_path = "main_config/#{platform_finger}"
+  main_config = inspec.profile.file(main_config_path)
 
   describe file(main_config_file) do
     it { should be_file }
@@ -94,8 +93,8 @@ control 'Tomcat `server.xml` config' do
   title 'should contain the lines'
 
   server_xml_file = "#{conf_dir}/server.xml"
-  server_xml_path = "#{comparison_files_dir}/server_xml/#{platform_finger}.xml"
-  server_xml = file(server_xml_path).content
+  server_xml_path = "server_xml/#{platform_finger}.xml"
+  server_xml = inspec.profile.file(server_xml_path)
   # Need the hostname to be used for `tomcat.cluster`
   server_xml = server_xml.gsub(
     'HOSTNAME_PLACEHOLDER',
