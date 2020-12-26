@@ -95,11 +95,6 @@ control 'Tomcat `server.xml` config' do
   server_xml_file = "#{conf_dir}/server.xml"
   server_xml_path = "server_xml/#{platform_finger}.xml"
   server_xml = inspec.profile.file(server_xml_path)
-  # Need the hostname to be used for `tomcat.cluster`
-  server_xml = server_xml.gsub(
-    'HOSTNAME_PLACEHOLDER',
-    file('/etc/hostname').content.chomp
-  )
 
   describe file(server_xml_file) do
     it { should be_file }

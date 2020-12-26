@@ -92,7 +92,7 @@
     />
     
     
-    <Engine name="Catalina" defaultHost="localhost" jvmRoute="HOSTNAME_PLACEHOLDER">
+    <Engine name="Catalina" defaultHost="localhost" jvmRoute="example.net">
     
       <Cluster className="org.apache.catalina.ha.tcp.SimpleTcpCluster" channelSendOptions="8">
           <Manager className="org.apache.catalina.ha.session.DeltaManager" expireSessionsOnShutdown="false" notifyListenersOnReplication="true"/>
