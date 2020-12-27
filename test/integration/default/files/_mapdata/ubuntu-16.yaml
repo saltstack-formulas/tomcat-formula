@@ -1,0 +1,177 @@
+# yamllint disable rule:indentation rule:line-length
+# Ubuntu-16.04
+---
+values:
+  tomcat:
+    arch: amd64
+    authbind: 'no'
+    catalina_base: /var/lib/tomcat9
+    catalina_home: /usr/share/tomcat9
+    catalina_pid: /var/run/tomcat.pid
+    catalina_tmpdir: /var/cache/tomcat/temp
+    cluster:
+      simple: true
+    common_pkg: tomcat9-common
+    conf_dir: /etc/tomcat9
+    connectors:
+      example_connector:
+        SSLEnabled: 'false'
+        URIEncoding: UTF-8
+        acceptCount: 100
+        clientAuth: 'false'
+        connectionTimeout: 20000
+        disableUploadTimeout: 'true'
+        enableLookups: 'false'
+        keystoreFile: /path/to/keystoreFile
+        keystorePass: somerandomtext
+        maxHttpHeaderSize: 8192
+        maxThreads: 150
+        minSpareThreads: 25
+        port: 8443
+        protocol: org.apache.coyote.http11.Http11Protocol
+        redirectPort: 8443
+        scheme: https
+        secure: 'true'
+        sslProtocol: TLS
+    context:
+      Environment:
+        env.first:
+          name: env.first
+          override: true
+          type: java.lang.String
+          value: first.text
+        env.second:
+          name: env.second
+          override: false
+          type: some.other.type
+          value: second.value
+      Listener:
+        first:
+          className: org.apache.catalina.security.SecurityListener
+        second:
+          SSLEngine: 'on'
+          className: org.apache.catalina.core.AprLifecycleListener
+      Resource:
+        jdbc:
+          auth: Container
+          driverClassName: org.postgresql.Driver
+          maxActive: 20
+          maxIdle: 10
+          maxWait: -1
+          name: jdbc/__postgres
+          password: aycaramba!
+          type: javax.sql.DataSource
+          url: jdbc:postgresql://db.server/dbname
+          user: dbuser
+      ResourceLink:
+        any_name_here_will_be_ignored:
+          global: simpleValue
+          name: linkToGlobalResource
+          type: java.lang.Integer
+    expires_when: 2 weeks
+    group: tomcat
+    haveged_enabled: true
+    id:
+    - example.com
+    - example.net
+    java_home: /usr/lib/jvm/default-java
+    java_opts:
+    - Djava.awt.headless=true
+    - Xmx128m
+    - XX:MaxPermSize=256m
+    - Dlog4j.configuration=file:/tmp/log4j.properties
+    - Dlogback.configurationFile=/tmp/logback.xml
+    jsp_compiler: javac
+    jvm_tmp: /tmp/tomcat
+    limit:
+      hard: 64000
+      soft: 64000
+    logfile_compress: 1
+    logfile_days: 14
+    main_config: /etc/default/tomcat9
+    main_config_template: salt://tomcat/files/tomcat-default-Debian.template
+    manager:
+      roles:
+      - manager-gui
+      - manager-script
+      - manager-jmx
+      - manager-status
+      users:
+        saltuser1:
+          passwd: RfgpE2iQwD
+          roles: manager-gui,manager-script,manager-jmx,manager-status
+        saltuser2:
+          passwd: RfgpE2iQwD
+          roles:
+          - manager-gui
+          - manager-script
+          - manager-jmx
+          - manager-status
+    manager_pkg: tomcat9-admin
+    native_pkg: libtcnative-1
+    other_contexts:
+      other-contexts:
+        elements:
+          Resource:
+            jdbc:
+              auth: Container
+              driverClassName: org.postgresql.Driver
+              maxActive: 20
+              maxIdle: 10
+              maxWait: -1
+              name: jdbc/__postgres
+              password: aycaramba!
+              type: javax.sql.DataSource
+              url: jdbc:postgresql://db.server/dbname
+              user: dbuser
+          Resources:
+            PostResources:
+              base: /var/lib/tomcat8/appconfig
+              className: org.apache.catalina.webresources.DirResourceSet
+              webAppMount: /WEB-INF/classes
+        params:
+          crossContext: 'true'
+          debug: 1
+          docBase: /path/to/webapp
+          reloadable: 'true'
+    pkg: tomcat9
+    resources: {}
+    security: 'no'
+    service: tomcat9
+    service_enabled: true
+    service_running: false
+    sites:
+      example.com:
+        alias: www.example.com
+        appBase: ../webapps/myapp
+        debug: 0
+        docBase: ../webapps/myapp
+        host_parameters:
+          autoDeploy: 'true'
+          deployXML: 'false'
+          unpackWARs: 'true'
+        name: tomcat-server
+        path: ''
+        reloadable: 'true'
+      example.net:
+        alias: www.example.net
+        appBase: ../webapps/myapp2
+        debug: 0
+        docBase: ../webapps/myapp2
+        host_parameters:
+          autoDeploy: 'true'
+          unpackWARs: 'true'
+        path: ''
+        reloadable: 'true'
+        valves:
+        - className: org.apache.catalina.valves.AccessLogValve
+          directory: logs
+          fileDateFormat: yyyy-MM-dd-HH
+          pattern: '%h %l %u %t &quot;%m http://%v%U %H&quot; %s %b &quot;%{Referer}i&quot;
+            &quot;%{User-Agent}i&quot; %D'
+          prefix: localhost_access_log.
+          suffix: .log
+        - className: org.apache.catalina.authenticator.SingleSignOn
+    user: tomcat
+    ver: 9
+    with_haveged: true

@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-# Prepare platform "finger"
-platform_finger = "#{platform[:name]}-#{platform[:release].split('.')[0]}"
-
 control 'Tomcat services' do
   impact 0.5
   title 'should be installed, enabled and running'
+
+  # Strip the `platform[:finger]` version number down to the "OS major release"
+  platform_finger = system.platform[:finger].split('.').first.to_s
 
   # Overide by platform
   services =

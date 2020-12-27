@@ -149,11 +149,13 @@ verifier:
 
 suites:
   - name: default
+    driver:
+      hostname: example.net
     provisioner:
       state_top:
         base:
           '*':
-            - tomcat.yaml_dump
+            - tomcat._mapdata
             - tomcat
             - tomcat.native
             - tomcat.config
@@ -169,9 +171,6 @@ suites:
               - tomcat
       pillars_from_files:
         tomcat.sls: pillar.example
-      dependencies:
-        - name: comparison_files
-          path: ./test/salt
     verifier:
       inspec_tests:
         - path: test/integration/default

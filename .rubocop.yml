@@ -23,6 +23,3 @@ AllCops:
 Lint/EmptyWhen:
   Exclude:
     - test/integration/default/controls/config_spec.rb
-Style/FormatStringToken:
-  Exclude:
-    - test/integration/default/controls/yaml_dump_spec.rb
