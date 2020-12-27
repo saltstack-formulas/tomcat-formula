@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.19.3](https://github.com/saltstack-formulas/tomcat-formula/compare/v0.19.2...v0.19.3) (2020-12-27)
+
+
+### Continuous Integration
+
+* **commitlint:** ensure `upstream/master` uses main repo URL [skip ci] ([41a15f9](https://github.com/saltstack-formulas/tomcat-formula/commit/41a15f9b16de4b2c411b1451888c5bcd3297c9d0))
+* **gitlab-ci:** add `rubocop` linter (with `allow_failure`) [skip ci] ([d805414](https://github.com/saltstack-formulas/tomcat-formula/commit/d80541452bc36535aa79d1d7804ad4635a9df5a5))
+
+
+### Tests
+
+* **_mapdata:** generate verification files ([dbed9c1](https://github.com/saltstack-formulas/tomcat-formula/commit/dbed9c1440a3bd6a671487dc740d33bfbdc405a4))
+* **comparison_files:** refactor to use InSpec profile directory ([901188d](https://github.com/saltstack-formulas/tomcat-formula/commit/901188d49d5b175168a41084f4a5aa78a51110c3))
+* **config_spec:** avoid use of `HOSTNAME_PLACEHOLDER` ([8d4ced7](https://github.com/saltstack-formulas/tomcat-formula/commit/8d4ced7fb00a0951d8a7c344020ba410c58b2245))
+* **map:** verify `map.jinja` dump using `_mapdata` state ([dd792fb](https://github.com/saltstack-formulas/tomcat-formula/commit/dd792fb17d44572cadc476dcc9661afea8b2baca))
+
 ## [0.19.2](https://github.com/saltstack-formulas/tomcat-formula/compare/v0.19.1...v0.19.2) (2020-12-18)
 
 
