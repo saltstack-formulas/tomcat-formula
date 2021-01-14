@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.19.4](https://github.com/saltstack-formulas/tomcat-formula/compare/v0.19.3...v0.19.4) (2021-01-14)
+
+
+### Bug Fixes
+
+* **_mapdata:** ensure map data is directly under `values` ([0ffaa37](https://github.com/saltstack-formulas/tomcat-formula/commit/0ffaa37f62d09e0fc4cbb197701ff337e49d7beb))
+
+
+### Tests
+
+* **_mapdata:** update for `_mapdata/init.sls` change ([c869918](https://github.com/saltstack-formulas/tomcat-formula/commit/c869918446861cb002f57a2c25b28f0cfdd4ebd6))
+
 ## [0.19.3](https://github.com/saltstack-formulas/tomcat-formula/compare/v0.19.2...v0.19.3) (2020-12-27)
 
 
