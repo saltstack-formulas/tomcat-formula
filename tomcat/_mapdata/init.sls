@@ -6,9 +6,7 @@
 {%- from tplroot ~ "/map.jinja" import tomcat with context %}
 
 {%- set _mapdata = {
-      "values": {
-        "tomcat": tomcat,
-      }
+      "values": tomcat,
     } %}
 {%- do salt["log.debug"]("### MAP.JINJA DUMP ###\n" ~ _mapdata | yaml(False)) %}
 
