@@ -12,6 +12,7 @@ catalina_tmpdir_mode = '0755'
 # Default values for `control 'Tomcat `server.xml` config'`
 conf_dir = '/etc/tomcat'
 server_xml_user_and_group = 'tomcat'
+python3_pkg = 'python3'
 
 # Override by platform
 case platform[:family]
@@ -39,22 +40,26 @@ when 'debian'
   end
 when 'redhat'
   case platform_finger
-  when 'centos-8'
-  when 'centos-7'
+  when 'centos-8', 'oraclelinux-8'
+    python3_pkg = 'python36'
+  when 'centos-7', 'oraclelinux-7'
   when 'centos-6'
   when 'amazon-2'
   when 'amazon-2018'
   end
 when 'fedora'
   case platform_finger
+  when 'fedora-33'
   when 'fedora-32'
   when 'fedora-31'
   when 'fedora-30'
   end
 when 'suse'
+  server_xml_user_and_group = 'root'
   case platform_finger
-  when 'opensuse-15', 'opensuse-tumbleweed'
-    server_xml_user_and_group = 'root'
+  when 'opensuse-15'
+  when 'opensuse-tumbleweed'
+    python3_pkg = 'python38-base'
   end
 when 'linux'
   case platform_finger
@@ -65,6 +70,7 @@ when 'linux'
     catalina_tmpdir_mode = '0775'
     conf_dir = '/etc/tomcat8'
     server_xml_user_and_group = 'tomcat8'
+    python3_pkg = 'python'
   end
 end
 
@@ -97,6 +103,14 @@ end
 
 control 'Tomcat `server.xml` config' do
   title 'should contain the lines'
+
+  only_if(
+    'Disabled where Python < 3.6 due to data ordering not being maintained ' \
+    'for dicts when looping over `.items()`'
+  ) do
+    Gem::Version.new(package(python3_pkg).version.gsub('~',
+                                                       '-')) >= Gem::Version.new('3.6')
+  end
 
   server_xml_file = "#{conf_dir}/server.xml"
   server_xml_path = "server_xml/#{platform_finger}.xml"
