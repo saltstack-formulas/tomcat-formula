@@ -21,6 +21,11 @@ control 'Tomcat services' do
       end
     when 'redhat', 'fedora', 'suse'
       %w[tomcat]
+    when 'linux'
+      case platform_finger
+      when 'arch-base-latest'
+        %w[tomcat8]
+      end
     end
 
   services.each do |s|

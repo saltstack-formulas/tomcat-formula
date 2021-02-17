@@ -8,6 +8,7 @@ main_config_file = '/etc/sysconfig/tomcat'
 # Default values for `control 'Tomcat Catalina temp dir'`
 catalina_tmpdir = '/var/cache/tomcat/temp'
 catalina_tmpdir_user_and_group = 'tomcat'
+catalina_tmpdir_mode = '0755'
 # Default values for `control 'Tomcat `server.xml` config'`
 conf_dir = '/etc/tomcat'
 server_xml_user_and_group = 'tomcat'
@@ -58,7 +59,13 @@ when 'suse'
   end
 when 'linux'
   case platform_finger
-  when 'arch-5'
+  when 'arch-base-latest'
+    main_config_file = '/usr/lib/systemd/system/tomcat8.service'
+    catalina_tmpdir = '/var/tmp/tomcat8/temp'
+    catalina_tmpdir_user_and_group = 'tomcat8'
+    catalina_tmpdir_mode = '0775'
+    conf_dir = '/etc/tomcat8'
+    server_xml_user_and_group = 'tomcat8'
   end
 end
 
@@ -85,7 +92,7 @@ control 'Tomcat Catalina temp dir' do
     it { should be_directory }
     it { should be_owned_by catalina_tmpdir_user_and_group }
     it { should be_grouped_into catalina_tmpdir_user_and_group }
-    its('mode') { should cmp '0755' }
+    its('mode') { should cmp catalina_tmpdir_mode }
   end
 end
 

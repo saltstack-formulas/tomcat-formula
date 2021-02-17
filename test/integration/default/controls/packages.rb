@@ -20,6 +20,11 @@ control 'Tomcat packages' do
       end
     when 'redhat', 'fedora', 'suse'
       %w[tomcat]
+    when 'linux'
+      case platform_finger
+      when 'arch-base-latest'
+        %w[tomcat8]
+      end
     end
 
   packages.each do |p|
