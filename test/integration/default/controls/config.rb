@@ -54,7 +54,7 @@ when 'fedora'
   end
 when 'suse'
   case platform_finger
-  when 'opensuse-15'
+  when 'opensuse-15', 'opensuse-tumbleweed'
     server_xml_user_and_group = 'root'
   end
 when 'linux'
