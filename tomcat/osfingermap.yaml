@@ -66,8 +66,32 @@ Ubuntu-20.04:
   catalina_home: /usr/share/tomcat9
   catalina_pid: /var/run/tomcat9.pid
   catalina_tmpdir: /var/cache/tomcat9/temp
-Ubuntu-18.04: {}
-Ubuntu-16.04: {}
+Ubuntu-18.04:
+  ver: 9
+  pkg: tomcat9
+  manager_pkg: tomcat9-admin
+  conf_dir: /etc/tomcat9
+  main_config: /etc/default/tomcat9
+  service: tomcat9
+  user: tomcat
+  group: tomcat
+  catalina_base: /var/lib/tomcat9
+  catalina_home: /usr/share/tomcat9
+  catalina_pid: /var/run/tomcat9.pid
+  catalina_tmpdir: /var/cache/tomcat9/temp
+Ubuntu-16.04:
+  ver: 8
+  pkg: tomcat8
+  manager_pkg: tomcat8-admin
+  conf_dir: /etc/tomcat8
+  main_config: /etc/default/tomcat8
+  service: tomcat8
+  user: tomcat
+  group: tomcat
+  catalina_base: /var/lib/tomcat8
+  catalina_home: /usr/share/tomcat8
+  catalina_pid: /var/run/tomcat8.pid
+  catalina_tmpdir: /var/cache/tomcat8/temp
 Ubuntu-14.04:
   ver: 7
   pkg: tomcat7

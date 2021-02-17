@@ -6,8 +6,8 @@ values:
   authbind: 'no'
   catalina_base: /var/lib/tomcat9
   catalina_home: /usr/share/tomcat9
-  catalina_pid: /var/run/tomcat.pid
-  catalina_tmpdir: /var/cache/tomcat/temp
+  catalina_pid: /var/run/tomcat9.pid
+  catalina_tmpdir: /var/cache/tomcat9/temp
   cluster:
     simple: true
   common_pkg: tomcat9-common
