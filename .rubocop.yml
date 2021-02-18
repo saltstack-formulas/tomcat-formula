@@ -22,4 +22,4 @@ AllCops:
 # Any offenses that should be fixed, e.g. collected via. `rubocop --auto-gen-config`
 Lint/EmptyWhen:
   Exclude:
-    - test/integration/default/controls/config_spec.rb
+    - test/integration/default/controls/config.rb
