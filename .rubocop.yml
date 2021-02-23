@@ -12,6 +12,9 @@ Metrics/BlockLength:
     - describe
   # Increase from default of `25`
   Max: 30
+Security/YAMLLoad:
+  Exclude:
+    - test/integration/**/_mapdata.rb
 
 # General settings across all cops in this formula
 AllCops:
