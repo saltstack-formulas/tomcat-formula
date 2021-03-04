@@ -1,5 +1,37 @@
 # Changelog
 
+## [0.19.5](https://github.com/saltstack-formulas/tomcat-formula/compare/v0.19.4...v0.19.5) (2021-03-04)
+
+
+### Bug Fixes
+
+* resolve configuration and tests for Ubuntu 16.04 ([4e8016f](https://github.com/saltstack-formulas/tomcat-formula/commit/4e8016f2767c8131162de0b4ddf3a59892713fcc))
+* resolve configuration and tests for Ubuntu 18.04 ([ec35e9b](https://github.com/saltstack-formulas/tomcat-formula/commit/ec35e9bfb294b27bd944b8c65e76cc06e7d31d48))
+
+
+### Code Refactoring
+
+* **debian:** centralise between `osfamily` & `osfinger` map files ([d467166](https://github.com/saltstack-formulas/tomcat-formula/commit/d467166e4341b58b0995a0e34be2eb9835a3146a))
+
+
+### Continuous Integration
+
+* **gemfile+lock:** use `ssf` customised `kitchen-docker` repo [skip ci] ([3e571a6](https://github.com/saltstack-formulas/tomcat-formula/commit/3e571a6cf9d76587af1bf019e7c4ac35f94154de))
+* **kitchen+gitlab-ci:** use latest pre-salted images [skip ci] ([e56f6df](https://github.com/saltstack-formulas/tomcat-formula/commit/e56f6dfdde71fed2743051e5fcab4a56a42a5554))
+* **pre-commit:** update hook for `rubocop` [skip ci] ([3e9ba8e](https://github.com/saltstack-formulas/tomcat-formula/commit/3e9ba8e39aff06c46f9f6742bc8d5a083fdda46d))
+
+
+### Tests
+
+* **_mapdata:** add verification file for Oracle Linux 8 ([833e72c](https://github.com/saltstack-formulas/tomcat-formula/commit/833e72c1b2a5c82569bb2e054d85b6078a2827d3))
+* **config_spec:** disable `server.xml` control where Python < 3.6 ([5bd95fc](https://github.com/saltstack-formulas/tomcat-formula/commit/5bd95fcf0a15f3c5fd45b2543928d87e78b64f25))
+* add for openSUSE Tumbleweed ([3b2a979](https://github.com/saltstack-formulas/tomcat-formula/commit/3b2a97992e685c3b5eb25bc9091ebb900bd77b73))
+* add for Oracle Linux 7 ([9f1ff44](https://github.com/saltstack-formulas/tomcat-formula/commit/9f1ff4463a24302a466bd5d33ee723213262c4ba))
+* remove `_spec` suffix from filenames ([ac90357](https://github.com/saltstack-formulas/tomcat-formula/commit/ac90357d914cc33ba694f29ceffd3553eabafa23))
+* update for Arch Linux ([20d4499](https://github.com/saltstack-formulas/tomcat-formula/commit/20d4499b4d8f71050e6a359fcdc9ba1b38d46dcd))
+* update for Fedora 33 ([39d7c2a](https://github.com/saltstack-formulas/tomcat-formula/commit/39d7c2a92b5564e7ceb8cf0b87083fd51f208a29))
+* **share:** standardise with latest changes [skip ci] ([fe78ab9](https://github.com/saltstack-formulas/tomcat-formula/commit/fe78ab9d9fb037c1c886573294f85e0048cbcf95))
+
 ## [0.19.4](https://github.com/saltstack-formulas/tomcat-formula/compare/v0.19.3...v0.19.4) (2021-01-14)
 
 
