@@ -8,9 +8,11 @@ main_config_file = '/etc/sysconfig/tomcat'
 # Default values for `control 'Tomcat Catalina temp dir'`
 catalina_tmpdir = '/var/cache/tomcat/temp'
 catalina_tmpdir_user_and_group = 'tomcat'
+catalina_tmpdir_mode = '0755'
 # Default values for `control 'Tomcat `server.xml` config'`
 conf_dir = '/etc/tomcat'
 server_xml_user_and_group = 'tomcat'
+python3_pkg = 'python3'
 
 # Override by platform
 case platform[:family]
@@ -21,7 +23,7 @@ when 'debian'
   conf_dir = '/etc/tomcat8'
   server_xml_user_and_group = 'tomcat8'
   case platform_finger
-  when 'debian-10', 'ubuntu-20'
+  when 'debian-10', 'ubuntu-20', 'ubuntu-18'
     main_config_file = '/etc/default/tomcat9'
     catalina_tmpdir = '/var/cache/tomcat9/temp'
     catalina_tmpdir_user_and_group = 'tomcat'
@@ -34,31 +36,41 @@ when 'debian'
     catalina_tmpdir_user_and_group = 'tomcat7'
     conf_dir = '/etc/tomcat7'
     server_xml_user_and_group = 'tomcat7'
-  when 'ubuntu-18'
   when 'ubuntu-16'
   end
 when 'redhat'
   case platform_finger
-  when 'centos-8'
-  when 'centos-7'
+  when 'centos-8', 'oraclelinux-8'
+    python3_pkg = 'python36'
+  when 'centos-7', 'oraclelinux-7'
   when 'centos-6'
   when 'amazon-2'
   when 'amazon-2018'
   end
 when 'fedora'
   case platform_finger
+  when 'fedora-33'
   when 'fedora-32'
   when 'fedora-31'
   when 'fedora-30'
   end
 when 'suse'
+  server_xml_user_and_group = 'root'
   case platform_finger
   when 'opensuse-15'
-    server_xml_user_and_group = 'root'
+  when 'opensuse-tumbleweed'
+    python3_pkg = 'python38-base'
   end
 when 'linux'
   case platform_finger
-  when 'arch-5'
+  when 'arch-base-latest'
+    main_config_file = '/usr/lib/systemd/system/tomcat8.service'
+    catalina_tmpdir = '/var/tmp/tomcat8/temp'
+    catalina_tmpdir_user_and_group = 'tomcat8'
+    catalina_tmpdir_mode = '0775'
+    conf_dir = '/etc/tomcat8'
+    server_xml_user_and_group = 'tomcat8'
+    python3_pkg = 'python'
   end
 end
 
@@ -85,12 +97,20 @@ control 'Tomcat Catalina temp dir' do
     it { should be_directory }
     it { should be_owned_by catalina_tmpdir_user_and_group }
     it { should be_grouped_into catalina_tmpdir_user_and_group }
-    its('mode') { should cmp '0755' }
+    its('mode') { should cmp catalina_tmpdir_mode }
   end
 end
 
 control 'Tomcat `server.xml` config' do
   title 'should contain the lines'
+
+  only_if(
+    'Disabled where Python < 3.6 due to data ordering not being maintained ' \
+    'for dicts when looping over `.items()`'
+  ) do
+    Gem::Version.new(package(python3_pkg).version.gsub('~',
+                                                       '-')) >= Gem::Version.new('3.6')
+  end
 
   server_xml_file = "#{conf_dir}/server.xml"
   server_xml_path = "server_xml/#{platform_finger}.xml"

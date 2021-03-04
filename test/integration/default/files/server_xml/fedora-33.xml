@@ -69,24 +69,24 @@
   <Service name="Catalina">
     <Connector
     
-               maxHttpHeaderSize="8192"
+               port="8443"
+               protocol="org.apache.coyote.http11.Http11Protocol"
                connectionTimeout="20000"
-               SSLEnabled="false"
-               acceptCount="100"
-               keystoreFile="/path/to/keystoreFile"
+               URIEncoding="UTF-8"
+               redirectPort="8443"
+               maxHttpHeaderSize="8192"
+               maxThreads="150"
+               minSpareThreads="25"
+               enableLookups="false"
                disableUploadTimeout="true"
+               acceptCount="100"
                scheme="https"
                secure="true"
                clientAuth="false"
-               URIEncoding="UTF-8"
-               keystorePass="somerandomtext"
-               enableLookups="false"
                sslProtocol="TLS"
-               redirectPort="8443"
-               minSpareThreads="25"
-               maxThreads="150"
-               port="8443"
-               protocol="org.apache.coyote.http11.Http11Protocol"
+               SSLEnabled="false"
+               keystoreFile="/path/to/keystoreFile"
+               keystorePass="somerandomtext"
     />
     
     
@@ -106,9 +106,9 @@
       
       
       <Host name="tomcat-server"
+            unpackWARs="true"
             autoDeploy="true"
-            deployXML="false"
-            unpackWARs="true">
+            deployXML="false">
             <Context path=""
                      docBase="../webapps/myapp"
                      debug="0"
@@ -120,8 +120,8 @@
       </Host>
       
       <Host name="example.net"
-            autoDeploy="true"
-            unpackWARs="true">
+            unpackWARs="true"
+            autoDeploy="true">
             <Context path=""
                      docBase="../webapps/myapp2"
                      debug="0"
@@ -131,12 +131,12 @@
             <Alias>www.example.net</Alias>
             
               <Valve
-                pattern="%h %l %u %t &quot;%m http://%v%U %H&quot; %s %b &quot;%{Referer}i&quot; &quot;%{User-Agent}i&quot; %D"
-                suffix=".log"
-                fileDateFormat="yyyy-MM-dd-HH"
-                directory="logs"
                 className="org.apache.catalina.valves.AccessLogValve"
-                prefix="localhost_access_log." />
+                directory="logs"
+                prefix="localhost_access_log."
+                fileDateFormat="yyyy-MM-dd-HH"
+                suffix=".log"
+                pattern="%h %l %u %t &quot;%m http://%v%U %H&quot; %s %b &quot;%{Referer}i&quot; &quot;%{User-Agent}i&quot; %D" />
               <Valve
                 className="org.apache.catalina.authenticator.SingleSignOn" />
             

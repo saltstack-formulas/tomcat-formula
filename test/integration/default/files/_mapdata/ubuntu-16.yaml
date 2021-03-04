@@ -4,14 +4,14 @@
 values:
   arch: amd64
   authbind: 'no'
-  catalina_base: /var/lib/tomcat9
-  catalina_home: /usr/share/tomcat9
-  catalina_pid: /var/run/tomcat.pid
-  catalina_tmpdir: /var/cache/tomcat/temp
+  catalina_base: /var/lib/tomcat8
+  catalina_home: /usr/share/tomcat8
+  catalina_pid: /var/run/tomcat8.pid
+  catalina_tmpdir: /var/cache/tomcat8/temp
   cluster:
     simple: true
-  common_pkg: tomcat9-common
-  conf_dir: /etc/tomcat9
+  common_pkg: tomcat8-common
+  conf_dir: /etc/tomcat8
   connectors:
     example_connector:
       SSLEnabled: 'false'
@@ -68,7 +68,7 @@ values:
         name: linkToGlobalResource
         type: java.lang.Integer
   expires_when: 2 weeks
-  group: tomcat
+  group: tomcat8
   haveged_enabled: true
   id:
   - example.com
@@ -87,7 +87,7 @@ values:
     soft: 64000
   logfile_compress: 1
   logfile_days: 14
-  main_config: /etc/default/tomcat9
+  main_config: /etc/default/tomcat8
   main_config_template: salt://tomcat/files/tomcat-default-Debian.template
   manager:
     roles:
@@ -106,7 +106,7 @@ values:
         - manager-script
         - manager-jmx
         - manager-status
-  manager_pkg: tomcat9-admin
+  manager_pkg: tomcat8-admin
   native_pkg: libtcnative-1
   other_contexts:
     other-contexts:
@@ -133,10 +133,10 @@ values:
         debug: 1
         docBase: /path/to/webapp
         reloadable: 'true'
-  pkg: tomcat9
+  pkg: tomcat8
   resources: {}
   security: 'no'
-  service: tomcat9
+  service: tomcat8
   service_enabled: true
   service_running: false
   sites:
@@ -171,6 +171,6 @@ values:
         prefix: localhost_access_log.
         suffix: .log
       - className: org.apache.catalina.authenticator.SingleSignOn
-  user: tomcat
-  ver: 9
+  user: tomcat8
+  ver: 8
   with_haveged: true

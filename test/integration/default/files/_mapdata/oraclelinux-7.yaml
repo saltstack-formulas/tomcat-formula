@@ -1,17 +1,17 @@
 # yamllint disable rule:indentation rule:line-length
-# Ubuntu-18.04
+# Oracle Linux Server-7
 ---
 values:
   arch: amd64
   authbind: 'no'
-  catalina_base: /var/lib/tomcat9
-  catalina_home: /usr/share/tomcat9
-  catalina_pid: /var/run/tomcat9.pid
-  catalina_tmpdir: /var/cache/tomcat9/temp
+  catalina_base: /usr/share/tomcat
+  catalina_home: /usr/share/tomcat
+  catalina_pid: /var/run/tomcat.pid
+  catalina_tmpdir: /var/cache/tomcat/temp
   cluster:
     simple: true
-  common_pkg: tomcat9-common
-  conf_dir: /etc/tomcat9
+  common_pkg: tomcat-common
+  conf_dir: /etc/tomcat
   connectors:
     example_connector:
       SSLEnabled: 'false'
@@ -69,11 +69,11 @@ values:
         type: java.lang.Integer
   expires_when: 2 weeks
   group: tomcat
-  haveged_enabled: true
+  haveged_enabled: false
   id:
   - example.com
   - example.net
-  java_home: /usr/lib/jvm/default-java
+  java_home: /usr/lib/jvm/jre
   java_opts:
   - Djava.awt.headless=true
   - Xmx128m
@@ -87,8 +87,8 @@ values:
     soft: 64000
   logfile_compress: 1
   logfile_days: 14
-  main_config: /etc/default/tomcat9
-  main_config_template: salt://tomcat/files/tomcat-default-Debian.template
+  main_config: /etc/sysconfig/tomcat
+  main_config_template: salt://tomcat/files/tomcat-default-CentOS.template
   manager:
     roles:
     - manager-gui
@@ -106,8 +106,8 @@ values:
         - manager-script
         - manager-jmx
         - manager-status
-  manager_pkg: tomcat9-admin
-  native_pkg: libtcnative-1
+  manager_pkg: tomcat-admin-webapps
+  native_pkg: tomcat-native
   other_contexts:
     other-contexts:
       elements:
@@ -133,10 +133,10 @@ values:
         debug: 1
         docBase: /path/to/webapp
         reloadable: 'true'
-  pkg: tomcat9
+  pkg: tomcat
   resources: {}
   security: 'no'
-  service: tomcat9
+  service: tomcat
   service_enabled: true
   service_running: false
   sites:
@@ -172,5 +172,5 @@ values:
         suffix: .log
       - className: org.apache.catalina.authenticator.SingleSignOn
   user: tomcat
-  ver: 9
-  with_haveged: true
+  ver: 7
+  with_haveged: false

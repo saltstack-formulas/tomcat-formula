@@ -12,15 +12,20 @@ control 'Tomcat services' do
     case platform[:family]
     when 'debian'
       case platform_finger
-      when 'debian-10', 'ubuntu-20'
+      when 'debian-10', 'ubuntu-20', 'ubuntu-18'
         %w[tomcat9 haveged]
-      when 'debian-9', 'ubuntu-18', 'ubuntu-16'
+      when 'debian-9', 'ubuntu-16'
         %w[tomcat8 haveged]
       when 'debian-8'
         %w[tomcat7 haveged]
       end
     when 'redhat', 'fedora', 'suse'
       %w[tomcat]
+    when 'linux'
+      case platform_finger
+      when 'arch-base-latest'
+        %w[tomcat8]
+      end
     end
 
   services.each do |s|

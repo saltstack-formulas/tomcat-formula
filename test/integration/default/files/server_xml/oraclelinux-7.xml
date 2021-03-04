@@ -38,6 +38,8 @@
   
 
   
+  <Listener className="org.apache.catalina.core.JasperListener" />
+  
 
   <!-- Prevent memory leaks due to use of particular java/javax APIs-->
   <!--Initialize Jasper prior to webapps are loaded. Documentation at /docs/jasper-howto.html -->
@@ -69,28 +71,51 @@
   <Service name="Catalina">
     <Connector
     
-               maxHttpHeaderSize="8192"
+               port="8443"
+               protocol="org.apache.coyote.http11.Http11Protocol"
                connectionTimeout="20000"
-               SSLEnabled="false"
-               acceptCount="100"
-               keystoreFile="/path/to/keystoreFile"
+               URIEncoding="UTF-8"
+               redirectPort="8443"
+               maxHttpHeaderSize="8192"
+               maxThreads="150"
+               minSpareThreads="25"
+               enableLookups="false"
                disableUploadTimeout="true"
+               acceptCount="100"
                scheme="https"
                secure="true"
                clientAuth="false"
-               URIEncoding="UTF-8"
-               keystorePass="somerandomtext"
-               enableLookups="false"
                sslProtocol="TLS"
-               redirectPort="8443"
-               minSpareThreads="25"
-               maxThreads="150"
-               port="8443"
-               protocol="org.apache.coyote.http11.Http11Protocol"
+               SSLEnabled="false"
+               keystoreFile="/path/to/keystoreFile"
+               keystorePass="somerandomtext"
     />
     
     
-    <Engine name="Catalina" defaultHost="localhost">
+    <Engine name="Catalina" defaultHost="localhost" jvmRoute="example.net">
+    
+      <Cluster className="org.apache.catalina.ha.tcp.SimpleTcpCluster" channelSendOptions="8">
+          <Manager className="org.apache.catalina.ha.session.DeltaManager" expireSessionsOnShutdown="false" notifyListenersOnReplication="true"/>
+              <Channel className="org.apache.catalina.tribes.group.GroupChannel">
+                  <Membership className="org.apache.catalina.tribes.membership.McastService" address="228.0.0.4" port="45564" frequency="500" dropTime="3000"/>
+                      <Sender className="org.apache.catalina.tribes.transport.ReplicationTransmitter">
+                          <Transport className="org.apache.catalina.tribes.transport.nio.PooledParallelSender"/>
+                      </Sender>
+
+                      <Receiver className="org.apache.catalina.tribes.transport.nio.NioReceiver" address="auto" port="4000" autoBind="100" selectorTimeout="5000" maxThreads="6"/>
+
+                      <Interceptor className="org.apache.catalina.tribes.group.interceptors.TcpFailureDetector"/>
+                      <Interceptor className="org.apache.catalina.tribes.group.interceptors.MessageDispatch15Interceptor"/>
+
+              </Channel>
+              <Valve className="org.apache.catalina.ha.tcp.ReplicationValve" filter=""/>
+              <Valve className="org.apache.catalina.ha.session.JvmRouteBinderValve"/>
+              
+              
+              <ClusterListener className="org.apache.catalina.ha.session.JvmRouteSessionIDBinderListener"/>
+              
+              <ClusterListener className="org.apache.catalina.ha.session.ClusterSessionListener"/>
+      </Cluster>
     
       <!-- Use the LockOutRealm to prevent attempts to guess user passwords
            via a brute-force attack -->
@@ -106,9 +131,9 @@
       
       
       <Host name="tomcat-server"
+            unpackWARs="true"
             autoDeploy="true"
-            deployXML="false"
-            unpackWARs="true">
+            deployXML="false">
             <Context path=""
                      docBase="../webapps/myapp"
                      debug="0"
@@ -120,8 +145,8 @@
       </Host>
       
       <Host name="example.net"
-            autoDeploy="true"
-            unpackWARs="true">
+            unpackWARs="true"
+            autoDeploy="true">
             <Context path=""
                      docBase="../webapps/myapp2"
                      debug="0"
@@ -131,12 +156,12 @@
             <Alias>www.example.net</Alias>
             
               <Valve
-                pattern="%h %l %u %t &quot;%m http://%v%U %H&quot; %s %b &quot;%{Referer}i&quot; &quot;%{User-Agent}i&quot; %D"
-                suffix=".log"
-                fileDateFormat="yyyy-MM-dd-HH"
-                directory="logs"
                 className="org.apache.catalina.valves.AccessLogValve"
-                prefix="localhost_access_log." />
+                directory="logs"
+                prefix="localhost_access_log."
+                fileDateFormat="yyyy-MM-dd-HH"
+                suffix=".log"
+                pattern="%h %l %u %t &quot;%m http://%v%U %H&quot; %s %b &quot;%{Referer}i&quot; &quot;%{User-Agent}i&quot; %D" />
               <Valve
                 className="org.apache.catalina.authenticator.SingleSignOn" />
             
