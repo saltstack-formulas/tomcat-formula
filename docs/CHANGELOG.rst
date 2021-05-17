@@ -225,3 +225,35 @@ Tests
 
 * add tests for packages and services (\ `d1b4f3a <https://github.com/saltstack-formulas/tomcat-formula/commit/d1b4f3ae67b3be3a2fb5302f1c8c0dd549ed8c97>`_\ )
 * **yaml_dump:** add to ``tomcat_install`` suite (\ `c948f8b <https://github.com/saltstack-formulas/tomcat-formula/commit/c948f8b1eb7017c8c3d08e9d4023f573309908c6>`_\ )
+
+0.0.5 (2014-02-13)
+------------------
+
+
+* Expanded java and tomcat options
+
+0.0.4 (2014-02-05)
+------------------
+
+
+* Added support for Tomcat manager
+
+0.0.3 (2014-02-04)
+------------------
+
+
+* Added support for Apache Portable Runtime for Tomcat
+
+0.0.2 (2014-01-31)
+------------------
+
+
+* Added support for soft/hard limits on Linux
+* Added support for java opts
+
+0.0.1 (2014-01-16)
+------------------
+
+
+* Initial Release for tomcat7 package Installation
+* sets JAVA_HOME in /etc/default/tomcat7
