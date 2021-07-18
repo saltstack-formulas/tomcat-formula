@@ -11,7 +11,7 @@ control 'Tomcat packages' do
     case platform[:family]
     when 'debian'
       case platform_finger
-      when 'debian-10', 'ubuntu-20', 'ubuntu-18'
+      when 'debian-11', 'debian-10', 'ubuntu-20', 'ubuntu-18'
         %w[tomcat9 haveged]
       when 'debian-9', 'ubuntu-16'
         %w[tomcat8 haveged]
