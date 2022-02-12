@@ -18,6 +18,7 @@ Security/YAMLLoad:
 
 # General settings across all cops in this formula
 AllCops:
+  NewCops: enable
   # Files to ignore completely
   Exclude:
     - test/integration/**/serverspec/*
