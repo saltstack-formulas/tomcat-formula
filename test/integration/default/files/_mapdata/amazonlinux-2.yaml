@@ -77,7 +77,6 @@ values:
   java_opts:
   - Djava.awt.headless=true
   - Xmx128m
-  - XX:MaxPermSize=256m
   - Dlog4j.configuration=file:/tmp/log4j.properties
   - Dlogback.configurationFile=/tmp/logback.xml
   jsp_compiler: javac
