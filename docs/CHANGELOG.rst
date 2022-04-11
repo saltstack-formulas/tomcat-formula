@@ -2,6 +2,53 @@
 Changelog
 =========
 
+`0.19.6 <https://github.com/saltstack-formulas/tomcat-formula/compare/v0.19.5...v0.19.6>`_ (2022-04-11)
+-----------------------------------------------------------------------------------------------------------
+
+Bug Fixes
+^^^^^^^^^
+
+
+* **osfingermap:** avoid ``MaxPermSize`` on Amazon & Fedora 36 (\ `41d658f <https://github.com/saltstack-formulas/tomcat-formula/commit/41d658f30a89ae3d78b09c94e292709679302f57>`_\ )
+
+Continuous Integration
+^^^^^^^^^^^^^^^^^^^^^^
+
+
+* use ``pillars_from_directories`` & ``test/salt/pillar/top.sls`` (\ `367e799 <https://github.com/saltstack-formulas/tomcat-formula/commit/367e799ead9a60c7eb3c2e1b2a912b3b61b170c8>`_\ )
+* **kitchen+gitlab:** update for new pre-salted images [skip ci] (\ `3e9e196 <https://github.com/saltstack-formulas/tomcat-formula/commit/3e9e19610450f595c454c93b137abb17114a2683>`_\ )
+* update linters to latest versions [skip ci] (\ `db6759f <https://github.com/saltstack-formulas/tomcat-formula/commit/db6759fbfdaefda087dac6ea2a8db76d5c0277d4>`_\ )
+* **3003.1:** update inc. AlmaLinux, Rocky & ``rst-lint`` [skip ci] (\ `7a88235 <https://github.com/saltstack-formulas/tomcat-formula/commit/7a882353b9b1048d8471e4a44fd699f0af03a55c>`_\ )
+* **gemfile:** allow rubygems proxy to be provided as an env var [skip ci] (\ `b89481d <https://github.com/saltstack-formulas/tomcat-formula/commit/b89481d5c1986ecd7114f7f672cfb2663bb1f1cf>`_\ )
+* **gemfile+lock:** use ``ssf`` customised ``inspec`` repo [skip ci] (\ `cf42632 <https://github.com/saltstack-formulas/tomcat-formula/commit/cf426322776fc94c5c286b56214baabfcdb303db>`_\ )
+* **kitchen:** move ``provisioner`` block & update ``run_command`` [skip ci] (\ `23f24f0 <https://github.com/saltstack-formulas/tomcat-formula/commit/23f24f03b5c7a237635b82ccbeaccc246f6ff04b>`_\ )
+* **kitchen+ci:** update with ``3004`` pre-salted images/boxes [skip ci] (\ `9798e38 <https://github.com/saltstack-formulas/tomcat-formula/commit/9798e38544e9edc7d92f78f134a15634baed6bbd>`_\ )
+* **kitchen+ci:** update with latest ``3003.2`` pre-salted images [skip ci] (\ `fea89c5 <https://github.com/saltstack-formulas/tomcat-formula/commit/fea89c534c292bd21317dadce2d692c04d6fb171>`_\ )
+* **kitchen+ci:** update with latest CVE pre-salted images [skip ci] (\ `4675307 <https://github.com/saltstack-formulas/tomcat-formula/commit/467530731795a4ea93dca4fa26f43c6b3d3b5776>`_\ )
+* **kitchen+gitlab:** update for new pre-salted images [skip ci] (\ `8d9d8f9 <https://github.com/saltstack-formulas/tomcat-formula/commit/8d9d8f94e8c822e83d30d0511465240e467652ab>`_\ )
+* add Debian 11 Bullseye & update ``yamllint`` configuration [skip ci] (\ `c54b128 <https://github.com/saltstack-formulas/tomcat-formula/commit/c54b12863ef85d424d6613d4e0fa87c7de66adf6>`_\ )
+* **kitchen+gitlab:** remove Ubuntu 16.04 & Fedora 32 (EOL) [skip ci] (\ `1c77b57 <https://github.com/saltstack-formulas/tomcat-formula/commit/1c77b5790fa52039ada91f5e04345fe51cb040fd>`_\ )
+* add ``arch-master`` to matrix and update ``.travis.yml`` [skip ci] (\ `7d7ea4a <https://github.com/saltstack-formulas/tomcat-formula/commit/7d7ea4ae70ebd9eb3d2484f6f71c758a8bfb6411>`_\ )
+* **kitchen+ci:** use latest pre-salted images (after CVE) [skip ci] (\ `da3c19f <https://github.com/saltstack-formulas/tomcat-formula/commit/da3c19f6188a9d273a0e9d98ac1db969aeaa057e>`_\ )
+* **kitchen+gitlab:** adjust matrix to add ``3003`` [skip ci] (\ `411fcdf <https://github.com/saltstack-formulas/tomcat-formula/commit/411fcdf07d4d82a332c376ce20a1944907a4dc37>`_\ )
+
+Documentation
+^^^^^^^^^^^^^
+
+
+* **changelog:** merge old into the new [skip ci] (\ `762d155 <https://github.com/saltstack-formulas/tomcat-formula/commit/762d1555338593f176157282d3c084e6ce37efdb>`_\ )
+
+Tests
+^^^^^
+
+
+* **_mapdata:** add verification files for ``fedora-34`` [skip ci] (\ `9460947 <https://github.com/saltstack-formulas/tomcat-formula/commit/946094704b4b59e1f3571f30d45eae4f2c8bc8c4>`_\ )
+* **_mapdata:** add verification files for ``fedora-35`` [skip ci] (\ `058ce44 <https://github.com/saltstack-formulas/tomcat-formula/commit/058ce442043a7ef3222c57a62a7145469d2d880d>`_\ )
+* **_mapdata:** add verification files for ``fedora-36`` (\ `e6fa640 <https://github.com/saltstack-formulas/tomcat-formula/commit/e6fa64095965857ed5a21cd46a23203e0a4afdd5>`_\ )
+* **debian-11:** add verification files & update all tests [skip ci] (\ `52b29a1 <https://github.com/saltstack-formulas/tomcat-formula/commit/52b29a12eb3bfc42a8f737266938d5145199fb9d>`_\ )
+* **system:** add ``build_platform_codename`` [skip ci] (\ `5463aac <https://github.com/saltstack-formulas/tomcat-formula/commit/5463aac47ee790d4a507f93f93d8154e510cbab0>`_\ )
+* standardise use of ``share`` suite & ``_mapdata`` state [skip ci] (\ `b39bbea <https://github.com/saltstack-formulas/tomcat-formula/commit/b39bbea50277cf405a18f2df6f27179be993431f>`_\ )
+
 `0.19.5 <https://github.com/saltstack-formulas/tomcat-formula/compare/v0.19.4...v0.19.5>`_ (2021-03-04)
 -----------------------------------------------------------------------------------------------------------
 
