@@ -17,6 +17,8 @@ provisioner:
   salt_copy_filter:
     - .kitchen
     - .git
+  pillars_from_directories:
+    - test/salt/pillar
 
 platforms:
   ## SALT `tiamat`
@@ -307,13 +309,6 @@ suites:
             - tomcat.expires
             - tomcat.context
             - tomcat.cluster
-      pillars:
-        top.sls:
-          base:
-            '*':
-              - tomcat
-      pillars_from_files:
-        tomcat.sls: pillar.example
     verifier:
       inspec_tests:
         - path: test/integration/default

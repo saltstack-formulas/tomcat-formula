@@ -69,6 +69,11 @@ Ubuntu-14.04:
   group: tomcat7
 
 # os: Fedora
+Fedora Linux-36:
+  java_opts:
+    - 'Djava.awt.headless=true'
+    - 'Xmx128m'
+    - 'XX:+UseConcMarkSweepGC'
 Fedora-32: {}
 Fedora-31: {}
 Fedora-30: {}
@@ -79,7 +84,11 @@ CentOS Linux-7: {}
 CentOS-6: {}
 
 # os: Amazon
-Amazon Linux-2: {}
+Amazon Linux-2:
+  java_opts:
+    - 'Djava.awt.headless=true'
+    - 'Xmx128m'
+    - 'XX:+UseConcMarkSweepGC'
 Amazon Linux AMI-2018: {}
 
 # os: SUSE

@@ -1,5 +1,5 @@
 # yamllint disable rule:indentation rule:line-length
-# Amazon Linux-2
+# Fedora-36
 ---
 values:
   arch: amd64
@@ -171,5 +171,5 @@ values:
         suffix: .log
       - className: org.apache.catalina.authenticator.SingleSignOn
   user: tomcat
-  ver: 7
+  ver: 9
   with_haveged: false
