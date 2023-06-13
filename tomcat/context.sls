@@ -5,17 +5,17 @@ include:
 
 {% if tomcat.get('sites', False) %}
 
-#Tomcat fails if pillar-defined webapps are not deployed yet.
-#Create the missing 'appBase' directories so Tomcat works!
+# Tomcat fails if pillar-defined webapps are not deployed yet.
+# Create the missing 'appBase' directories so Tomcat works!
 
     {% for id, data in tomcat.get('sites', {}).items() %}
       {% for k, v in data.items() %}
         {% if k == 'appBase' %}
-tomcat {{ tomcat.catalina_home }}/webapps/{{ data['appBase'] }}:
+tomcat {{ tomcat.catalina_home }}/{{ data['appBase'] }}:
   file.directory:
-    - name: {{ tomcat.catalina_home }}/webapps/{{ data['appBase'] }}
+    - name: {{ tomcat.catalina_home }}/{{ data['appBase'] }}
    {% if grains.os != 'MacOS' %}
-    #Inherit logged-on user permissions on Darwin
+    # Inherit logged-on user permissions on Darwin
     - user: root
     - group: {{ tomcat.group }}
    {% endif %}
@@ -24,12 +24,12 @@ tomcat {{ tomcat.catalina_home }}/webapps/{{ data['appBase'] }}:
     - require_in:
       - file: tomcat {{ tomcat.conf_dir }}/context.xml
 
-#Tomcat fails if pillar-defined webapps are not deployed yet.
-# if catalina_base != catalina_home
           {% if tomcat.catalina_base != tomcat.catalina_home %}
-tomcat {{ tomcat.catalina_base }}/webapps/{{ data['appBase'] }}:
+# Tomcat fails if pillar-defined appBase are not deployed yet.
+# Create the missing 'appBase' directories so Tomcat works!
+tomcat {{ tomcat.catalina_base }}/{{ data['appBase'] }}:
   file.directory:
-    - name: {{ tomcat.catalina_base }}/webapps/{{ data['appBase'] }}
+    - name: {{ tomcat.catalina_base }}/{{ data['appBase'] }}
    {% if grains.os != 'MacOS' %}
     #Inherit logged-on user permissions on Darwin
     - user: {{ tomcat.user }}
@@ -40,6 +40,7 @@ tomcat {{ tomcat.catalina_base }}/webapps/{{ data['appBase'] }}:
     - require_in:
       - file: tomcat {{ tomcat.conf_dir }}/context.xml
           {% endif %}
+
         {% endif %}
       {% endfor %}
     {% endfor %}
