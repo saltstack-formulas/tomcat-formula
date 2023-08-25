@@ -1,4 +1,5 @@
 {%- set connectors = accumulator['100_server_xml'][0] if '100_server_xml' in accumulator else {} -%}
+{%- set realm = accumulator['110_server_xml'][0] if '110_server_xml' in accumulator else {} -%}
 {%- set sites = accumulator['300_server_xml'][0] if '300_server_xml' in accumulator else {} -%}
 {%- set resources = accumulator['500_server_xml'][0] if '500_server_xml' in accumulator else {} -%}
 {%- set cluster = accumulator['600_server_xml'][0] if '600_server_xml' in accumulator else {} -%}
@@ -105,6 +106,52 @@
     />
     {% endif %}
     <Engine name="Catalina" defaultHost="localhost"{% if cluster %} jvmRoute="{{ grains['nodename'] }}"{% endif %}>
+
+    {% if realm -%}
+      {%- for id, realm in realm.items() %}
+        {%- set class_name = realm.name if realm.name is defined else id -%}
+    <Realm className="{{ class_name }}"
+         {%- if realm.realm_parameters is defined -%}
+           {% for k, v in realm.realm_parameters.items() %}
+           {{ k }}="{{ v }}"
+           {%- endfor -%}
+         {%- endif -%}
+         >
+         {%- if realm.value is defined %}
+           {{ realm.value }}
+         {%- endif %}
+
+         {% if realm.realm is defined and realm.realm.name is defined %}
+         {%- set subrealm = realm.realm -%}
+            <Realm className="{{ subrealm.name }}"
+             {%- if subrealm.realm_parameters is defined -%}
+               {%  for k, v in subrealm.realm_parameters.items() %}
+                {{ k }}="{{ v }}"
+               {%- endfor -%}
+             {%- endif -%}
+             >
+            {%- if subrealm.value is defined %}
+                {{ subrealm.value }}
+            {%- endif %}
+            </Realm>
+         {% endif -%}
+    </Realm>
+      {%- endfor -%}
+
+    {% else %}
+    <!-- Use the LockOutRealm to prevent attempts to guess user passwords
+         via a brute-force attack -->
+    <Realm className="org.apache.catalina.realm.LockOutRealm">
+      <!-- This Realm uses the UserDatabase configured in the global JNDI
+           resources under the key "UserDatabase".  Any edits
+           that are performed against this UserDatabase are immediately
+           available for use by the Realm.  -->
+      <Realm className="org.apache.catalina.realm.UserDatabaseRealm"
+             resourceName="UserDatabase"
+      />
+    </Realm>
+    {% endif %} 
+
     {% if cluster %}
       <Cluster className="org.apache.catalina.ha.tcp.SimpleTcpCluster" channelSendOptions="8">
           <Manager className="org.apache.catalina.ha.session.DeltaManager" expireSessionsOnShutdown="false" notifyListenersOnReplication="true"/>
@@ -129,16 +176,6 @@
               <ClusterListener className="org.apache.catalina.ha.session.ClusterSessionListener"/>
       </Cluster>
     {% endif %}
-      <!-- Use the LockOutRealm to prevent attempts to guess user passwords
-           via a brute-force attack -->
-      <Realm className="org.apache.catalina.realm.LockOutRealm">
-        <!-- This Realm uses the UserDatabase configured in the global JNDI
-             resources under the key "UserDatabase".  Any edits
-             that are performed against this UserDatabase are immediately
-             available for use by the Realm.  -->
-        <Realm className="org.apache.catalina.realm.UserDatabaseRealm"
-               resourceName="UserDatabase"/>
-      </Realm>
 
       {% if sites %}
       {% for id, site in sites.items() %}

@@ -48,6 +48,14 @@ tomcat 100_server_xml:
     - require_in:
       - file: tomcat server_xml
 
+tomcat 110_server_xml:
+  file.accumulated:
+    - name: 110_server_xml
+    - filename: {{ tomcat.conf_dir }}/server.xml
+    - text: {{ tomcat.realm }}
+    - require_in:
+      - file: tomcat server_xml
+
 tomcat 500_server_xml:
   file.accumulated:
     - name: 500_server_xml
