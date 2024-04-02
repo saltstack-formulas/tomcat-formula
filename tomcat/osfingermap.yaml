@@ -2,7 +2,49 @@
 # vim: ft=yaml
 ---
 # os: Debian
-Debian-10: {}
+Debian-12:
+  java_opts:
+    - 'Djava.awt.headless=true'
+    - 'Xmx128m'
+    - 'XX:+UseConcMarkSweepGC'
+Debian-11:
+  ver: 9
+  pkg: tomcat9
+  native_pkg: libtcnative-1
+  manager_pkg: tomcat9-admin
+  common_pkg: tomcat9-common
+  with_haveged: true
+  haveged_enabled: true
+  conf_dir: /etc/tomcat9
+  main_config: /etc/default/tomcat9
+  main_config_template: salt://tomcat/files/tomcat-default-Debian.template
+  service: tomcat9
+  user: tomcat
+  group: tomcat
+  java_home: /usr/lib/jvm/default-java
+  catalina_base: /var/lib/tomcat9
+  catalina_home: /usr/share/tomcat9
+  catalina_pid: /var/run/tomcat9.pid
+  catalina_tmpdir: /var/cache/tomcat9/temp
+Debian-10:
+  ver: 9
+  pkg: tomcat9
+  native_pkg: libtcnative-1
+  manager_pkg: tomcat9-admin
+  common_pkg: tomcat9-common
+  with_haveged: true
+  haveged_enabled: true
+  conf_dir: /etc/tomcat9
+  main_config: /etc/default/tomcat9
+  main_config_template: salt://tomcat/files/tomcat-default-Debian.template
+  service: tomcat9
+  user: tomcat
+  group: tomcat
+  java_home: /usr/lib/jvm/default-java
+  catalina_base: /var/lib/tomcat9
+  catalina_home: /usr/share/tomcat9
+  catalina_pid: /var/run/tomcat9.pid
+  catalina_tmpdir: /var/cache/tomcat9/temp
 Debian-9:
   ver: 8
   pkg: tomcat8

@@ -2,24 +2,24 @@
 # vim: ft=yaml
 ---
 Debian:
-  ver: 9
-  pkg: tomcat9
+  ver: 10
+  pkg: tomcat10
   native_pkg: libtcnative-1
-  manager_pkg: tomcat9-admin
-  common_pkg: tomcat9-common
+  manager_pkg: tomcat10-admin
+  common_pkg: tomcat10-common
   with_haveged: true
   haveged_enabled: true
-  conf_dir: /etc/tomcat9
-  main_config: /etc/default/tomcat9
+  conf_dir: /etc/tomcat10
+  main_config: /etc/default/tomcat10
   main_config_template: salt://tomcat/files/tomcat-default-Debian.template
-  service: tomcat9
+  service: tomcat10
   user: tomcat
   group: tomcat
   java_home: /usr/lib/jvm/default-java
-  catalina_base: /var/lib/tomcat9
-  catalina_home: /usr/share/tomcat9
-  catalina_pid: /var/run/tomcat9.pid
-  catalina_tmpdir: /var/cache/tomcat9/temp
+  catalina_base: /var/lib/tomcat10
+  catalina_home: /usr/share/tomcat10
+  catalina_pid: /var/run/tomcat10.pid
+  catalina_tmpdir: /var/cache/tomcat10/temp
 
 RedHat:
   native_pkg: tomcat-native
